@@ -1,0 +1,38 @@
+footer{
+
+      width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+h6{
+    color: #EBEFEF;
+
+}
+p{
+    color: #CCCCCC;
+    width: 110%;
+}
+
+
+.g{
+    background-color: #78909C;
+    padding-top: 1px;
+    margin-top: 0;
+}
+#s{
+    padding: 0;
+}
+
+
+.imagen{
+    padding-bottom: 0;
+    margin-bottom: 0;
+
+}
+
+
+section{
+    padding: 0;
+}
