@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Ruta</title>
+</head>
+<body>
+
+    <form method="post" action="/NEAS/crear/ruta/">
+
+        {% csrf_token %}
+
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" type="text"/>
+
+        <div class="mb-3">
+
+             <label for="tipo_ruta" class="form-label">Tipo de Ruta</label>
+             <select id="tipo_ruta" name="tipo_ruta">
+                 {% for t in tipo_rutas %}
+                    <option value="{{ t}}"> {{t}}</option>
+                  {% endfor  %}
+             </select>
+
+        </div>
+
+        <div class="mb-3">
+
+             <label for="tipo_transporte" class="form-label">Tipo de Transporte</label>
+             <select id="tipo_transporte" name="tipo_transporte">
+                 {% for ti in tipo_transporte %}
+                    <option value="{{ti}}"> {{ti}}</option>
+                  {% endfor  %}
+             </select>
+
+        </div>
+
+        <label for="duracion">Duración total</label>
+        <input id="duracion" name="duracion" type="number"/>
+
+        <input type="submit" value="Enviar"/>
+
+    </form>
+
+</body>
+</html>

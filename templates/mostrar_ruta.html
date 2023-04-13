@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% for r in rutas %}
+
+        <h1>{{ r.nombre }}</h1>
+        <h2>{{ r.total_tiempo }}</h2>
+        <p>{{ r.tipo_recorrido }} {{ r.tipo_transporte }}</p>
+
+    {% endfor %}
+
+</body>
+</html>
