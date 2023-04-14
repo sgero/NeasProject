@@ -1,18 +1,61 @@
+{% block content %}
+{% load static %}
+
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-    {% for r in rutas %}
+    <head>
 
-        <h1>{{ r.nombre }}</h1>
-        <h2>{{ r.total_tiempo }}</h2>
-        <p>{{ r.tipo_recorrido }} {{ r.tipo_transporte }}</p>
+        <meta charset="utf-8">
 
-    {% endfor %}
+        <title>NEAS | Rutas</title>
 
-</body>
+        <link rel="stylesheet" type="text/css" href="{% static 'mostrar_rutas.css' %}">
+
+        <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
+
+    </head>
+
+    <body>
+
+        {% include "header.html" %}
+
+        <div>
+
+        {% for r in rutas %}
+
+            <div class="carta mb-3" style="max-width: 540px;">
+
+                <div class="hola g-0">
+
+                    <div>
+
+                        <img src="{% static "img/fotosevilla.jpg" %}" class="img-fluid rounded-start" alt="fotoSevilla">
+
+                    </div>
+
+                    <div class="hola col-md-8">
+
+                        <div class="hola card-body">
+
+                            <h5 class="hola card-title">{{ r.nombre }}</h5>
+                            <p class="hola card-text">{{ r.tipo_recorrido }}</p>
+                            <p class="hola card-text">{{ r.tipo_transporte }}</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    </body>
+
 </html>
+{% endblock %}

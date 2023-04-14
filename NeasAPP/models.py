@@ -1,3 +1,4 @@
+from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.db import models
 from django.db.models import Model, ForeignKey
 
@@ -86,13 +87,13 @@ class provincia(models.TextChoices):
 #Entidades de la base de datos
 
 class Usuario(models.Model):
-    id = models.IntegerField(max_length=10, primary_key=True)
+    id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=150)
     Apellidos = models.CharField(max_length=150)
     dni = models.CharField(max_length=9)
     email = models.EmailField(max_length=150)
 class Operador_tur(models.Model):
-    id = models.IntegerField(max_length=10, primary_key=True)
+    id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=100)
     cif = models.CharField(max_length=9)
     email = models.CharField(max_length=150)
@@ -102,28 +103,30 @@ class Operador_tur(models.Model):
     sitio_web = models.CharField(max_length=500)
 
 class Ruta(models.Model):
-    id = models.IntegerField(max_length=10, primary_key=True)
-    tiempo_estimado = models.TimeField()
+    id = models.IntegerField(primary_key=True)
+    nombre = models.CharField(max_length=500, default=None)
+    hora_inicio = models.TimeField(default=None)
+    hora_fin = models.TimeField(default=None)
     tematica = models.CharField(choices=tematica.choices, max_length=100)
     tramo_horario = models.CharField(max_length=50, choices=tramo_h.choices)
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
-    valoracion_media = models.FloatField(max_length=4)
-    operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE)
-    usuarios = models.ManytoManyField(Usuario)
+    valoracion_media = models.FloatField(max_length=4, default=0.0)
+    operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE, default=None)
+    usuarios = models.ManyToManyField(Usuario, default=None)
 class Ciudad(models.Model):
-    id = models.IntegerField(max_length=10, primary_key=True)
+    id = models.IntegerField(primary_key=True)
     nombre = models.CharField(choices=provincia.choices, max_length=100)
     es_capital = models.BooleanField(default=False)
     rutas = models.ManyToManyField(Ruta)
 
 class Valoracion_usuario(models.Model):
-    id = models.IntegerField(max_length=10, primary_key=True)
-    num_estrellas = models.IntegerField(max_length=2)
+    id = models.IntegerField(primary_key=True)
+    num_estrellas = models.IntegerField()
     rutas = models.ForeignKey(Ruta, on_delete=models.CASCADE)
     usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class Monumento_pi(models.Model):
-    id = models.IntegerField(max_length=10, primary_key=True)
+    id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=150)
     imagen = models.CharField(max_length=500)
     horario_visita = models.TimeField()
@@ -133,6 +136,21 @@ class Monumento_pi(models.Model):
     rutas = models.ManyToManyField(Ruta)
     valoraciones = models.ManyToManyField(Valoracion_usuario)
 
+class Roles(models.TextChoices):
+    ADMIN = 'Admin'
+    CLIENTE = 'Cliente'
 
+    def mostrar(self):
+        return
 
+class UsuarioLogin(AbstractBaseUser):
+    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=50, unique=True)
+    password = models.CharField(max_length=50, unique=True)
+    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, unique=True)
+    USERNAME_FIELD = 'username'
 
+class UsuarioManager(BaseUserManager):
+
+    def create_user(self, email, ):
+        return

@@ -9,7 +9,7 @@
 
         <meta charset="utf-8">
 
-        <title>NEAS | Inicio</title>
+        <title>NEAS | Registrate</title>
 
         <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
 
@@ -21,15 +21,9 @@
 
         {% include "header.html" %}
 
-        <div class="inicio">
+        <h2>REGISTRATE</h2>
 
-            <label>
-                <input type="text" placeholder="Elige tu ciudad.">
-            </label>
-
-        </div>
-
-        {% include "footer.html" %}
+        {{ form.as_p }}
 
     </body>
 

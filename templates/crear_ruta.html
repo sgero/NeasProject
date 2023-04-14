@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Crear Ruta</title>
-</head>
-<body>
+{% include "header.html" %}
 
-    <form method="post" action="/NEAS/crear/ruta/">
+    <form method="post" action="/NEAS/ruta/crear/">
 
         {% csrf_token %}
 
@@ -26,6 +20,17 @@
 
         <div class="mb-3">
 
+             <label for="tramo_horario" class="form-label">Tipo de Ruta</label>
+             <select id="tramo_horario" name="tramo_horario">
+                 {% for t in tramo_horario %}
+                    <option value="{{ t}}"> {{t}}</option>
+                  {% endfor  %}
+             </select>
+
+        </div>
+
+        <div class="mb-3">
+
              <label for="tipo_transporte" class="form-label">Tipo de Transporte</label>
              <select id="tipo_transporte" name="tipo_transporte">
                  {% for ti in tipo_transporte %}
@@ -35,12 +40,12 @@
 
         </div>
 
-        <label for="duracion">Duración total</label>
-        <input id="duracion" name="duracion" type="number"/>
+        <label for="hora_inicio">Hora de comienzo aproximada:</label>
+        <input id="hora_inicio" name="hora_inicio" type="time"/>
+
+        <label for="hora_fin">Hora de finalización aproximada:</label>
+        <input id="hora_fin" name="hora_fin" type="time"/>
 
         <input type="submit" value="Enviar"/>
 
     </form>
-
-</body>
-</html>

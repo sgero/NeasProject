@@ -1,0 +1,46 @@
+{% block content %}
+{% load static %}
+
+    <head>
+
+        <title>Header</title>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'header.css' %}">
+
+        <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
+
+    </head>
+
+    <body>
+
+    <header>
+
+        <nav class="navbar navbar-light bg-light justify-content-between">
+
+            <a class="navbar-brand">
+                <img class="logoNeas" src="{% static "img/logoNEAS1.png" %}" alt="logoNEAS">
+            </a>
+
+            <div class="inisesion">
+
+                <a class="inisesion" href="registrar/">
+
+                    <div>
+                        <img src="{% static "img/userfoto.png" %}" alt="fotoUser">
+                    </div>
+
+                    <div>
+                        <h2>INICIAR SESIÓN</h2>
+                    </div>
+
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    </body>
+
+{% endblock %}

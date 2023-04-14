@@ -10,18 +10,34 @@ def inicio(request):
 def crear_ruta(request):
 
     if request.method == 'GET':
-        return render(request, 'crear_ruta.html', {"tipo_rutas": tipo, "tipo_transporte": tipo_vehiculo})
+        return render(request, 'crear_ruta.html', {"tramo_horario":tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
     else:
-        nueva_ruta = recorrido()
+        nueva_ruta = Ruta()
         nueva_ruta.nombre = request.POST.get('nombre')
         nueva_ruta.tipo_ruta = request.POST.get('tipo_ruta')
         nueva_ruta.tipo_transporte = request.POST.get('tipo_transporte')
-        nueva_ruta.total_tiempo = int(request.POST.get('total_tiempo'))
-        recorrido.save(nueva_ruta)
+        nueva_ruta.tramo_horario = request.POST.get('tramo_horario')
+        nueva_ruta.hora_inicio = request.POST.get('hora_inicio')
+        nueva_ruta.hora_fin = request.POST.get('hora_fin')
+        Ruta.save(nueva_ruta)
         return render(request, 'inicio.html')
 
 
 def mostrar_rutas(request):
 
-    lista_rutas = recorrido.objects.all()
+    lista_rutas = Ruta.objects.all()
     return render(request, 'mostrar_rutas.html', {"rutas": lista_rutas})
+
+def registrar_usuario(request):
+
+    if request.method == 'GET':
+        form = FormularioRegistro()
+        return render(request, 'registrar.html')
+    else:
+        form = FormularioRegistro(request.POST)
+        if form.is_valid():
+            form.save()
+            Username = form.cleaned_data.get('Username')
+            Contraseña = form.cleaned_data.get('Contraseña')
+            User = authenticate(Username=Username, Contraseña=Contraseña)
+            return render(request, 'inicio.html')
