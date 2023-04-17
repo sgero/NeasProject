@@ -11,8 +11,6 @@
 
         <title>NEAS | Registrate</title>
 
-        <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
-
         <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
 
     </head>
@@ -23,7 +21,17 @@
 
         <h2>REGISTRATE</h2>
 
-        {{ form.as_p }}
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Registrar</button>
+
+        </form>
+
+        {% include "footer.html" %}
 
     </body>
 

@@ -1,4 +1,7 @@
+from django.contrib.auth import authenticate
 from django.shortcuts import render
+
+from .forms import FormularioRegistro
 from .models import *
 
 # Create your views here.
@@ -10,7 +13,7 @@ def inicio(request):
 def crear_ruta(request):
 
     if request.method == 'GET':
-        return render(request, 'crear_ruta.html', {"tramo_horario":tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+        return render(request, 'crear_ruta.html', {"tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
     else:
         nueva_ruta = Ruta()
         nueva_ruta.nombre = request.POST.get('nombre')
@@ -23,21 +26,21 @@ def crear_ruta(request):
         return render(request, 'inicio.html')
 
 
-def mostrar_rutas(request):
+def mostrar_ruta(request):
 
     lista_rutas = Ruta.objects.all()
-    return render(request, 'mostrar_rutas.html', {"rutas": lista_rutas})
+    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas})
 
 def registrar_usuario(request):
 
-    if request.method == 'GET':
-        form = FormularioRegistro()
-        return render(request, 'registrar.html')
+    form = FormularioRegistro()
+    if request.method == "GET":
+        return render(request, "registrar.html", {"form": form})
+    #POST
     else:
         form = FormularioRegistro(request.POST)
         if form.is_valid():
             form.save()
-            Username = form.cleaned_data.get('Username')
-            Contraseña = form.cleaned_data.get('Contraseña')
-            User = authenticate(Username=Username, Contraseña=Contraseña)
             return render(request, 'inicio.html')
+        else:
+            return render(request, "registrar.html", {"form": form})
