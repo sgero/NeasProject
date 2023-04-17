@@ -1,17 +1,9 @@
-footer{
-
-    width: 100%;
-    bottom: 0;
-    left: 0;
-}
-
 h6{
     color: #EBEFEF;
 
 }
 p{
     color: #CCCCCC;
-    width: 100%;
 }
 
 
@@ -21,6 +13,7 @@ p{
     margin-top: 0;
     width: 200px;
 }
+
 #s{
     padding: 0;
 }
