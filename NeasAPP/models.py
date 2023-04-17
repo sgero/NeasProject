@@ -92,6 +92,7 @@ class Usuario(models.Model):
     Apellidos = models.CharField(max_length=150)
     dni = models.CharField(max_length=9)
     email = models.EmailField(max_length=150)
+
 class Operador_tur(models.Model):
     id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=100)
@@ -113,6 +114,7 @@ class Ruta(models.Model):
     valoracion_media = models.FloatField(max_length=4, default=0.0)
     operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE, default=None)
     usuarios = models.ManyToManyField(Usuario, default=None)
+
 class Ciudad(models.Model):
     id = models.IntegerField(primary_key=True)
     nombre = models.CharField(choices=provincia.choices, max_length=100)

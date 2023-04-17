@@ -2,7 +2,8 @@
     display: flex;
     align-content: center;
     justify-content: center;
-    margin-top:200px}
+    margin-top:50px
+}
 
 *{
 
@@ -19,16 +20,12 @@ body{
     height:100vh;
 }
 
-label {
-
-    border-radius: 10px;
-    background-color: blue;
-
-}
-
 input {
 
-    border-radius: 10px;
-    background-color: blue;
+    border-radius: 5px;
+    background-color: white;
+    width: 150%;
+    height: 50px;
+    text-align: center;
 
 }

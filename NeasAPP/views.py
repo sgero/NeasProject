@@ -1,4 +1,7 @@
+from django.contrib.auth import authenticate
 from django.shortcuts import render
+
+from .forms import FormularioRegistro
 from .models import *
 
 # Create your views here.
@@ -30,14 +33,14 @@ def mostrar_ruta(request):
 
 def registrar_usuario(request):
 
-    if request.method == 'GET':
-        form = FormularioRegistro()
-        return render(request, 'registrar.html')
+    form = FormularioRegistro()
+    if request.method == "GET":
+        return render(request, "registrar.html", {"form": form})
+    #POST
     else:
         form = FormularioRegistro(request.POST)
         if form.is_valid():
             form.save()
-            Username = form.cleaned_data.get('Username')
-            Contraseña = form.cleaned_data.get('Contraseña')
-            User = authenticate(Username=Username, Contraseña=Contraseña)
             return render(request, 'inicio.html')
+        else:
+            return render(request, "registrar.html", {"form": form})
