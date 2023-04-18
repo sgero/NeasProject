@@ -113,7 +113,7 @@ class UsuarioLogin(AbstractBaseUser):
     password = models.CharField(max_length=50, unique=True)
     rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True)
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['username,email,password']
+    REQUIRED_FIELDS = ['username, email, password']
 
     objects = UsuarioManager()
 
