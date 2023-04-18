@@ -8,10 +8,8 @@ class FormularioRegistro(UserCreationForm):
                              help_text='Requerido. Ingrese una dirección de correo electrónico válida.')
     username = forms.CharField(max_length=255, required=True,
                                help_text='Requerido. 255 caracteres o menos. Solo letras, números y @/./+/-/_ caracteres.')
-    password1 = forms.CharField(max_length=255, required=True,
-                                help_text='Requerido. 255 caracteres o menos. Al menos 8 caracteres y no pueden ser todos números.')
-    password2 = forms.CharField(max_length=255, required=True,
-                                help_text='Requerido. Ingrese la misma contraseña que antes, para verificarla.')
+    password = forms.PasswordInput()
+    password_confirmation = forms.PasswordInput()
 
     class Meta:
         model = UsuarioLogin

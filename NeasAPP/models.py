@@ -111,7 +111,7 @@ class UsuarioLogin(AbstractBaseUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
-    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, unique=True)
+    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username,email,password']
 
@@ -127,7 +127,7 @@ class Usuario(models.Model):
     Apellidos = models.CharField(max_length=150)
     dni = models.CharField(max_length=9)
     email = models.EmailField(max_length=150)
-    usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE)
+    usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
 
 
 class Operador_tur(models.Model):
@@ -138,7 +138,7 @@ class Operador_tur(models.Model):
     logo = models.CharField(max_length=500)
     telefono = models.CharField(max_length=50)
     sitio_web = models.CharField(max_length=500)
-    usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE)
+    usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
 
 class Ruta(models.Model):
     nombre = models.CharField(max_length=500, default=None)
