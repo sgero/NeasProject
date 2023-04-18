@@ -1,0 +1,126 @@
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>NEAS | Inicio</title>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+
+        <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
+
+    </head>
+
+    <body>
+
+        {% include "header.html" %}
+
+        <div class="inicio">
+
+            <label>
+
+                <input type="text" placeholder="Elige tu ciudad">
+
+                <img src="img/sfc.png" alt="">
+
+            </label>
+
+        </div>
+
+        <footer>
+
+            <section class="d-flex justify-content-center justify-content-lg-between">
+            <!-- Left -->
+
+                <img src="{% static "img/giralda.png" %}" alt="fotogiralda">
+                <img src="{% static "img/imagenflamenco_preview_rev_1.png" %}" alt="fotoflamenca">
+
+            <!-- Left -->
+            <!-- Right -->
+            <!-- Right -->
+            </section>
+        <!-- Section: Social media -->
+
+        <!-- Section: Links  -->
+            <section class="bg">
+
+                <div class="bg container text-center text-md-start mt-5">
+                    <!-- Grid row -->
+                    <div class="bg row mt-3">
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="bg col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="bg text-uppercase fw-bold mb-4" id="titulos">
+                                NEAS
+                            </h6>
+                            <p class="bg">
+
+                                <a href="#!" class="g text-reset">Sobre Nosotros</a>
+
+                            </p>
+
+                            <p class="bg">
+                                <a href="#!" class="g text-reset">Centro de Ayuda</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="bg col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                            <!-- Links -->
+
+                            <h6 class="bg text-uppercase fw-bold mb-4" class="titulos">
+                                RECURSOS
+                            </h6>
+
+                            <p class="bg" style="width: 400px">
+                                <a href="#!" class="bg text-reset" style="width: 400px">Términos & Condiciones</a>
+                            </p>
+
+                            <p class="bg">
+                                <a href="#!" class="bg text-reset">Política de Privacidad</a>
+                            </p>
+
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                    </div>
+
+                    <!-- Grid row -->
+
+                </div>
+
+            </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <div class="text-center" id="s" style="background-color: #78909C;
+
+
+
+
+
+
+
+">
+            © 2023 Copyright:
+            <a class="text-reset fw-bold" href="/neas">NEAS</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    </body>
+
+</html>
+{% endblock %}
