@@ -9,6 +9,7 @@ urlpatterns = [
     path('login/operador', login_operador, name='login_operador'),
     path('registrar/usuario/', registrar_usuario),
     path('registrar/operador/', registrar_operador),
+    path('basic/page/', basic_page),
     # path('logout', ),
     # path('register', ),
 ]
