@@ -6,7 +6,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 #Creamos los Enum para los valores de BBDD
 class tipo_vehiculo(models.TextChoices):
-
     turismo = ('Turismo')
     ciclomotor = ('Ciclomotor')
     motocicleta = ('Motocicleta')
@@ -15,7 +14,6 @@ class tipo_vehiculo(models.TextChoices):
 
 
 class tematica(models.TextChoices):
-
     gastronomico = ('Gastronómico')
     cultural = ('Cultural')
     historico = ('Historico')
@@ -30,7 +28,6 @@ class tramo_h(models.TextChoices):
     noche = ('Noche')
 
 class provincia(models.TextChoices):
-
     sevilla = 'SEV', ('Sevilla')
     cadiz = 'CDZ', ('Cádiz')
     granada = 'GRA', ('Granada')
