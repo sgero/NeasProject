@@ -65,3 +65,11 @@ def registrar_operador(request):
             return render(request, 'inicio.html')
         else:
             return render(request, "registrar_operador.html", {"form": form})
+
+
+def login_usuario(request):
+    return render(request, "login_usuario.html")
+
+
+def login_operador(request):
+    return render(request, "login_operador.html.html")
