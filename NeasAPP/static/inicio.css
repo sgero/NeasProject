@@ -40,3 +40,47 @@ label {
     text-align: center;
 
 }
+
+footer {
+
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: #78909C;
+
+}
+
+h6{
+    color: #EBEFEF;
+
+}
+p{
+    color: #CCCCCC;
+}
+
+
+.bg{
+    background-color: #78909C;
+    padding-top: 1px;
+    margin-top: 0;
+}
+
+#s{
+    background-color: #78909C;
+    padding-bottom: 1%;
+    display: flex;
+    justify-content: center;
+    gap: 10px
+}
+
+
+.imagen{
+    padding-bottom: 0;
+    margin-bottom: 0;
+
+}
+
+
+section{
+    padding: 0;
+}
