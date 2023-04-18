@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import render
 
 from .forms import FormularioRegistro
@@ -35,7 +36,7 @@ def registrar_usuario(request):
 
     form = FormularioRegistro()
     if request.method == "GET":
-        return render(request, "registrar.html", {"form": form})
+        return render(request, "registrar_usuario.html", {"form": form})
     #POST
     else:
         form = FormularioRegistro(request.POST)
@@ -43,4 +44,32 @@ def registrar_usuario(request):
             form.save()
             return render(request, 'inicio.html')
         else:
-            return render(request, "registrar.html", {"form": form})
+            return render(request, "registrar_usuario.html", {"form": form})
+
+
+def registrar_operador(request):
+
+    form = FormularioRegistro()
+    if request.method == "GET":
+        return render(request, "registrar_operador.html", {"form": form})
+    #POST
+    else:
+        form = FormularioRegistro(request.POST)
+        if form.is_valid():
+            user = UsuarioLogin()
+            user.email = form.cleaned_data["email"]
+            user.username = form.clean_username()
+            user.password = make_password("form.password2")
+            user.rol = Roles.OPERADOR
+            user.save()
+            return render(request, 'inicio.html')
+        else:
+            return render(request, "registrar_operador.html", {"form": form})
+
+
+def login_usuario(request):
+    return render(request, "login_usuario.html")
+
+
+def login_operador(request):
+    return render(request, "login_operador.html.html")

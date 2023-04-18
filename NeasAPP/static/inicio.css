@@ -47,6 +47,7 @@ footer {
     bottom: 0;
     left: 0;
     background-color: #78909C;
+    position: absolute;
 
 }
 
