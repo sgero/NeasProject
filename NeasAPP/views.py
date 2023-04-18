@@ -8,7 +8,11 @@ from .models import *
 # Create your views here.
 
 def inicio(request):
-    return render(request, 'inicio.html')
+    return render(request, 'inicio.html', {"provincia": provincia})
+
+
+def basic_page(request):
+    return render(request, 'basic_page.html')
 
 
 def crear_ruta(request):

@@ -1,124 +1,42 @@
-{% block content %}
+{% extends "basic_page.html" %}
 {% load static %}
 
-<!DOCTYPE html>
+{% block title %}
 
-<html lang="en">
+    Inicio | NEAS
 
-    <head>
+{% endblock %}
 
-        <meta charset="utf-8">
+{% block css %}
 
-        <title>NEAS | Inicio</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
 
-        <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+{% endblock %}
 
-        <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
+{% block content1 %}
 
-    </head>
+    <div class="inicio">
 
-    <body>
+        <form method="post" action="/neas/ruta/">
 
-        {% include "header.html" %}
+            {% csrf_token %}
 
-        <div class="inicio">
+            <label for="provincia" class="form-label">Elige tu ciudad:&nbsp&nbsp&nbsp&nbsp</label>
 
-            <label>
+             <select id="provincia" name="provincia">
 
-                <input type="text" placeholder="Elige tu ciudad">
+                 {% for p in provincia %}
 
-            </label>
+                    <option value="{{p}}"> {{p}}</option>
 
-        </div>
+                  {% endfor  %}
 
-        <footer>
+             </select>
 
-            <section class="d-flex justify-content-center justify-content-lg-between">
-            <!-- Left -->
+            <input type="submit" value="Buscar"/>
 
-                <img src="{% static "giralda.png" %}" alt="fotogiralda">
-                <img src="{% static "imagenflamenco_preview_rev_1.png" %}" alt="fotoflamenca">
+        </form>
 
-            <!-- Left -->
-            <!-- Right -->
-            <!-- Right -->
-            </section>
-        <!-- Section: Social media -->
+    </div>
 
-        <!-- Section: Links  -->
-            <section class="bg">
-
-                <div class="bg container text-center text-md-start mt-5">
-                    <!-- Grid row -->
-                    <div class="bg row mt-3">
-                        <!-- Grid column -->
-                        <!-- Grid column -->
-                        <div class="bg col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="bg text-uppercase fw-bold mb-4" id="titulos">
-                                NEAS
-                            </h6>
-                            <p class="bg">
-
-                                <a href="#!" class="g text-reset">Sobre Nosotros</a>
-
-                            </p>
-
-                            <p class="bg">
-                                <a href="#!" class="g text-reset">Centro de Ayuda</a>
-                            </p>
-                        </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="bg col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-
-                            <!-- Links -->
-
-                            <h6 class="bg text-uppercase fw-bold mb-4" class="titulos">
-                                RECURSOS
-                            </h6>
-
-                            <p class="bg" style="width: 400px">
-                                <a href="#!" class="bg text-reset" style="width: 400px">Términos & Condiciones</a>
-                            </p>
-
-                            <p class="bg">
-                                <a href="#!" class="bg text-reset">Política de Privacidad</a>
-                            </p>
-
-                        </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                    </div>
-
-                    <!-- Grid row -->
-
-                </div>
-
-            </section>
-        <!-- Section: Links  -->
-
-        <!-- Copyright -->
-        <div class="text-center" id="s" style="background-color: #78909C;
-
-
-
-
-
-
-
-">
-            © 2023 Copyright:
-            <a class="text-reset fw-bold" href="/neas">NEAS</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
-
-    </body>
-
-</html>
 {% endblock %}
