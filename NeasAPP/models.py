@@ -1,6 +1,6 @@
-from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.db import models
 from django.db.models import Model, ForeignKey
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 # Create your models here.
 
@@ -84,13 +84,51 @@ class provincia(models.TextChoices):
 
 
 """CREACIÓN DE LA BASE DE DATOS"""
-#Entidades de la base de datos
+#Entidades para el login y los roles
+class Roles(models.TextChoices):
+    ADMIN = 'Admin'
+    CLIENTE = 'Cliente'
+    OPERADOR = 'Operador'
 
+    def mostrar(self):
+        return
+
+class UsuarioManager(BaseUserManager):
+    def create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError("El usuario debe tener un email válido")
+        user = self.model(email=self.normalize_email(email),**extra_fields )
+        user.set_password(password)
+        user.save(using = self.db)
+        return user
+
+    def create_superuser(self,email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault("is_susperuser", True)
+        return self.create_user(email,password,**extra_fields)
+
+class UsuarioLogin(AbstractBaseUser):
+    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=50, unique=True)
+    password = models.CharField(max_length=50, unique=True)
+    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True)
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['username,email,password']
+
+    objects = UsuarioManager()
+
+    def __str__(self):
+        return self.username, self.email
+
+
+#Entidades de la base de datos
 class Usuario(models.Model):
     nombre = models.CharField(max_length=150)
     Apellidos = models.CharField(max_length=150)
     dni = models.CharField(max_length=9)
     email = models.EmailField(max_length=150)
+    usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
+
 
 class Operador_tur(models.Model):
     nombre = models.CharField(max_length=100)
@@ -100,6 +138,7 @@ class Operador_tur(models.Model):
     logo = models.CharField(max_length=500)
     telefono = models.CharField(max_length=50)
     sitio_web = models.CharField(max_length=500)
+    usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
 
 class Ruta(models.Model):
     nombre = models.CharField(max_length=500, default=None)
@@ -132,22 +171,3 @@ class Monumento_pi(models.Model):
     rutas = models.ManyToManyField(Ruta)
     valoraciones = models.ManyToManyField(Valoracion_usuario)
 
-class Roles(models.TextChoices):
-    ADMIN = 'Admin'
-    CLIENTE = 'Cliente'
-    OPERADOR = 'Operador'
-
-    def mostrar(self):
-        return
-
-class UsuarioLogin(AbstractBaseUser):
-    email = models.EmailField(unique=True)
-    username = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=50, unique=True)
-    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True)
-    USERNAME_FIELD = 'username'
-
-class UsuarioManager(BaseUserManager):
-
-    def create_user(self, email, ):
-        return
