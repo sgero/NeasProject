@@ -1,7 +1,9 @@
-from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import AuthenticationForm
+from .decorators import *
 from .forms import FormularioRegistro
 from .models import *
 
@@ -36,6 +38,13 @@ def mostrar_ruta(request):
     lista_rutas = Ruta.objects.all()
     return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas})
 
+
+def eliminar_ruta(request, id):
+    restaurante = Ruta.objects.get(id=id)
+    Ruta.delete(restaurante)
+    return redirect('/safaEat/restaurantes')
+
+
 def registrar_usuario(request):
 
     form = FormularioRegistro()
@@ -69,3 +78,71 @@ def registrar_operador(request):
             return render(request, 'inicio.html')
         else:
             return render(request, "registrar_operador.html", {"form": form})
+
+
+def login_usuario(request):
+    form = AuthenticationForm()
+
+    if request.method == "GET":
+        return render(request, "login_usuario.html", {"form": form})
+    elif request.method == "POST":
+            form = AuthenticationForm(request=request, data=request.POST)
+
+    #Verificar que el formulario es valido
+    if form.is_valid():
+        #Intentar loguear
+        user = authenticate(
+            username=form.cleaned_data['username'],
+            password=form.cleaned_data['password'],)
+
+        #Si hemos encontrado el usuario
+        if user is not None:
+            #Nos logueamos
+            login(request, user)
+            return render(request, 'inicio.html')
+
+    else:
+        #pasar errores a la vista
+        for error in list(form.errors.values()):
+            messages.error(request, error)
+        return render(request, "login_usuario.html", {"form": form})
+
+@user_required
+def desloguearse(request):
+    logout(request)
+    return render(request,"inicio.html")
+
+
+
+def login_operador(request):
+    form = AuthenticationForm()
+
+    if request.method == "GET":
+        return render(request, "login_operador.html", {"form": form})
+    elif request.method == "POST":
+        form = AuthenticationForm(request=request, data=request.POST)
+
+        # Verificar que el formulario es valido
+        if form.is_valid():
+            # Intentar loguear
+            user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'], )
+
+            # Si hemos encontrado el usuario
+            if user is not None:
+                # Nos logueamos
+                login(request, user)
+                return render(request, 'inicio.html')
+
+        else:
+            # pasar errores a la vista
+            for error in list(form.errors.values()):
+                messages.error(request, error)
+            return render(request, "login_operador.html", {"form": form})
+
+
+@user_required
+def desloguearse(request):
+    logout(request)
+    return render(request, "inicio.html")
