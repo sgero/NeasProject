@@ -20,7 +20,7 @@ class tematica(models.TextChoices):
     cultural = ('Cultural')
     historico = ('Historico')
     ocio = ('Ocio')
-    naturaleza = ('Naturalza')
+    naturaleza = ('Naturaleza')
     religioso = ('Religioso')
 
 
@@ -109,7 +109,7 @@ class Ruta(models.Model):
     tramo_horario = models.CharField(max_length=50, choices=tramo_h.choices)
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
     valoracion_media = models.FloatField(max_length=4, default=0.0)
-    operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE, default=None)
+    operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE, default=None, null=True)
     usuarios = models.ManyToManyField(Usuario, default=None)
 
 class Ciudad(models.Model):
@@ -128,7 +128,7 @@ class Monumento_pi(models.Model):
     horario_visita = models.TimeField()
     latitud = models.PositiveIntegerField()
     longitude = models.PositiveIntegerField()
-    ciudades = models.ForeignKey(Ciudad,on_delete=models.CASCADE)
+    ciudades = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
     rutas = models.ManyToManyField(Ruta)
     valoraciones = models.ManyToManyField(Valoracion_usuario)
 

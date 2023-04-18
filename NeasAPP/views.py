@@ -17,8 +17,8 @@ def crear_ruta(request):
     else:
         nueva_ruta = Ruta()
         nueva_ruta.nombre = request.POST.get('nombre')
-        nueva_ruta.tipo_ruta = request.POST.get('tipo_ruta')
-        nueva_ruta.tipo_transporte = request.POST.get('tipo_transporte')
+        nueva_ruta.tematica = request.POST.get('tipo_ruta')
+        nueva_ruta.transporte = request.POST.get('tipo_transporte')
         nueva_ruta.tramo_horario = request.POST.get('tramo_horario')
         nueva_ruta.hora_inicio = request.POST.get('hora_inicio')
         nueva_ruta.hora_fin = request.POST.get('hora_fin')
