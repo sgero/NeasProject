@@ -87,14 +87,12 @@ class provincia(models.TextChoices):
 #Entidades de la base de datos
 
 class Usuario(models.Model):
-    id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=150)
     Apellidos = models.CharField(max_length=150)
     dni = models.CharField(max_length=9)
     email = models.EmailField(max_length=150)
 
 class Operador_tur(models.Model):
-    id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=100)
     cif = models.CharField(max_length=9)
     email = models.CharField(max_length=150)
@@ -104,7 +102,6 @@ class Operador_tur(models.Model):
     sitio_web = models.CharField(max_length=500)
 
 class Ruta(models.Model):
-    id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=500, default=None)
     hora_inicio = models.TimeField(default=None)
     hora_fin = models.TimeField(default=None)
@@ -116,19 +113,16 @@ class Ruta(models.Model):
     usuarios = models.ManyToManyField(Usuario, default=None)
 
 class Ciudad(models.Model):
-    id = models.IntegerField(primary_key=True)
     nombre = models.CharField(choices=provincia.choices, max_length=100)
     es_capital = models.BooleanField(default=False)
     rutas = models.ManyToManyField(Ruta)
 
 class Valoracion_usuario(models.Model):
-    id = models.IntegerField(primary_key=True)
     num_estrellas = models.IntegerField()
     rutas = models.ForeignKey(Ruta, on_delete=models.CASCADE)
     usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class Monumento_pi(models.Model):
-    id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=150)
     imagen = models.CharField(max_length=500)
     horario_visita = models.TimeField()
@@ -141,6 +135,7 @@ class Monumento_pi(models.Model):
 class Roles(models.TextChoices):
     ADMIN = 'Admin'
     CLIENTE = 'Cliente'
+    OPERADOR = 'Operador'
 
     def mostrar(self):
         return
@@ -149,7 +144,7 @@ class UsuarioLogin(AbstractBaseUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
-    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, unique=True)
+    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True)
     USERNAME_FIELD = 'username'
 
 class UsuarioManager(BaseUserManager):
