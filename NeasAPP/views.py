@@ -72,4 +72,4 @@ def login_usuario(request):
 
 
 def login_operador(request):
-    return render(request, "login_operador.html.html")
+    return render(request, "login_operador.html")
