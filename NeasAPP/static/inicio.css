@@ -6,9 +6,51 @@ input {
 
 }
 
-select {
+label {
 
+    font-size: 20px;
+
+}
+
+select {
+    width: 40%;
+    height: 80px;
     border-radius: 8px;
     outline: none;
+    text-align: center;
+    font-size: 20px;
+
+}
+
+select option{
+
+    font-size: 20px;
+
+}
+select option:first-child{
+
+    font-size: 20px;
+
+}
+
+
+.inicio {
+
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap !important;
+    width: 100%;
+
+}
+
+form {
+
+    width: 100%;
+
+}
+
+.fs {
+
+    font-size: 20px;
 
 }
