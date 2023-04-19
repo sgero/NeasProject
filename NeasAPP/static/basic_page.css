@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 
-
 *{
 
     box-sizing: border-box;
@@ -62,9 +61,7 @@ html, body {
 }
 
 .boton{
-    margin: 10px;
     background-color: #D9EAD3;
-    padding: 10px;
     border-radius: 7px;
     border-width: thin;
     display: flex;
@@ -73,8 +70,8 @@ html, body {
     font-weight: bold;
     cursor: pointer;
     box-shadow: 2px 3px 5px gray;
-    margin-right: 20px;
-    padding-right: 20px;
+    margin: 10px 20px 10px 10px;
+    padding: 10px 20px 10px 10px;
     transition: all 0.4s ease 0s;
 
 }
@@ -115,7 +112,7 @@ h6{
 p{
     color: #CCCCCC;
     padding: 0 !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
 }
 
 
