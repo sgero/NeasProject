@@ -18,7 +18,6 @@ def basic_page(request):
 
 
 def crear_ruta(request):
-
     if request.method == 'GET':
         return render(request, 'crear_ruta.html', {"tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
     else:
@@ -34,7 +33,6 @@ def crear_ruta(request):
 
 
 def mostrar_ruta(request):
-
     lista_rutas = Ruta.objects.all()
     return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas})
 
@@ -42,11 +40,10 @@ def mostrar_ruta(request):
 def eliminar_ruta(request, id):
     restaurante = Ruta.objects.get(id=id)
     Ruta.delete(restaurante)
-    return redirect('/safaEat/restaurantes')
+    return redirect('/neas/ruta')
 
 
 def registrar_usuario(request):
-
     form = FormularioRegistro()
     if request.method == "GET":
         return render(request, "registrar_usuario.html", {"form": form})
@@ -61,7 +58,6 @@ def registrar_usuario(request):
 
 
 def registrar_operador(request):
-
     form = FormularioRegistro()
     if request.method == "GET":
         return render(request, "registrar_operador.html", {"form": form})
@@ -82,7 +78,6 @@ def registrar_operador(request):
 
 def login_usuario(request):
     form = AuthenticationForm()
-
     if request.method == "GET":
         return render(request, "login_usuario.html", {"form": form})
     elif request.method == "POST":
@@ -106,12 +101,6 @@ def login_usuario(request):
         for error in list(form.errors.values()):
             messages.error(request, error)
         return render(request, "login_usuario.html", {"form": form})
-
-@user_required
-def desloguearse(request):
-    logout(request)
-    return redirect('/neas/')
-
 
 
 def login_operador(request):
@@ -145,4 +134,5 @@ def login_operador(request):
 @user_required
 def desloguearse(request):
     logout(request)
-    return render(request, "inicio.html")
+    return render(request, "logout.html")
+    # return redirect('/neas/logout/')
