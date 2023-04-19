@@ -6,21 +6,51 @@ input {
 
 }
 
-select {
+label {
 
-    border-radius: 8px;
-    outline: none;
-    text-align: center;
+    font-size: 20px;
 
 }
 
+select {
+    width: 40%;
+    height: 80px;
+    border-radius: 8px;
+    outline: none;
+    text-align: center;
+    font-size: 20px;
+
+}
+
+select option{
+
+    font-size: 20px;
+
+}
+select option:first-child{
+
+    font-size: 20px;
+
+}
+
+
 .inicio {
 
-    justify-content: center;
     align-items: center;
-    align-content: center;
     text-align: center;
     flex-wrap: wrap !important;
-    height: auto;
+    width: 100%;
+
+}
+
+form {
+
+    width: 100%;
+
+}
+
+.fs {
+
+    font-size: 20px;
 
 }

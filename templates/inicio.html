@@ -21,9 +21,11 @@
 
             {% csrf_token %}
 
-            <label for="provincia" class="form-label">Elige tu ciudad:&nbsp&nbsp&nbsp&nbsp</label>
+            <label for="provincia" class="form-label"></label>
 
-             <select id="provincia" name="provincia">
+             <select class="h4" id="provincia" name="provincia">
+
+                <option  value="" disabled selected hidden >Elige tu ciudad:</option>
 
                  {% for p in provincia %}
 
