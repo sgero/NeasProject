@@ -1,6 +1,19 @@
-{% include "header.html" %}
+{% extends "basic_page.html" %}
+{% load static %}
 
-{% block content %}
+{% block title %}
+
+    Inicio | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
 
     <div class="container">
     <form method="post">
@@ -13,6 +26,4 @@
                 </a>
     </div>
 
-
 {% endblock %}
-{% include "footer.html" %}
