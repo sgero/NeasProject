@@ -1,37 +1,31 @@
-{% block content %}
+{% extends "basic_page.html" %}
 {% load static %}
 
-<!DOCTYPE html>
+{% block title %}
 
-<html lang="en">
+    Mostrar Rutas | NEAS
 
-    <head>
+{% endblock %}
 
-        <meta charset="utf-8">
+{% block css %}
 
-        <title>NEAS | Rutas</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
 
-        <link rel="stylesheet" type="text/css" href="{% static 'mostrar_rutas.css' %}">
+{% endblock %}
 
-        <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
+{% block content1 %}
 
-    </head>
-
-    <body>
-
-        {% include "header.html" %}
-
-        <div>
+    <div>
 
         {% for r in rutas %}
 
-            <div class="carta mb-3" style="max-width: 540px;">
+            <div class="carta mb-3">
 
                 <div class="hola g-0">
 
                     <div>
 
-                        <img src="{% static "img/fotosevilla.jpg" %}" class="img-fluid rounded-start" alt="fotoSevilla">
+                        <img src="{% static "img/fotosevilla.jpg" %}" class="img-fluid rounded-start" id="imgruta" alt="fotoSevilla">
 
                     </div>
 
@@ -55,7 +49,4 @@
 
     </div>
 
-    </body>
-
-</html>
 {% endblock %}
