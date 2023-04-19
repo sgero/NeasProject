@@ -29,7 +29,8 @@ body{
 .empresas{
     color: #B4C4B2;
     padding: 3px;
-    font-size: 11;
+    font-size: 16px;
+    margin: 0 !important;
 }
 
 a{
@@ -113,7 +114,8 @@ h6{
 
 p{
     color: #CCCCCC;
-    padding: 0px;
+    padding: 0 !important;
+    margin-bottom: 0px !important;
 }
 
 

@@ -29,7 +29,7 @@
 
             <img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">
 
-            <a href="" class="empresas">REGISTRAR MI RUTA</a>
+            <a href="/neas/registrar/operador/" class="empresas">REGISTRAR MI RUTA</a>
 
             <p class="empresas">|</p>
 
@@ -73,87 +73,85 @@
 
     </header>
 
-        {% block content1 %}
+    {% block content1 %}
 
+    {% endblock %}
 
+    <footer>
 
-        {% endblock %}
+        <section class="d-flex justify-content-lg-between">
 
-        <footer>
+            <img src="{% static "img/giralda.png" %}" alt="fotogiralda">
 
-            <section class="d-flex justify-content-lg-between">
+            <img src="{% static "img/imagenflamenco_preview_rev_1.png" %}" alt="fotoflamenca">
 
-                <img src="{% static "img/giralda.png" %}" alt="fotogiralda">
+        </section>
 
-                <img src="{% static "img/imagenflamenco_preview_rev_1.png" %}" alt="fotoflamenca">
+        <section class="bg pt">
 
-            </section>
+            <div class="bg container text-center text-md-start">
 
-            <section class="bg pt">
+                <div class="bg row">
 
-                <div class="bg container text-center text-md-start">
+                    <div class="bg col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
-                    <div class="bg row">
+                        <h6 class="bg text-uppercase fw-bold mb-4" id="titulos">
 
-                        <div class="bg col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            NEAS
 
-                            <h6 class="bg text-uppercase fw-bold mb-4" id="titulos">
+                        </h6>
 
-                                NEAS
+                        <p class="bg">
 
-                            </h6>
+                            <a href="#!" class="g text-reset">Sobre Nosotros</a>
 
-                            <p class="bg">
+                        </p>
 
-                                <a href="#!" class="g text-reset">Sobre Nosotros</a>
+                        <p class="bg">
 
-                            </p>
+                            <a href="#!" class="g text-reset">Centro de Ayuda</a>
 
-                            <p class="bg">
+                        </p>
 
-                                <a href="#!" class="g text-reset">Centro de Ayuda</a>
+                    </div>
 
-                            </p>
+                    <div class="remix bg col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
-                        </div>
+                        <h6 class="bg text-uppercase fw-bold mb-4" class="titulos">
 
-                        <div class="remix bg col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            RECURSOS
 
-                            <h6 class="bg text-uppercase fw-bold mb-4" class="titulos">
+                        </h6>
 
-                                RECURSOS
+                        <p class="bg">
 
-                            </h6>
+                            <a href="#!" class="bg text-reset">Términos & Condiciones</a>
 
-                            <p class="bg">
+                        </p>
 
-                                <a href="#!" class="bg text-reset">Términos & Condiciones</a>
+                        <p class="bg">
 
-                            </p>
+                            <a href="#!" class="bg text-reset">Política de Privacidad</a>
 
-                            <p class="bg">
-
-                                <a href="#!" class="bg text-reset">Política de Privacidad</a>
-
-                            </p>
-
-                        </div>
+                        </p>
 
                     </div>
 
                 </div>
 
-            </section>
-
-            <div class="pb bg text-center" id="s">
-
-                © 2023 Copyright:
-
-                <a class="text-reset fw-bold" href="/neas">NEAS</a>
-
             </div>
 
-        </footer>
+        </section>
+
+        <div class="pb bg text-center" id="s">
+
+            © 2023 Copyright:
+
+            <a class="text-reset fw-bold" href="/neas">NEAS</a>
+
+        </div>
+
+    </footer>
 
     </body>
 
