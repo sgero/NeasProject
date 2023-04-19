@@ -110,7 +110,7 @@ def login_usuario(request):
 @user_required
 def desloguearse(request):
     logout(request)
-    return render(request,"inicio.html")
+    return redirect('/neas/')
 
 
 

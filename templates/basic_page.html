@@ -35,7 +35,7 @@
 
             <p class="empresas">|</p>
 
-            <a href="" class="empresas" id="accede">ACCEDE A TUS RUTAS </a>
+            <a href="" class="empresas">ACCEDE A TUS RUTAS </a>
 
         </div>
 
@@ -43,47 +43,38 @@
 
             <div id="logo">
 
-                <a><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
+                <a href="/neas/"><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
 
             </div>
 
             <div id="botones">
 
-                <div>
-
-                    <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
-
-                        REGISTRO
-
-                    </button>
-
-                </div>
-
-                <div>
-
-                    <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
-
-                        INICIAR SESION
-
-                    </button>
-
-                </div>
-
-                <div>
+                <div class="botones">
                     <!-- IF para el LOGOUT -->
                     {% if user.is_authenticated %}
-                        <div><h3>¡Bienvenido {{ user.get_username }}!</h3></div>
-                        <a href="{% url 'logout' %}" class="boton">LOGOUT</a>
+
+                        <div><h3>¡Bienvenido/a {{ user.get_username }}!</h3></div>
+
+                        <a href="{% url 'logout' %}" class="color">LOGOUT</a>
+
                     {% else %}
+
+                        <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+
+                            <a href="{% url 'registrar_usuario'%}" class="color">REGISTRO</a>
+
+                        </button>
+
                         <div>|</div>
-                        <div>
-                            <a href="{% url 'registrar_usuario'%}" class="boton">REGISTRO</a>
-                        </div>
-                        <div>|</div>
-                        <div>
-                            <a href="{% url 'login_usuario' %}" class="boton">INICIAR SESION</a>
-                        </div>
+
+                        <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+
+                            <a href="{% url 'login_usuario' %}" class="color">INICIAR SESION</a>
+
+                        </button>
+
                     {% endif %}
+
                 </div>
 
             </div>

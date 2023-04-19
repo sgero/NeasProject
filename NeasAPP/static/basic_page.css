@@ -8,6 +8,19 @@
 
 }
 
+.color{
+
+    color: black !important;
+    text-decoration: none !important;
+
+}
+
+.color:hover {
+
+    text-decoration: none !important;
+
+}
+
 body{
     justify-content: center;
     align-items: center;
@@ -32,17 +45,10 @@ body{
     margin: 0 !important;
 }
 
-a{
-    cursor: pointer;
-}
 html, body {
     margin: 0;
     padding: 0;
     }
-
-#accede{
-    margin-right: 4px;
-}
 
 
 #parteabajo{
@@ -58,6 +64,12 @@ html, body {
     display: flex;
     align-items: center;
 
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .boton{
@@ -80,12 +92,6 @@ html, body {
 
 }
 
-a:hover{
-
-     text-decoration: none;
-
-}
-
 .imagenusuario{
     margin-right: 15px
 }
@@ -101,7 +107,6 @@ a:hover{
     display: flex;
     align-content: center;
     justify-content: center;
-    margin-top:50px;
 }
 
 h6{
