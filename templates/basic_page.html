@@ -67,9 +67,29 @@
 
                 </div>
 
+                <div>
+                    <!-- IF para el LOGOUT -->
+                    {% if user.is_authenticated %}
+                        <div><h3>¡Bienvenido {{ user.get_username }}!</h3></div>
+                        <a href="{% url 'logout' %}" class="boton">LOGOUT</a>
+                    {% else %}
+                        <div>|</div>
+                        <div>
+                            <a href="{% url 'registrar_usuario'%}" class="boton">REGISTRO</a>
+                        </div>
+                        <div>|</div>
+                        <div>
+                            <a href="{% url 'login_usuario' %}" class="boton">INICIAR SESION</a>
+                        </div>
+                    {% endif %}
+                </div>
+
             </div>
 
         </div>
+
+
+
 
     </header>
 
