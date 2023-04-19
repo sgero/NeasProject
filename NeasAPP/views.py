@@ -111,6 +111,7 @@ def login_usuario(request):
 def desloguearse(request):
     logout(request)
     return render(request,"inicio.html")
+    # return redirect('logout/')
 
 
 
