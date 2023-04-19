@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+
+*{
+
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+}
+
+body{
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height:100vh;
+}
+
+#partearriba{
+    background-color: #F9FBFD;
+    display: flex;
+    justify-content:end;
+    align-items: center;
+    color: #B4C4B2;
+    padding: 2px;
+    flex-direction: row;
+}
+
+.empresas{
+    color: #B4C4B2;
+    padding: 3px;
+    font-size: 16px;
+    margin: 0 !important;
+}
+
+a{
+    cursor: pointer;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    }
+
+#accede{
+    margin-right: 4px;
+}
+
+
+#parteabajo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 1px 5px 8px gray;
+    flex-direction: row;
+}
+
+#botones{
+    padding: 16px;
+    display: flex;
+    align-items: center;
+
+}
+
+.boton{
+    margin: 10px;
+    background-color: #D9EAD3;
+    padding: 10px;
+    border-radius: 7px;
+    border-width: thin;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 3px 5px gray;
+    margin-right: 20px;
+    padding-right: 20px;
+    transition: all 0.4s ease 0s;
+
+}
+.boton:hover{
+    transform: scale(1.04);
+
+}
+
+a:hover{
+
+     text-decoration: none;
+
+}
+
+.imagenusuario{
+    margin-right: 15px
+}
+
+#foto{
+    margin-left: 10px;
+}
+#ima{
+    cursor: pointer;
+}
+
+.inicio{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top:50px;
+}
+
+h6{
+    color: #EBEFEF;
+
+}
+
+p{
+    color: #CCCCCC;
+    padding: 0 !important;
+    margin-bottom: 0px !important;
+}
+
+
+.bg{
+    background-color: #78909C;
+}
+
+section{
+    padding: 0;
+    margin: 0;
+}
+
+footer{
+
+    bottom: 0;
+    gap: 0;
+    position: absolute;
+    width: 100%;
+
+}
+
+.pt {
+
+    padding-top: 2%;
+
+}
+
+.pb {
+
+     padding-bottom: 2%;
+
+}
+
+.remix {
+
+    width: 120%;
+
+}
