@@ -1,0 +1,37 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Registro | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'registrar.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+    <h2>REGISTRATE</h2>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Registrar</button>
+
+    </form>
+
+     <a class="nav-item nav-link" href="{% url 'login_usuario' %}">
+
+            Ya tengo una cuenta. Iniciar Sesión <i class="fas fa-sign-in-alt"></i>
+
+        </a>
+
+
+{% endblock %}
