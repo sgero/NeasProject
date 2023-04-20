@@ -1,0 +1,40 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Login | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'registrar.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+    <h2>INICIA SESIÓN</h2>
+
+    <div class="container">
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Iniciar Sesión</button>
+
+        </form>
+
+        <a class="nav-item nav-link" href="{% url 'registrar_usuario' %}">
+
+            ¿Aún no tienes una cuenta? Regístrate <i class="fas fa-sign-in-alt"></i>
+
+        </a>
+
+    </div>
+
+{% endblock %}

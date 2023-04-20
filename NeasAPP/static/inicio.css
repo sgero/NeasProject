@@ -1,34 +1,56 @@
-.inicio{
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    margin-top:200px}
+input {
 
-*{
+    border-radius: 6px;
+    border: 1px solid silver;
+    outline: none;
 
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-
-}
-
-body{
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height:100vh;
 }
 
 label {
 
-    border-radius: 10px;
-    background-color: blue;
+    font-size: 20px;
 
 }
 
-input {
+select {
+    width: 40%;
+    height: 80px;
+    border-radius: 8px;
+    outline: none;
+    text-align: center;
+    font-size: 20px;
 
-    border-radius: 10px;
-    background-color: blue;
+}
+
+select option{
+
+    font-size: 20px;
+
+}
+select option:first-child{
+
+    font-size: 20px;
+
+}
+
+
+.inicio {
+
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap !important;
+    width: 100%;
+
+}
+
+form {
+
+    width: 100%;
+
+}
+
+.fs {
+
+    font-size: 20px;
 
 }

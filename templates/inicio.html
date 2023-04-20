@@ -1,37 +1,44 @@
-{% block content %}
+{% extends "basic_page.html" %}
 {% load static %}
 
-<!DOCTYPE html>
+{% block title %}
 
-<html lang="en">
+    Inicio | NEAS
 
-    <head>
+{% endblock %}
 
-        <meta charset="utf-8">
+{% block css %}
 
-        <title>NEAS | Inicio</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
 
-        <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+{% endblock %}
 
-        <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
+{% block content1 %}
 
-    </head>
+    <div class="inicio">
 
-    <body>
+        <form method="post" action="/neas/ruta/">
 
-        {% include "header.html" %}
+            {% csrf_token %}
 
-        <div class="inicio">
+            <label for="provincia" class="form-label"></label>
 
-            <label>
-                <input type="text" placeholder="Elige tu ciudad.">
-            </label>
+             <select class="h4" id="provincia" name="provincia">
 
-        </div>
+                <option  value="" disabled selected hidden >Elige tu ciudad:</option>
 
-        {% include "footer.html" %}
+                 {% for p in provincia %}
 
-    </body>
+                    <option value="{{p}}"> {{p}}</option>
 
-</html>
+                  {% endfor  %}
+
+             </select>
+
+            <input type="submit" value="Buscar"/>
+
+        </form>
+
+    </div>
+
 {% endblock %}

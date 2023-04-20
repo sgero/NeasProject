@@ -1,0 +1,30 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Registrar Operador | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+    <h2>REGISTRATE</h2>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Registrar</button>
+
+        </form>
+
+{% endblock %}
