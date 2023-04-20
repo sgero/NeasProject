@@ -72,7 +72,7 @@ def registrar_operador(request):
             user = UsuarioLogin()
             user.email = form.cleaned_data["email"]
             user.username = form.clean_username()
-            user.password = make_password("form.password2")
+            user.password = make_password(request.POST.get('password1'))
             user.rol = Roles.OPERADOR
             user.save()
             return render(request, 'inicio.html')
