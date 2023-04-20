@@ -15,6 +15,19 @@
 
 {% block content1 %}
 
-<div id="carrusel_logout"></div>
-<script src="./carrusel_logout.js"></script>
+     <h2>ESPERAMOS VOLVER A VERTE PRONTO</h2>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">GO TO INICIO</button>
+        </form>
+        <a class="nav-item nav-link" href="{% url 'inicio' %}">
+           Llévame a NEAS<i class="fas fa-sign-in-alt"></i>
+        </a>
+    </div>
+
+    <div id="carrusel_logout"></div>
+    <script src="./carrusel_logout.js"></script>
+
 {% endblock %}
