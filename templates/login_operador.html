@@ -3,7 +3,7 @@
 
 {% block title %}
 
-    Inicio | NEAS
+    Login Operador | NEAS
 
 {% endblock %}
 
@@ -15,6 +15,7 @@
 
 {% block content1 %}
 
+    <h2>INICIA SESIÓN</h2>
     <div class="container">
         <form method="post">
             {% csrf_token %}
@@ -22,7 +23,7 @@
             <button type="submit">Iniciar Sesión</button>
         </form>
         <a class="nav-item nav-link" href="{% url 'login_operador' %}">
-            Regístrate <i class="fas fa-sign-in-alt"></i>
+            ¿Aún no tienes una cuenta? Regístrate <i class="fas fa-sign-in-alt"></i>
         </a>
     </div>
 
