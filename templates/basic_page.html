@@ -17,8 +17,6 @@
 
         <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
 
-        {% block scripts %}  {% endblock %}
-
         {% load bootstrap4 %}
         {% bootstrap_css %}
 
@@ -165,6 +163,8 @@
         </div>
 
     </footer>
+
+    {% block scripts %}  {% endblock %}
 
     </body>
 

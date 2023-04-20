@@ -94,7 +94,7 @@ def login_usuario(request):
         if user is not None:
             #Nos logueamos
             login(request, user)
-            return render(request, 'inicio.html')
+            return render(request, 'inicio.html', {"provincia": provincia})
 
 
     else:
