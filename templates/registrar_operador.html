@@ -15,7 +15,7 @@
 
 {% block content1 %}
 
-    <h2>REGISTRATE</h2>
+    <h2>REGÍSTRATE COMO OPERADOR TURÍSTICO EN NEAS</h2>
 
         <form method="post">
 
@@ -26,5 +26,11 @@
             <button type="submit">Registrar</button>
 
         </form>
+
+    <a class="nav-item nav-link" href="{% url 'login_operador' %}">
+
+        ¿Tienes ya una cuenta? Inicia sesión aquí. <i class="fas fa-sign-in-alt"></i>
+
+    </a>
 
 {% endblock %}
