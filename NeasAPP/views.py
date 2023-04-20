@@ -96,6 +96,7 @@ def login_usuario(request):
             login(request, user)
             return render(request, 'inicio.html')
 
+
     else:
         #pasar errores a la vista
         for error in list(form.errors.values()):
