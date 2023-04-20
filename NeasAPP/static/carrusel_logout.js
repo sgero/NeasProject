@@ -1,4 +1,4 @@
-var imagenes = ["catedralsevilla.jpg", "giralda.png", "fotosevilla.jpg"];
+var imagenes = ["/NeasAPP/static/img/catedralsevilla.jpg", "/NeasAPP/static/img/giralda.png", "/NeasAPP/static/img/fotosevilla.jpg"];
 
 var carrusel = document.getElementById("carrusel");
 for (var i = 0; i < imagenes.length; i++) {
