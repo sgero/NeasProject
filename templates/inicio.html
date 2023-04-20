@@ -15,30 +15,44 @@
 
 {% block content1 %}
 
-    <div class="inicio">
 
-        <form method="post" action="/neas/ruta/">
 
-            {% csrf_token %}
+        <div class="carrusel">
 
-            <label for="provincia" class="form-label"></label>
+            <div class="inicio">
 
-             <select class="h4" id="provincia" name="provincia">
+                <form method="post" action="/neas/ruta/">
 
-                <option  value="" disabled selected hidden >Elige tu ciudad:</option>
+                    {% csrf_token %}
 
-                 {% for p in provincia %}
+                    <label for="provincia" class="form-label"></label>
 
-                    <option value="{{p}}"> {{p}}</option>
+                    <select class="h4" id="provincia" name="provincia">
 
-                  {% endfor  %}
+                        <option value="" disabled selected hidden>Elige tu ciudad:</option>
 
-             </select>
+                        {% for p in provincia %}
 
-            <input type="submit" value="Buscar"/>
+                            <option value="{{ p }}"> {{ p }}</option>
 
-        </form>
+                        {% endfor %}
 
-    </div>
+                    </select>
+
+                    <input type="submit" value="Buscar"/>
+
+                </form>
+
+            </div>
+
+            <div class="carrusel-imagenes">
+
+                <div class="imagen" id="imagen1"></div>
+                <div class="imagen" id="imagen2"></div>
+                <div class="imagen" id="imagen3"></div>
+
+            </div>
+
+        </div>
 
 {% endblock %}
