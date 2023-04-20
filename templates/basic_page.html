@@ -17,6 +17,8 @@
 
         <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
 
+        {% block scripts %}  {% endblock %}
+
         {% load bootstrap4 %}
         {% bootstrap_css %}
 
@@ -34,7 +36,7 @@
 
             <p class="empresas">|</p>
 
-            <a href="" class="empresas" id="accede">ACCEDE A TUS RUTAS </a>
+            <a href="{% url 'login_operador' %}" class="empresas">ACCEDE A TUS RUTAS </a>
 
         </div>
 
@@ -42,35 +44,46 @@
 
             <div id="logo">
 
-                <a><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
+                <a href="/neas/"><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
 
             </div>
 
             <div id="botones">
 
-                <div>
+                <div class="botones">
+                    <!-- IF para el LOGOUT -->
+                    {% if user.is_authenticated %}
 
-                    <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+                        <div><h3>¡Bienvenido/a {{ user.get_username }}!</h3></div>
 
-                        REGISTRO
+                        <a href="{% url 'logout' %}" class="boton color">LOGOUT</a>
 
-                    </button>
+                    {% else %}
 
-                </div>
+                        <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
 
-                <div>
+                            <a href="{% url 'registrar_usuario'%}" class="color">REGISTRO</a>
 
-                    <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+                        </button>
 
-                        INICIAR SESION
+                        <div>|</div>
 
-                    </button>
+                        <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+
+                            <a href="{% url 'login_usuario' %}" class="color">INICIAR SESION</a>
+
+                        </button>
+
+                    {% endif %}
 
                 </div>
 
             </div>
 
         </div>
+
+
+
 
     </header>
 
@@ -126,7 +139,7 @@
 
                         <p class="bg">
 
-                            <a href="#!" class="bg text-reset">Términos & Condiciones</a>
+                            <a href="#!" class="remix bg text-reset">Términos & Condiciones</a>
 
                         </p>
 

@@ -9,7 +9,6 @@
 
 }
 
-
 body{
     justify-content: center;
     align-items: center;
@@ -37,7 +36,6 @@ body{
 a{
     cursor: pointer;
 }
-
 html, body {
     margin: 0;
     padding: 0;
@@ -54,7 +52,6 @@ html, body {
     align-items: center;
     box-shadow: 1px 5px 8px gray;
     flex-direction: row;
-
 }
 
 #botones{
@@ -65,7 +62,9 @@ html, body {
 }
 
 .boton{
+    margin: 10px;
     background-color: #D9EAD3;
+    padding: 10px;
     border-radius: 7px;
     border-width: thin;
     display: flex;
@@ -74,8 +73,8 @@ html, body {
     font-weight: bold;
     cursor: pointer;
     box-shadow: 2px 3px 5px gray;
-    margin: 10px 20px 10px 10px;
-    padding: 10px 20px 10px 10px;
+    margin-right: 20px;
+    padding-right: 20px;
     transition: all 0.4s ease 0s;
 
 }
@@ -83,7 +82,6 @@ html, body {
     transform: scale(1.04);
 
 }
-
 
 a:hover{
 
@@ -117,7 +115,7 @@ h6{
 p{
     color: #CCCCCC;
     padding: 0 !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 0px !important;
 }
 
 

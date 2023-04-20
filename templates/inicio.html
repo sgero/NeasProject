@@ -14,22 +14,29 @@
 {% endblock %}
 
 {% block content1 %}
+
     <div class="inicio">
+
         <form method="post" action="/neas/ruta/">
+
             {% csrf_token %}
+
             <label for="provincia" class="form-label">Elige tu ciudad:&nbsp&nbsp&nbsp&nbsp</label>
-            <select id="provincia" name="provincia">
 
-                {% for p in provincia %}
+             <select id="provincia" name="provincia">
 
-                    <option value="{{ p }}"> {{ p }}</option>
+                 {% for p in provincia %}
 
-                {% endfor %}
+                    <option value="{{p}}"> {{p}}</option>
 
-            </select>
+                  {% endfor  %}
+
+             </select>
 
             <input type="submit" value="Buscar"/>
+
         </form>
+
     </div>
 
 {% endblock %}

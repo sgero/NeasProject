@@ -1,10 +1,14 @@
 input {
+
     border-radius: 6px;
     border: 1px solid silver;
     outline: none;
+
 }
 
 select {
+
     border-radius: 8px;
     outline: none;
+
 }

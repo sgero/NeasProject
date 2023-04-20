@@ -1,41 +1,37 @@
-{% block content %}
+{% extends "basic_page.html" %}
 {% load static %}
 
-<!DOCTYPE html>
+{% block title %}
 
-<html lang="es">
+    Registro | NEAS
 
-    <head>
+{% endblock %}
 
-        <meta charset="utf-8">
+{% block css %}
 
-        <title>NEAS | Registrate</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'registrar.css' %}">
 
-        <link rel="stylesheet" type="text/css" href="{% static 'registrar.css' %}">
+{% endblock %}
 
-        <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
+{% block content1 %}
 
-    </head>
+    <h2>REGÍSTRATE COMO USUARIO EN NEAS</h2>
 
-    <body>
+    <form method="post">
 
-        {% include "header.html" %}
+        {% csrf_token %}
 
-        <h2>REGISTRATE</h2>
+        {{ form.as_p }}
 
-        <form method="post">
+        <button type="submit">Registrar</button>
 
-            {% csrf_token %}
+    </form>
 
-            {{ form.as_p }}
+    <a class="nav-item nav-link" href="{% url 'login_usuario' %}">
 
-            <button type="submit">Registrar</button>
+        ¿Tienes ya una cuenta? Inicia sesión aquí. <i class="fas fa-sign-in-alt"></i>
 
-        </form>
+    </a>
 
-        {% include "footer.html" %}
 
-    </body>
-
-</html>
 {% endblock %}

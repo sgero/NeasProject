@@ -1,6 +1,21 @@
-{% include "header.html" %}
+{% extends "basic_page.html" %}
+{% load static %}
 
-{% block content %}
+{% block title %}
+
+    Login Usuario | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'registrar.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+    <h2>INICIA SESIÓN COMO USUARIO EN NEAS</h2>
 
     <div class="container">
 
@@ -14,14 +29,12 @@
 
         </form>
 
-        <a class="nav-item nav-link" href="{% url 'login_operador' %}">
+        <a class="nav-item nav-link" href="{% url 'registrar_usuario' %}">
 
-            Regístrate <i class="fas fa-sign-in-alt"></i>
+            ¿Aún no tienes una cuenta? Regístrate aquí.<i class="fas fa-sign-in-alt"></i>
 
         </a>
 
     </div>
 
 {% endblock %}
-
-{% include "footer.html" %}
