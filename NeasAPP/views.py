@@ -8,6 +8,8 @@ from .forms import FormularioRegistro
 from .models import *
 
 # Create your views here.
+def inicio2(request):
+    return render(request, 'inicio2.html', {"provincia": provincia})
 
 def inicio(request):
     return render(request, 'inicio.html', {"provincia": provincia})
