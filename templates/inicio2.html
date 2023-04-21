@@ -1,0 +1,66 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Inicio | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio2.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+
+    <body>
+
+    <div class="carrusel">
+
+        <div class="inicio">
+
+            <form method="post" action="/neas/ruta/">
+
+                {% csrf_token %}
+
+                <label for="provincia" class="form-label"></label>
+
+                <select class="h4" id="provincia" name="provincia">
+
+                    <option value="" disabled selected hidden>Elige tu ciudad:</option>
+
+                    {% for p in provincia %}
+
+                        <option value="{{ p }}"> {{ p }}</option>
+
+                    {% endfor %}
+
+                </select>
+
+                <input class="boton" type="submit" value="Buscar rutas"/>
+
+            </form>
+
+        </div>
+
+        <div class="carrusel-imagenes">
+
+            <div class="imagen" id="imagen1"></div>
+            <div class="imagen" id="imagen2"></div>
+            <div class="imagen" id="imagen3"></div>
+
+        </div>
+
+    </div>
+
+    <canvas id="canvas" width="1400" height="600"></canvas>
+
+    <script type="text/javascript" src="{% static 'inicio2.js' %}"></script>
+
+
+    </body>
+
+{% endblock %}
