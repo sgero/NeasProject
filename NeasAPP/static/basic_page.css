@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 
+
 *{
 
     box-sizing: border-box;
@@ -8,23 +9,10 @@
 
 }
 
-.color{
-
-    color: black !important;
-    text-decoration: none !important;
-
-}
-
-.color:hover {
-
-    text-decoration: none !important;
-
-}
-
 body{
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 100vw;
     height:100vh;
 }
 
@@ -45,10 +33,17 @@ body{
     margin: 0 !important;
 }
 
+a{
+    cursor: pointer;
+}
 html, body {
     margin: 0;
     padding: 0;
     }
+
+#accede{
+    margin-right: 4px;
+}
 
 
 #parteabajo{
@@ -66,14 +61,10 @@ html, body {
 
 }
 
-.botones {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .boton{
+    margin: 10px;
     background-color: #D9EAD3;
+    padding: 10px;
     border-radius: 7px;
     border-width: thin;
     display: flex;
@@ -82,13 +73,19 @@ html, body {
     font-weight: bold;
     cursor: pointer;
     box-shadow: 2px 3px 5px gray;
-    margin: 10px 10px 10px 10px;
-    padding: 10px 10px 10px 10px;
+    margin-right: 20px;
+    padding-right: 20px;
     transition: all 0.4s ease 0s;
 
 }
 .boton:hover{
     transform: scale(1.04);
+
+}
+
+a:hover{
+
+     text-decoration: none;
 
 }
 
@@ -107,7 +104,7 @@ html, body {
     display: flex;
     align-content: center;
     justify-content: center;
-    height: 100%;
+    margin-top:50px;
 }
 
 h6{
@@ -118,7 +115,7 @@ h6{
 p{
     color: #CCCCCC;
     padding: 0 !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 0px !important;
 }
 
 
@@ -134,7 +131,8 @@ section{
 footer{
 
     bottom: 0;
-    position: relative;
+    gap: 0;
+    position: absolute;
     width: 100%;
 
 }
