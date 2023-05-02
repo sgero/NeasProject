@@ -156,10 +156,6 @@ class Ciudad(models.Model):
     es_capital = models.BooleanField(default=False)
     rutas = models.ManyToManyField(Ruta)
 
-class Valoracion_usuario(models.Model):
-    num_estrellas = models.IntegerField()
-    rutas = models.ForeignKey(Ruta, on_delete=models.CASCADE)
-    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class Monumento_pi(models.Model):
     nombre = models.CharField(max_length=150)
@@ -169,5 +165,14 @@ class Monumento_pi(models.Model):
     longitude = models.PositiveIntegerField()
     ciudades = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
     rutas = models.ManyToManyField(Ruta)
-    valoraciones = models.ManyToManyField(Valoracion_usuario)
+    # valoraciones = models.ManyToManyField(Valoracion_usuario)
+
+
+class Valoracion_usuario(models.Model):
+    num_estrellas = models.IntegerField()
+    ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, default=None, null=True)
+    monumento = models.ForeignKey(Monumento_pi, on_delete=models.CASCADE, default=None, null=True)
+    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+
 

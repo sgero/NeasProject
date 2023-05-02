@@ -8,6 +8,8 @@ from .forms import FormularioRegistro
 from .models import *
 
 # Create your views here.
+def inicio2(request):
+    return render(request, 'inicio2.html', {"provincia": provincia})
 
 def inicio(request):
     return render(request, 'inicio.html', {"provincia": provincia})
@@ -68,7 +70,7 @@ def registrar_operador(request):
             user = UsuarioLogin()
             user.email = form.cleaned_data["email"]
             user.username = form.clean_username()
-            user.password = make_password(request.POST.get('password1'))
+            user.password = make_password(request.POST.get("password2"))
             user.rol = Roles.OPERADOR
             user.save()
             return render(request, 'inicio.html')
@@ -94,7 +96,7 @@ def login_usuario(request):
         if user is not None:
             #Nos logueamos
             login(request, user)
-            return render(request, 'inicio.html', {"provincia": provincia})
+            return render(request, 'inicio.html', {"provincia" : provincia})
 
 
     else:
