@@ -1,0 +1,162 @@
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>{% block title %}  {% endblock %}</title>
+
+        {% block css %}  {% endblock %}
+
+        <link rel="stylesheet" type="text/css" href="{% static 'basic_page.css' %}">
+
+        <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
+
+        {% load bootstrap4 %}
+        {% bootstrap_css %}
+
+    </head>
+
+    <body>
+
+    <header>
+        <div id="partearriba">
+
+            <img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">
+
+            <a href="" class="empresas">REGISTRAR MI RUTA</a>
+
+            <p class="empresas">|</p>
+
+            <a href="" class="empresas" id="accede">ACCEDE A TUS RUTAS </a>
+
+        </div>
+
+        <div id="parteabajo">
+
+            <div id="logo">
+
+                <a><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
+
+            </div>
+
+            <div id="botones">
+
+                <div>
+
+                    <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+
+                        REGISTRO
+
+                    </button>
+
+                </div>
+
+                <div>
+
+                    <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+
+                        INICIAR SESION
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+        {% block content1 %}
+
+
+
+        {% endblock %}
+
+        <footer>
+
+            <section class="d-flex justify-content-lg-between">
+
+                <img src="{% static "img/giralda.png" %}" alt="fotogiralda">
+
+                <img src="{% static "img/imagenflamenco_preview_rev_1.png" %}" alt="fotoflamenca">
+
+            </section>
+
+            <section class="bg pt">
+
+                <div class="bg container text-center text-md-start">
+
+                    <div class="bg row">
+
+                        <div class="bg col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                            <h6 class="bg text-uppercase fw-bold mb-4" id="titulos">
+
+                                NEAS
+
+                            </h6>
+
+                            <p class="bg">
+
+                                <a href="#!" class="g text-reset">Sobre Nosotros</a>
+
+                            </p>
+
+                            <p class="bg">
+
+                                <a href="#!" class="g text-reset">Centro de Ayuda</a>
+
+                            </p>
+
+                        </div>
+
+                        <div class="remix bg col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                            <h6 class="bg text-uppercase fw-bold mb-4" class="titulos">
+
+                                RECURSOS
+
+                            </h6>
+
+                            <p class="bg">
+
+                                <a href="#!" class="bg text-reset">Términos & Condiciones</a>
+
+                            </p>
+
+                            <p class="bg">
+
+                                <a href="#!" class="bg text-reset">Política de Privacidad</a>
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="pb bg text-center" id="s">
+
+                © 2023 Copyright:
+
+                <a class="text-reset fw-bold" href="/neas">NEAS</a>
+
+            </div>
+
+        </footer>
+
+    </body>
+
+</html>
+
+{% endblock %}
