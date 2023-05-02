@@ -9,7 +9,7 @@
 
 {% block css %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'crear_ruta.css' %}">
 
 {% endblock %}
 
@@ -63,7 +63,10 @@
             <label for="hora_fin">Hora de finalización aproximada:</label>
             <input id="hora_fin" name="hora_fin" type="time"/>
 
-            <input type="submit" value="Enviar"/>
+            <label for="imagen">URL Imagen</label>
+            <input id="imagen" name="imagen" type="text"/>
+
+            <input class="boton" type="submit" value="Enviar Ruta"/>
 
         </form>
 

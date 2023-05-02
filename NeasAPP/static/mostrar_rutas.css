@@ -17,3 +17,16 @@
     background-color: beige;
 
 }
+
+.padre {
+    display: flex;
+    justify-content: space-around;
+    margin: 2%;
+    flex-wrap: wrap;
+}
+
+footer {
+
+    position: relative !important;
+
+}

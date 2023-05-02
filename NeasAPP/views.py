@@ -28,6 +28,7 @@ def crear_ruta(request):
         nueva_ruta.tramo_horario = request.POST.get('tramo_horario')
         nueva_ruta.hora_inicio = request.POST.get('hora_inicio')
         nueva_ruta.hora_fin = request.POST.get('hora_fin')
+        nueva_ruta.imagen = request.POST.get('imagen')
         Ruta.save(nueva_ruta)
         return render(request, 'inicio.html')
 
@@ -136,4 +137,4 @@ def login_operador(request):
 def desloguearse(request):
     logout(request)
     return render(request, "logout.html")
-    # return redirect('/neas/logout/')
+    #return redirect('/neas/logout/')
