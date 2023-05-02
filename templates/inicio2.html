@@ -1,0 +1,144 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Inicio | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio2.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+
+
+
+
+    <div class="carrusel">
+
+        <div class="inicio">
+
+            <form method="post" action="/neas/ruta/">
+
+                {% csrf_token %}
+
+                <label for="provincia" class="form-label"></label>
+
+                <select class="h4" id="provincia" name="provincia">
+
+                    <option value="" disabled selected hidden>Elige tu ciudad:</option>
+
+                    {% for p in provincia %}
+
+                        <option value="{{ p }}"> {{ p }}</option>
+
+                    {% endfor %}
+
+                </select>
+
+                <input class="boton" type="submit" value="Buscar rutas"/>
+
+            </form>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
+    {% block scripts %}
+        <body>
+    <canvas id="canvas" width="1400" height="600"></canvas>
+
+    <script type="text/javascript" src="{% static 'inicio2.js' %}"></script>
+        </body>
+
+
+ <footer>
+
+        <section class="d-flex justify-content-lg-between">
+
+            <img src="{% static "img/giralda.png" %}" alt="fotogiralda">
+
+            <img src="{% static "img/imagenflamenco_preview_rev_1.png" %}" alt="fotoflamenca">
+
+        </section>
+
+        <section class="bg pt">
+
+            <div class="bg container text-center text-md-start">
+
+                <div class="bg row">
+
+                    <div class="bg col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                        <h6 class="bg text-uppercase fw-bold mb-4" id="titulos">
+
+                            NEAS
+
+                        </h6>
+
+                        <p class="bg">
+
+                            <a href="#!" class="g text-reset">Sobre Nosotros</a>
+
+                        </p>
+
+                        <p class="bg">
+
+                            <a href="#!" class="g text-reset">Centro de Ayuda</a>
+
+                        </p>
+
+                    </div>
+
+                    <div class="remix bg col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                        <h6 class="bg text-uppercase fw-bold mb-4" class="titulos">
+
+                            RECURSOS
+
+                        </h6>
+
+                        <p class="bg">
+
+                            <a href="#!" class="remix bg text-reset">Términos & Condiciones</a>
+
+                        </p>
+
+                        <p class="bg">
+
+                            <a href="#!" class="bg text-reset">Política de Privacidad</a>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="pb bg text-center" id="s">
+
+            © 2023 Copyright:
+
+            <a class="text-reset fw-bold" href="/neas">NEAS</a>
+
+        </div>
+
+    </footer>
+
+    </body>
+
+</html>
+
+{% endblock %}
+
