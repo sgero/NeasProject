@@ -21,13 +21,33 @@
 
             {% csrf_token %}
 
-            <label for="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text"/>
+            <div class="mb-3">
+
+                <label for="nombre">Nombre</label>
+                <input id="nombre" name="nombre" type="text" required/>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="ciudad" class="form-label">Ciudad</label>
+
+                <select id="ciudad" name="ciudad">
+
+                    {% for c in ciudad %}
+
+                        <option  value="{{ c }}"> {{ c }}</option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
 
             <div class="mb-3">
 
                 <label for="tipo_ruta" class="form-label">Tipo de Ruta</label>
-                <select id="tipo_ruta" name="tipo_ruta">
+                <select required id="tipo_ruta" name="tipo_ruta">
                     {% for t in tipo_rutas %}
                         <option value="{{ t }}"> {{ t }}</option>
                     {% endfor %}
@@ -38,7 +58,7 @@
             <div class="mb-3">
 
                 <label for="tramo_horario" class="form-label">Tipo de Ruta</label>
-                <select id="tramo_horario" name="tramo_horario">
+                <select required id="tramo_horario" name="tramo_horario">
                     {% for t in tramo_horario %}
                         <option value="{{ t }}"> {{ t }}</option>
                     {% endfor %}
@@ -49,7 +69,7 @@
             <div class="mb-3">
 
                 <label for="tipo_transporte" class="form-label">Tipo de Transporte</label>
-                <select id="tipo_transporte" name="tipo_transporte">
+                <select required id="tipo_transporte" name="tipo_transporte">
                     {% for ti in tipo_transporte %}
                         <option value="{{ ti }}"> {{ ti }}</option>
                     {% endfor %}
@@ -57,14 +77,22 @@
 
             </div>
 
-            <label for="hora_inicio">Hora de comienzo aproximada:</label>
-            <input id="hora_inicio" name="hora_inicio" type="time"/>
+            <div class="mb-3">
 
-            <label for="hora_fin">Hora de finalización aproximada:</label>
-            <input id="hora_fin" name="hora_fin" type="time"/>
+                <label for="hora_inicio">Hora de comienzo aproximada:</label>
+                <input id="hora_inicio" name="hora_inicio" type="time" required/>
 
-            <label for="imagen">URL Imagen</label>
-            <input id="imagen" name="imagen" type="text"/>
+                <label for="hora_fin">Hora de finalización aproximada:</label>
+                <input id="hora_fin" name="hora_fin" type="time" required/>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="imagen">URL Imagen</label>
+                <input id="imagen" name="imagen" type="text" required/>
+
+            </div>
 
             <input class="boton" type="submit" value="Enviar Ruta"/>
 
