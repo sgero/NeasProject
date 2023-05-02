@@ -10,10 +10,24 @@
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.25rem;
+    width: 40%;
 }
 
 .hola {
 
     background-color: beige;
+
+}
+
+.padre {
+    display: flex;
+    justify-content: space-around;
+    margin: 2%;
+    flex-wrap: wrap;
+}
+
+footer {
+
+    position: relative !important;
 
 }

@@ -111,7 +111,7 @@ class UsuarioLogin(AbstractBaseUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
-    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True)
+    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True, unique=None)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username, email, password']
 
@@ -140,6 +140,14 @@ class Operador_tur(models.Model):
     sitio_web = models.CharField(max_length=500)
     usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
 
+class Ciudad(models.Model):
+    nombre = models.CharField(choices=provincia.choices, max_length=100)
+    es_capital = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.nombre
+
+
 class Ruta(models.Model):
     nombre = models.CharField(max_length=500, default=None)
     hora_inicio = models.TimeField(default=None)
@@ -147,14 +155,11 @@ class Ruta(models.Model):
     tematica = models.CharField(choices=tematica.choices, max_length=100)
     tramo_horario = models.CharField(max_length=50, choices=tramo_h.choices)
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
+    imagen = models.CharField(max_length=500, default=None)
     valoracion_media = models.FloatField(max_length=4, default=0.0)
     operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE, default=None, null=True)
     usuarios = models.ManyToManyField(Usuario, default=None)
-
-class Ciudad(models.Model):
-    nombre = models.CharField(choices=provincia.choices, max_length=100)
-    es_capital = models.BooleanField(default=False)
-    rutas = models.ManyToManyField(Ruta)
+    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE, default=None, null=True)
 
 
 class Monumento_pi(models.Model):
