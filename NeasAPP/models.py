@@ -147,6 +147,7 @@ class Ruta(models.Model):
     tematica = models.CharField(choices=tematica.choices, max_length=100)
     tramo_horario = models.CharField(max_length=50, choices=tramo_h.choices)
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
+    imagen = models.CharField(max_length=500, default=None)
     valoracion_media = models.FloatField(max_length=4, default=0.0)
     operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE, default=None, null=True)
     usuarios = models.ManyToManyField(Usuario, default=None)

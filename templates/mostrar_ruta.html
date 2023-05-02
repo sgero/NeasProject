@@ -9,13 +9,13 @@
 
 {% block css %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'mostrar_rutas.css' %}">
 
 {% endblock %}
 
 {% block content1 %}
 
-    <div>
+    <div class="padre">
 
         {% for r in rutas %}
 
@@ -25,7 +25,7 @@
 
                     <div>
 
-                        <img src="{% static "img/fotosevilla.jpg" %}" class="img-fluid rounded-start" id="imgruta" alt="fotoSevilla">
+                        <img src="{{ r.imagen }}" class="img-fluid rounded-start" id="imgruta" alt="fotoSevilla">
 
                     </div>
 

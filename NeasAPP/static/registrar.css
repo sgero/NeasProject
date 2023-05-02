@@ -6,6 +6,6 @@ h2{
 
 footer{
 
-    position: relative;
+    position: relative !important;
 
 }
