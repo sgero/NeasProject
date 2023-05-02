@@ -16,15 +16,25 @@
 {% block content1 %}
 
     <h2>INICIA SESIÓN COMO OPERADOR TURÍSTICO EN NEAS</h2>
+
     <div class="container">
+
         <form method="post">
+
             {% csrf_token %}
+
             {{ form.as_p }}
+
             <button type="submit">Iniciar Sesión</button>
+
         </form>
+
         <a class="nav-item nav-link" href="{% url 'registrar_operador' %}">
+
             ¿Aún no tienes una cuenta? Regístrate aquí.<i class="fas fa-sign-in-alt"></i>
+
         </a>
+
     </div>
 
 {% endblock %}
