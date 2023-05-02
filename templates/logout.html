@@ -1,0 +1,47 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Logout | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'logout.css' %}">
+
+{% endblock %}
+
+
+
+{% block content1 %}
+
+    <h2>ESPERAMOS VOLVER A VERTE PRONTO</h2>
+
+
+    <div class="slider">
+        <img src="/NeasAPP/static/img/t1.jpg" alt="Imagen 1">
+        <img src="/NeasAPP/static/img/t2.jpg" alt="Imagen 2">
+        <img src="/NeasAPP/static/img/t3.jpg" alt="Imagen 3">
+        <img src="/NeasAPP/static/img/t4.jpg" alt="Imagen 4">
+        <img src="/NeasAPP/static/img/t5.jpg" alt="Imagen 5">
+        <img src="/NeasAPP/static/img/t6.jpg" alt="Imagen 6">
+        <img src="/NeasAPP/static/img/t7.jpg" alt="Imagen 7">
+
+    </div>
+
+    <body>
+        <script type="text/javascript" src="{% static 'logout.js' %}"></script>
+    </body>
+
+        <div class="container">
+
+        <a class="nav-item nav-link" href="{% url 'inicio' %}">
+
+            Llévame a NEAS<i class="fas fa-sign-in-alt"></i>
+
+        </a>
+
+    </div>
+{% endblock %}

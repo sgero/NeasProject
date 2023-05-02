@@ -17,6 +17,8 @@
 
         <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
 
+
+
         {% load bootstrap4 %}
         {% bootstrap_css %}
 
@@ -29,11 +31,11 @@
 
             <img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">
 
-            <a href="" class="empresas">REGISTRAR MI RUTA</a>
+            <a href="/neas/registrar/operador/" class="empresas">REGISTRAR MI RUTA</a>
 
             <p class="empresas">|</p>
 
-            <a href="" class="empresas" id="accede">ACCEDE A TUS RUTAS </a>
+            <a href="{% url 'login_operador' %}" class="empresas">ACCEDE A TUS RUTAS </a>
 
         </div>
 
@@ -41,29 +43,37 @@
 
             <div id="logo">
 
-                <a><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
+                <a href="/neas/"><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
 
             </div>
 
             <div id="botones">
 
-                <div>
+                <div class="botones">
+                    <!-- IF para el LOGOUT -->
+                    {% if user.is_authenticated %}
 
-                    <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+                        <div><h3>¡Bienvenido/a {{ user.get_username }}!</h3></div>
 
-                        REGISTRO
+                        <a href="{% url 'logout' %}" class="boton color">LOGOUT</a>
 
-                    </button>
+                    {% else %}
 
-                </div>
+                        <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
 
-                <div>
+                            <a href="{% url 'registrar_usuario'%}" class="color">REGISTRO</a>
 
-                    <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+                        </button>
 
-                        INICIAR SESION
+                        <div>|</div>
 
-                    </button>
+                        <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+
+                            <a href="{% url 'login_usuario' %}" class="color">INICIAR SESION</a>
+
+                        </button>
+
+                    {% endif %}
 
                 </div>
 
@@ -71,89 +81,92 @@
 
         </div>
 
+
+
+
     </header>
 
-        {% block content1 %}
+    {% block content1 %}
+
+    {% endblock %}
+    {% block scripts %}  {% endblock %}
 
 
+    <footer>
 
-        {% endblock %}
+        <section class="d-flex justify-content-lg-between">
 
-        <footer>
+            <img src="{% static "img/giralda.png" %}" alt="fotogiralda">
 
-            <section class="d-flex justify-content-lg-between">
+            <img src="{% static "img/imagenflamenco_preview_rev_1.png" %}" alt="fotoflamenca">
 
-                <img src="{% static "img/giralda.png" %}" alt="fotogiralda">
+        </section>
 
-                <img src="{% static "img/imagenflamenco_preview_rev_1.png" %}" alt="fotoflamenca">
+        <section class="bg pt">
 
-            </section>
+            <div class="bg container text-center text-md-start">
 
-            <section class="bg pt">
+                <div class="bg row">
 
-                <div class="bg container text-center text-md-start">
+                    <div class="bg col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
-                    <div class="bg row">
+                        <h6 class="bg text-uppercase fw-bold mb-4" id="titulos">
 
-                        <div class="bg col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            NEAS
 
-                            <h6 class="bg text-uppercase fw-bold mb-4" id="titulos">
+                        </h6>
 
-                                NEAS
+                        <p class="bg">
 
-                            </h6>
+                            <a href="#!" class="g text-reset">Sobre Nosotros</a>
 
-                            <p class="bg">
+                        </p>
 
-                                <a href="#!" class="g text-reset">Sobre Nosotros</a>
+                        <p class="bg">
 
-                            </p>
+                            <a href="#!" class="g text-reset">Centro de Ayuda</a>
 
-                            <p class="bg">
+                        </p>
 
-                                <a href="#!" class="g text-reset">Centro de Ayuda</a>
+                    </div>
 
-                            </p>
+                    <div class="remix bg col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
 
-                        </div>
+                        <h6 class="bg text-uppercase fw-bold mb-4" class="titulos">
 
-                        <div class="remix bg col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            RECURSOS
 
-                            <h6 class="bg text-uppercase fw-bold mb-4" class="titulos">
+                        </h6>
 
-                                RECURSOS
+                        <p class="bg">
 
-                            </h6>
+                            <a href="#!" class="remix bg text-reset">Términos & Condiciones</a>
 
-                            <p class="bg">
+                        </p>
 
-                                <a href="#!" class="bg text-reset">Términos & Condiciones</a>
+                        <p class="bg">
 
-                            </p>
+                            <a href="#!" class="bg text-reset">Política de Privacidad</a>
 
-                            <p class="bg">
-
-                                <a href="#!" class="bg text-reset">Política de Privacidad</a>
-
-                            </p>
-
-                        </div>
+                        </p>
 
                     </div>
 
                 </div>
 
-            </section>
-
-            <div class="pb bg text-center" id="s">
-
-                © 2023 Copyright:
-
-                <a class="text-reset fw-bold" href="/neas">NEAS</a>
-
             </div>
 
-        </footer>
+        </section>
+
+        <div class="pb bg text-center" id="s">
+
+            © 2023 Copyright:
+
+            <a class="text-reset fw-bold" href="/neas">NEAS</a>
+
+        </div>
+
+    </footer>
 
     </body>
 

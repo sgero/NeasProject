@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 
-
 *{
 
     box-sizing: border-box;
@@ -9,10 +8,23 @@
 
 }
 
+.color{
+
+    color: black !important;
+    text-decoration: none !important;
+
+}
+
+.color:hover {
+
+    text-decoration: none !important;
+
+}
+
 body{
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     height:100vh;
 }
 
@@ -29,20 +41,14 @@ body{
 .empresas{
     color: #B4C4B2;
     padding: 3px;
-    font-size: 11;
+    font-size: 16px;
+    margin: 0 !important;
 }
 
-a{
-    cursor: pointer;
-}
 html, body {
     margin: 0;
     padding: 0;
     }
-
-#accede{
-    margin-right: 4px;
-}
 
 
 #parteabajo{
@@ -60,10 +66,14 @@ html, body {
 
 }
 
+.botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .boton{
-    margin: 10px;
     background-color: #D9EAD3;
-    padding: 10px;
     border-radius: 7px;
     border-width: thin;
     display: flex;
@@ -72,19 +82,13 @@ html, body {
     font-weight: bold;
     cursor: pointer;
     box-shadow: 2px 3px 5px gray;
-    margin-right: 20px;
-    padding-right: 20px;
+    margin: 10px 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
     transition: all 0.4s ease 0s;
 
 }
 .boton:hover{
     transform: scale(1.04);
-
-}
-
-a:hover{
-
-     text-decoration: none;
 
 }
 
@@ -103,7 +107,7 @@ a:hover{
     display: flex;
     align-content: center;
     justify-content: center;
-    margin-top:50px;
+    height: 100%;
 }
 
 h6{
@@ -113,7 +117,8 @@ h6{
 
 p{
     color: #CCCCCC;
-    padding: 0px;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 
@@ -129,8 +134,7 @@ section{
 footer{
 
     bottom: 0;
-    gap: 0;
-    position: absolute;
+    position: relative;
     width: 100%;
 
 }

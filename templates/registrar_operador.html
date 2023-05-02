@@ -1,27 +1,21 @@
-{% block content %}
+{% extends "basic_page.html" %}
 {% load static %}
 
-<!DOCTYPE html>
+{% block title %}
 
-<html lang="es">
+    Registrar Operador | NEAS
 
-    <head>
+{% endblock %}
 
-        <meta charset="utf-8">
+{% block css %}
 
-        <title>NEAS | Registrate</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
 
-        <link rel="stylesheet" type="text/css" href="{% static 'registrar.css' %}">
+{% endblock %}
 
-        <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
+{% block content1 %}
 
-    </head>
-
-    <body>
-
-        {% include "header.html" %}
-
-        <h2>REGISTRATE</h2>
+    <h2>REGÍSTRATE COMO OPERADOR TURÍSTICO EN NEAS</h2>
 
         <form method="post">
 
@@ -33,9 +27,10 @@
 
         </form>
 
-        {% include "footer.html" %}
+    <a class="nav-item nav-link" href="{% url 'login_operador' %}">
 
-    </body>
+        ¿Tienes ya una cuenta? Inicia sesión aquí. <i class="fas fa-sign-in-alt"></i>
 
-</html>
+    </a>
+
 {% endblock %}

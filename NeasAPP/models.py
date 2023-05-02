@@ -49,7 +49,7 @@ class provincia(models.TextChoices):
     tenerife =  ('Tenerife')
     las_palmas =  ('Las Palmas')
     albacete = ('Albacete')
-    cuenca =  ('cuenca')
+    cuenca =  ('Cuenca')
     toledo =  ('Toledo')
     ciudad_real =  ('Ciudad Real')
     guadalajara =('Guadalajara')
