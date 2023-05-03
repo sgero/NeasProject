@@ -134,7 +134,7 @@ section{
 footer{
 
     bottom: 0;
-    position: relative;
+    position: absolute;
     width: 100%;
 
 }

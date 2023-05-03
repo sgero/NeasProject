@@ -22,6 +22,7 @@
         {% load bootstrap4 %}
         {% bootstrap_css %}
 
+
     </head>
 
     <body>
@@ -31,11 +32,27 @@
 
             <img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">
 
-            <a href="/neas/registrar/operador/" class="empresas">REGISTRAR MI RUTA</a>
+            {% if user is not None and  user.rol == "Operador" %}
+
+                <a href="/neas/ruta/crear/" class="empresas">REGISTRAR MI RUTA</a>
+
+            {% else %}
+
+                <a href="/neas/registrar/operador/" class="empresas">REGISTRAR MI RUTA</a>
+
+            {% endif %}
 
             <p class="empresas">|</p>
 
-            <a href="{% url 'login_operador' %}" class="empresas">ACCEDE A TUS RUTAS </a>
+            {% if user is not None and  user.rol == "Operador" %}
+
+                <a href="/neas/ruta/" class="empresas">ACCEDE A TUS RUTAS </a>
+
+            {% else %}
+
+                <a href="{% url 'login_operador' %}" class="empresas">ACCEDE A TUS RUTAS </a>
+
+            {% endif %}
 
         </div>
 
