@@ -9,31 +9,39 @@
 
 {% block css %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'registrar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'login_operador.css' %}">
 
 {% endblock %}
 
 {% block content1 %}
 
-    <h2>INICIA SESIÓN COMO USUARIO EN NEAS</h2>
+    <div class="padre">
 
-    <div class="container">
+    <h2>INICIA SESIÓN COMO USUARIO</h2>
 
-        <form method="post">
+        <div class="container">
 
-            {% csrf_token %}
+            <form method="post">
 
-            {{ form.as_p }}
+                {% csrf_token %}
 
-            <button class="boton" type="submit">Iniciar Sesión</button>
+                {{ form.as_p }}
 
-        </form>
+                <div class="botoon">
 
-        <a class="nav-item nav-link" href="{% url 'registrar_usuario' %}">
+                    <button class="boton boton2" type="submit">Iniciar Sesión</button>
 
-            ¿Aún no tienes una cuenta? Regístrate aquí.<i class="fas fa-sign-in-alt"></i>
+                </div>
 
-        </a>
+            </form>
+
+            <a class="nav-item nav-link" href="{% url 'registrar_operador' %}">
+
+                ¿Aún no tienes una cuenta? Regístrate aquí.<i class="fas fa-sign-in-alt"></i>
+
+            </a>
+
+        </div>
 
     </div>
 
