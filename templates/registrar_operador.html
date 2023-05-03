@@ -9,28 +9,40 @@
 
 {% block css %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'registrar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'login_operador.css' %}">
 
 {% endblock %}
 
 {% block content1 %}
 
-    <h2>REGÍSTRATE COMO OPERADOR TURÍSTICO EN NEAS</h2>
+    <div class="padre padre1">
 
-        <form method="post">
+    <h2>REGÍSTRATE COMO OPERADOR TURÍSTICO</h2>
 
-            {% csrf_token %}
+        <div class="container">
 
-            {{ form.as_p }}
+            <form method="post">
 
-            <button class="boton" type="submit">Registrar</button>
+                {% csrf_token %}
 
-        </form>
+                {{ form.as_p }}
 
-    <a class="nav-item nav-link" href="{% url 'login_operador' %}">
+                <div class="botoon">
 
-        ¿Tienes ya una cuenta? Inicia sesión aquí. <i class="fas fa-sign-in-alt"></i>
+                    <button class="boton boton2" type="submit">Regístrate</button>
 
-    </a>
+                </div>
+
+            </form>
+
+            <a class="nav-item nav-link" href="{% url 'login_operador' %}">
+
+                ¿Tienes ya una cuenta? Inicia sesión aquí.<i class="fas fa-sign-in-alt"></i>
+
+            </a>
+
+        </div>
+
+    </div>
 
 {% endblock %}

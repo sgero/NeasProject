@@ -121,6 +121,7 @@ p{
 
 .bg{
     background-color: #78909C;
+
 }
 
 section{
@@ -152,5 +153,8 @@ footer{
 .remix {
 
     width: 120%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
 }
