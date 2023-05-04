@@ -15,27 +15,40 @@
 
 {% block content1 %}
 
-    <div class="padre">
+    {% if rutas.count > 0 %}
 
-        {% for r in rutas %}
+        <div class="padre">
 
-            <div class="carta mb-3">
+            {% for r in rutas %}
 
-                <div class="hola g-0">
+                <div class="carta mb-3">
 
-                    <div>
+                    <div class="hola g-0">
 
-                        <img src="{{ r.imagen }}" class="img-fluid rounded-start" id="imgruta" alt="fotoSevilla">
+                        <div>
 
-                    </div>
+                            <img src="{{ r.imagen }}" class="img-fluid rounded-start" id="imgruta" alt="fotoCiudad">
 
-                    <div class="hola col-md-8">
+                        </div>
 
-                        <div class="hola card-body">
+                        <div class="hola col-md-8">
 
-                            <h5 class="hola card-title">{{ r.nombre }}</h5>
-                            <p class="hola card-text">{{ r.tipo_recorrido }}</p>
-                            <p class="hola card-text">{{ r.tipo_transporte }}</p>
+                            <div class="hola1 hola card-body">
+
+                                <div>
+                                    <h5 class="hola card-title">{{ r.nombre }}</h5>
+                                </div>
+
+                                <div class="medio">
+                                    <p class="hola card-text">{{ r.ciudad }}</p>
+                                    <p class="hola card-text">{{ r.transporte }}</p>
+                                </div>
+
+                                <div>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
@@ -43,10 +56,39 @@
 
                 </div>
 
-            </div>
+            {% endfor %}
 
-        {% endfor %}
+        </div>
 
-    </div>
+    {% else %}
+
+        <div class="padre">
+
+                <div class="carta mb-3">
+
+                    <div class="hola g-0" style="align-items: center;display: flex;flex-direction: column">
+
+                        <div>
+
+                            <img src="{% static "img/icons8-error-globe-64.png" %}" class="img-fluid rounded-start" id="imgruta" alt="fotoError">
+
+                        </div>
+
+                        <div class="hola col-md-8" style="text-align: center">
+
+                            <h1>LO SENTIMOS, NO HEMOS ENCONTRADO LO QUE BUSCABAS</h1>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div>
+
+    {% endif %}
+
+
+
 
 {% endblock %}
