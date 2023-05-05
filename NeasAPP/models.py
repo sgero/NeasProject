@@ -136,6 +136,7 @@ class Operador_tur(models.Model):
     email = models.CharField(max_length=150)
     fecha_fundacion_oper = models.DateField()
     logo = models.CharField(max_length=500)
+    info = models.CharField(max_length=1000)
     telefono = models.CharField(max_length=50)
     sitio_web = models.CharField(max_length=500)
     usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
