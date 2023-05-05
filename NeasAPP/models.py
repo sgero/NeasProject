@@ -136,6 +136,7 @@ class Operador_tur(models.Model):
     email = models.CharField(max_length=150)
     fecha_fundacion_oper = models.DateField()
     logo = models.CharField(max_length=500)
+    info = models.CharField(max_length=1000)
     telefono = models.CharField(max_length=50)
     sitio_web = models.CharField(max_length=500)
     usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
@@ -160,11 +161,8 @@ class Ruta(models.Model):
     operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE, default=None, null=True)
     usuarios = models.ManyToManyField(Usuario, default=None)
     ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
+    descripcion = models.CharField(max_length=50, default='Descripción', null=True)
 
-class Valoracion_usuario(models.Model):
-    num_estrellas = models.IntegerField()
-    rutas = models.ForeignKey(Ruta, on_delete=models.CASCADE)
-    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class Monumento_pi(models.Model):
     nombre = models.CharField(max_length=150)
@@ -174,5 +172,14 @@ class Monumento_pi(models.Model):
     longitude = models.PositiveIntegerField()
     ciudades = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
     rutas = models.ManyToManyField(Ruta)
-    valoraciones = models.ManyToManyField(Valoracion_usuario)
+    # valoraciones = models.ManyToManyField(Valoracion_usuario)
+
+
+class Valoracion_usuario(models.Model):
+    num_estrellas = models.IntegerField()
+    ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, default=None, null=True)
+    monumento = models.ForeignKey(Monumento_pi, on_delete=models.CASCADE, default=None, null=True)
+    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+
 
