@@ -31,14 +31,12 @@
 .padre {
     display: flex;
     justify-content: space-around;
-    margin: 2%;
+    margin: 0 2%;
     flex-wrap: wrap;
 }
 
 footer {
-
-
-
+    position: relative !important;
 }
 
 #imgruta {
@@ -60,8 +58,59 @@ footer {
 
 }
 
+.derecha {
+
+    justify-content: center;
+    text-align: center;
+
+}
+
 .card-title {
 
     margin: 0 !important;
+
+}
+
+.padreArriba {
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+}
+
+form {
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10%;
+    padding: 20px;
+
+}
+
+.mb-3 {
+
+    margin: 0 !important;
+
+}
+
+select {
+
+    outline: none;
+    border-radius: 5px;
+    padding: 2px 5px;
+    font-size: medium;
+
+}
+
+option {
+
+    font-size: medium;
+    text-align: center;
 
 }
