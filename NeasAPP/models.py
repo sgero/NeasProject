@@ -136,6 +136,7 @@ class Operador_tur(models.Model):
     email = models.CharField(max_length=150)
     fecha_fundacion_oper = models.DateField()
     logo = models.CharField(max_length=500)
+    info = models.CharField(max_length=1000)
     telefono = models.CharField(max_length=50)
     sitio_web = models.CharField(max_length=500)
     usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
@@ -159,7 +160,8 @@ class Ruta(models.Model):
     valoracion_media = models.FloatField(max_length=4, default=0.0)
     operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE, default=None, null=True)
     usuarios = models.ManyToManyField(Usuario, default=None)
-    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE, default=None, null=True)
+    ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
+    descripcion = models.CharField(max_length=50, default='Descripción', null=True)
 
 
 class Monumento_pi(models.Model):

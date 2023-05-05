@@ -34,13 +34,22 @@
 
                 <select id="ciudad" name="ciudad">
 
-                    {% for c in ciudad %}
+                    <option value="" disabled selected hidden>Elige tu ciudad:</option>
 
-                        <option  value="{{ c }}"> {{ c }}</option>
+                    {% for p in Provincia %}
+
+                        <option  value="{{ p }}"> {{ p }}</option>
 
                     {% endfor %}
 
                 </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="desc">Descripción:</label>
+                <input id="desc" name="desc" type="text" required/>
 
             </div>
 
@@ -57,7 +66,7 @@
 
             <div class="mb-3">
 
-                <label for="tramo_horario" class="form-label">Tipo de Ruta</label>
+                <label for="tramo_horario" class="form-label">Tramo Horario</label>
                 <select required id="tramo_horario" name="tramo_horario">
                     {% for t in tramo_horario %}
                         <option value="{{ t }}"> {{ t }}</option>
@@ -90,7 +99,7 @@
             <div class="mb-3">
 
                 <label for="imagen">URL Imagen</label>
-                <input id="imagen" name="imagen" type="text" required/>
+                <input id="imagen" name="imagen" type="url" required/>
 
             </div>
 

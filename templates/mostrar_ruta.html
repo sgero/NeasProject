@@ -15,27 +15,99 @@
 
 {% block content1 %}
 
-    <div class="padre">
+    <div class="padreArriba">
 
-        {% for r in rutas %}
+        <form method="post" action="/neas/buscar/personalizada/">
 
-            <div class="carta mb-3">
+        {% csrf_token %}
 
-                <div class="hola g-0">
+            <div class="mb-3">
 
-                    <div>
+                <label for="tipo_ruta" class="form-label">Tipo de Ruta:</label>
+                <select id="tipo_ruta" name="tipo_ruta">
+                    <option value="" disabled selected hidden>Elige tu tipo de ruta:</option>
+                    {% for t in tipo_rutas %}
+                        <option value="{{ t }}"> {{ t }}</option>
+                    {% endfor %}
+                </select>
 
-                        <img src="{{ r.imagen }}" class="img-fluid rounded-start" id="imgruta" alt="fotoSevilla">
+            </div>
 
+            <div class="mb-3">
+
+                <label for="tramo_horario" class="form-label">Tramo Horario:</label>
+                <select id="tramo_horario" name="tramo_horario">
+                    <option value="" disabled selected hidden>Elige tu horario:</option>
+                    {% for t in tramo_horario %}
+                        <option value="{{ t }}"> {{ t }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="tipo_transporte" class="form-label">Tipo de Transporte:</label>
+                <select id="tipo_transporte" name="tipo_transporte">
+                    <option value="" disabled selected hidden>Elige tu transporte:</option>
+                    {% for ti in tipo_transporte %}
+                        <option value="{{ ti }}"> {{ ti }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+
+            <input class="boton" type="submit" value="Buscar Ruta"/>
+
+        </form>
+
+    </div>
+
+
+    {% if rutas.count > 0 %}
+
+        <div class="padre">
+
+            {% for r in rutas %}
+
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ r.imagen }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ r.nombre }}</h5>
+                        <p class="card-text">{{ r.descripcion }}</p>
                     </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ r.transporte }}</li>
+                        <li class="list-group-item">{{ r.tramo_horario }}</li>
+                        <li class="list-group-item">{{ r.tematica }}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Eliminar Ruta</a>
+                        <a href="#" class="card-link">Valorar Ruta</a>
+                    </div>
+                </div>
 
-                    <div class="hola col-md-8">
+            {% endfor %}
 
-                        <div class="hola card-body">
+        </div>
 
-                            <h5 class="hola card-title">{{ r.nombre }}</h5>
-                            <p class="hola card-text">{{ r.tipo_recorrido }}</p>
-                            <p class="hola card-text">{{ r.tipo_transporte }}</p>
+    {% else %}
+
+        <div class="padre">
+
+                <div class="carta mb-3">
+
+                    <div class="hola g-0" style="align-items: center;display: flex;flex-direction: column">
+
+                        <div>
+
+                            <img src="{% static "img/icons8-error-globe-64.png" %}" class="img-fluid rounded-start" id="imgruta" alt="fotoError">
+
+                        </div>
+
+                        <div class="hola col-md-8" style="text-align: center">
+
+                            <h1>LO SENTIMOS, NO HEMOS ENCONTRADO LO QUE BUSCABAS</h1>
 
                         </div>
 
@@ -43,10 +115,8 @@
 
                 </div>
 
-            </div>
+        </div>
 
-        {% endfor %}
-
-    </div>
+    {% endif %}
 
 {% endblock %}
