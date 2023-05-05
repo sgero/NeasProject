@@ -34,9 +34,11 @@
 
                 <select id="ciudad" name="ciudad">
 
-                    {% for c in ciudad %}
+                    <option value="" disabled selected hidden>Elige tu ciudad:</option>
 
-                        <option  value="{{ c }}"> {{ c }}</option>
+                    {% for p in Provincia %}
+
+                        <option  value="{{ p }}"> {{ p }}</option>
 
                     {% endfor %}
 

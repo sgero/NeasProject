@@ -16,6 +16,15 @@
 .hola {
 
     background-color: beige;
+    max-width: 100% !important;
+
+}
+
+.hola1 {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
 }
 
@@ -28,6 +37,31 @@
 
 footer {
 
-    position: relative !important;
+
+
+}
+
+#imgruta {
+
+    width: 100%;
+
+}
+
+.card-text {
+
+    color: black;
+
+}
+
+.medio {
+
+    justify-content: center;
+    text-align: center;
+
+}
+
+.card-title {
+
+    margin: 0 !important;
 
 }
