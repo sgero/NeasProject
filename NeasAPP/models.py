@@ -111,7 +111,7 @@ class UsuarioLogin(AbstractBaseUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
-    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True)
+    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True, unique=None)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username, email, password']
 
@@ -136,9 +136,18 @@ class Operador_tur(models.Model):
     email = models.CharField(max_length=150)
     fecha_fundacion_oper = models.DateField()
     logo = models.CharField(max_length=500)
+    info = models.CharField(max_length=1000)
     telefono = models.CharField(max_length=50)
     sitio_web = models.CharField(max_length=500)
     usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
+
+class Ciudad(models.Model):
+    nombre = models.CharField(choices=provincia.choices, max_length=100)
+    es_capital = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.nombre
+
 
 class Ruta(models.Model):
     nombre = models.CharField(max_length=500, default=None)
@@ -147,19 +156,12 @@ class Ruta(models.Model):
     tematica = models.CharField(choices=tematica.choices, max_length=100)
     tramo_horario = models.CharField(max_length=50, choices=tramo_h.choices)
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
+    imagen = models.CharField(max_length=500, default=None)
     valoracion_media = models.FloatField(max_length=4, default=0.0)
     operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE, default=None, null=True)
     usuarios = models.ManyToManyField(Usuario, default=None)
+    ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
 
-class Ciudad(models.Model):
-    nombre = models.CharField(choices=provincia.choices, max_length=100)
-    es_capital = models.BooleanField(default=False)
-    rutas = models.ManyToManyField(Ruta)
-
-class Valoracion_usuario(models.Model):
-    num_estrellas = models.IntegerField()
-    rutas = models.ForeignKey(Ruta, on_delete=models.CASCADE)
-    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class Monumento_pi(models.Model):
     nombre = models.CharField(max_length=150)
@@ -169,5 +171,14 @@ class Monumento_pi(models.Model):
     longitude = models.PositiveIntegerField()
     ciudades = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
     rutas = models.ManyToManyField(Ruta)
-    valoraciones = models.ManyToManyField(Valoracion_usuario)
+    # valoraciones = models.ManyToManyField(Valoracion_usuario)
+
+
+class Valoracion_usuario(models.Model):
+    num_estrellas = models.IntegerField()
+    ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, default=None, null=True)
+    monumento = models.ForeignKey(Monumento_pi, on_delete=models.CASCADE, default=None, null=True)
+    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+
 

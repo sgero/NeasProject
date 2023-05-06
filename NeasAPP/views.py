@@ -21,7 +21,7 @@ def basic_page(request):
 
 def crear_ruta(request):
     if request.method == 'GET':
-        return render(request, 'crear_ruta.html', {"tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+        return render(request, 'crear_ruta.html', {"tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, "Provincia": provincia})
     else:
         nueva_ruta = Ruta()
         nueva_ruta.nombre = request.POST.get('nombre')
@@ -30,6 +30,9 @@ def crear_ruta(request):
         nueva_ruta.tramo_horario = request.POST.get('tramo_horario')
         nueva_ruta.hora_inicio = request.POST.get('hora_inicio')
         nueva_ruta.hora_fin = request.POST.get('hora_fin')
+        nueva_ruta.imagen = request.POST.get('imagen')
+        nueva_ruta.operador_tur = request.POST.get(Operador_tur)
+        nueva_ruta.ciudad = request.POST.get('ciudad')
         Ruta.save(nueva_ruta)
         return render(request, 'inicio.html')
 
@@ -40,8 +43,8 @@ def mostrar_ruta(request):
 
 
 def eliminar_ruta(request, id):
-    restaurante = Ruta.objects.get(id=id)
-    Ruta.delete(restaurante)
+    ruta = Ruta.objects.get(id=id)
+    Ruta.delete(ruta)
     return redirect('/neas/ruta')
 
 
@@ -138,4 +141,9 @@ def login_operador(request):
 def desloguearse(request):
     logout(request)
     return render(request, "logout.html")
-    # return redirect('/neas/logout/')
+    #return redirect('/neas/logout/')
+
+def buscar_ruta(request):
+    ciudad = request.POST.get("provincia")
+    list_rutas = Ruta.objects.filter(ciudad=ciudad)
+    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas})
