@@ -15,45 +15,76 @@
 
 {% block content1 %}
 
+    <div class="padreArriba">
+
+        <form method="post" action="/neas/buscar/personalizada/ {% for r in rutas %} {{ r.ciudad }} {% endfor %}">
+
+        {% csrf_token %}
+
+            <div class="mb-3">
+
+                <label for="tipo_ruta" class="form-label">Tipo de Ruta:</label>
+                <select id="tipo_ruta" name="tipo_ruta">
+                    <option value="" disabled selected hidden>Elige tu tipo de ruta:</option>
+                    {% for t in tipo_rutas %}
+                        <option value="{{ t }}"> {{ t }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="tramo_horario" class="form-label">Tramo Horario:</label>
+                <select id="tramo_horario" name="tramo_horario">
+                    <option value="" disabled selected hidden>Elige tu horario:</option>
+                    {% for t in tramo_horario %}
+                        <option value="{{ t }}"> {{ t }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label for="tipo_transporte" class="form-label">Tipo de Transporte:</label>
+                <select id="tipo_transporte" name="tipo_transporte">
+                    <option value="" disabled selected hidden>Elige tu transporte:</option>
+                    {% for ti in tipo_transporte %}
+                        <option value="{{ ti }}"> {{ ti }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+
+            <input class="boton" type="submit" value="Buscar Ruta"/>
+
+        </form>
+
+    </div>
+
+
     {% if rutas.count > 0 %}
 
         <div class="padre">
 
             {% for r in rutas %}
 
-                <div class="carta mb-3">
-
-                    <div class="hola g-0">
-
-                        <div>
-
-                            <img src="{{ r.imagen }}" class="img-fluid rounded-start" id="imgruta" alt="fotoCiudad">
-
-                        </div>
-
-                        <div class="hola col-md-8">
-
-                            <div class="hola1 hola card-body">
-
-                                <div>
-                                    <h5 class="hola card-title">{{ r.nombre }}</h5>
-                                </div>
-
-                                <div class="medio">
-                                    <p class="hola card-text">{{ r.ciudad }}</p>
-                                    <p class="hola card-text">{{ r.transporte }}</p>
-                                </div>
-
-                                <div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ r.imagen }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ r.nombre }}</h5>
+                        <p class="card-text">{{ r.descripcion }}</p>
                     </div>
-
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ r.transporte }}</li>
+                        <li class="list-group-item">{{ r.tramo_horario }}</li>
+                        <li class="list-group-item">{{ r.tematica }}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Eliminar Ruta</a>
+                        <a href="#" class="card-link">Valorar Ruta</a>
+                    </div>
                 </div>
 
             {% endfor %}
@@ -87,8 +118,5 @@
         </div>
 
     {% endif %}
-
-
-
 
 {% endblock %}

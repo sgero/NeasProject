@@ -184,14 +184,21 @@ ol, li {
   position: relative;
   flex: 0 0 100%;
   width: 50%;
-  background-image: url('img/fotosevilla.jpg');
+  background-image: url('img/fotobuena.jpg');
     background-repeat: no-repeat;
     background-size: cover;
   counter-increment: item;
+    opacity: 0.9;
 }
 
-.carousel__slide:nth-child(even) {
-  background-image: url('img/catedralsevilla.jpg');
+.carousel__slide:nth-child(2) {
+  background-image: url('img/fotobuena2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.carousel__slide:nth-child(3) {
+  background-image: url('img/fotobuena3.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -236,31 +243,6 @@ ol, li {
 .carousel:hover .carousel__snapper,
 .carousel:focus-within .carousel__snapper {
   animation-name: none;
-}
-
-.carousel__navigation {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  text-align: center;
-}
-
-.carousel__navigation-list,
-.carousel__navigation-item {
-  display: inline-block;
-}
-
-.carousel__navigation-button {
-  display: inline-block;
-  width: 1.5rem;
-  height: 1.5rem;
-  background-color: #333;
-  background-clip: content-box;
-  border: 0.25rem solid transparent;
-  border-radius: 50%;
-  font-size: 0;
-  transition: transform 0.1s;
 }
 
 .carousel::before,
@@ -324,5 +306,11 @@ ol, li {
 footer{
 
     position: relative !important;
+
+}
+
+.carrusel{
+
+    margin-bottom: -290px;
 
 }

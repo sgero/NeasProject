@@ -5,6 +5,7 @@ urlpatterns = [
     path('', inicio, name='inicio'),
     path('inicio2/', inicio2, name='inicio2'),
     path('buscar/', buscar_ruta, name='buscar'),
+    path('buscar/personalizada/<str:ciudad>', filtro_general, name='filtro'),
     path('ruta/crear/', crear_ruta, name='crear_ruta'),
     path('ruta/', mostrar_ruta, name='mostrar_ruta'),
     path('login/usuario', login_usuario, name='login_usuario'),
@@ -14,5 +15,6 @@ urlpatterns = [
     path('basic/page/', basic_page),
     path('logout/', desloguearse, name='logout'),
     path('ruta/eliminar/<int:id>', eliminar_ruta),
+    path('aboutUs/', sobre_nosotros),
     # path('register', ),
 ]
