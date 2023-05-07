@@ -10,10 +10,58 @@
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.25rem;
+    width: 40%;
 }
 
 .hola {
 
     background-color: beige;
+    max-width: 100% !important;
+
+}
+
+.hola1 {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.padre {
+    display: flex;
+    justify-content: space-around;
+    margin: 2%;
+    flex-wrap: wrap;
+}
+
+footer {
+
+
+
+}
+
+#imgruta {
+
+    width: 100%;
+
+}
+
+.card-text {
+
+    color: black;
+
+}
+
+.medio {
+
+    justify-content: center;
+    text-align: center;
+
+}
+
+.card-title {
+
+    margin: 0 !important;
 
 }

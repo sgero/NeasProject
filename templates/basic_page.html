@@ -22,6 +22,7 @@
         {% load bootstrap4 %}
         {% bootstrap_css %}
 
+
     </head>
 
     <body>
@@ -31,11 +32,27 @@
 
             <img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">
 
-            <a href="/neas/registrar/operador/" class="empresas">REGISTRAR MI RUTA</a>
+            {% if user is not None and  user.rol == "Operador" %}
+
+                <a href="/neas/ruta/crear/" class="empresas">REGISTRAR MI RUTA</a>
+
+            {% else %}
+
+                <a href="/neas/registrar/operador/" class="empresas">REGISTRAR MI RUTA</a>
+
+            {% endif %}
 
             <p class="empresas">|</p>
 
-            <a href="{% url 'login_operador' %}" class="empresas">ACCEDE A TUS RUTAS </a>
+            {% if user is not None and  user.rol == "Operador" %}
+
+                <a href="/neas/ruta/" class="empresas">ACCEDE A TUS RUTAS </a>
+
+            {% else %}
+
+                <a href="{% url 'login_operador' %}" class="empresas">ACCEDE A TUS RUTAS </a>
+
+            {% endif %}
 
         </div>
 
@@ -59,19 +76,31 @@
 
                     {% else %}
 
-                        <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+                        <a href="{% url 'registrar_usuario'%}" class="color">
 
-                            <a href="{% url 'registrar_usuario'%}" class="color">REGISTRO</a>
+                            <button class="boton">
 
-                        </button>
+                                <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+
+                                REGISTRO
+
+                            </button>
+
+                        </a>
 
                         <div>|</div>
 
-                        <button class="boton"><img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+                        <a href="{% url 'login_usuario' %}" class="color">
 
-                            <a href="{% url 'login_usuario' %}" class="color">INICIAR SESION</a>
+                            <button class="boton">
 
-                        </button>
+                                <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+
+                                INICIAR SESION
+
+                            </button>
+
+                        </a>
 
                     {% endif %}
 
@@ -138,7 +167,7 @@
 
                         </h6>
 
-                        <p class="bg">
+                        <p class="bg" style="width: 200px;display: flex;justify-content: center;text-align: center">
 
                             <a href="#!" class="remix bg text-reset">Términos & Condiciones</a>
 
