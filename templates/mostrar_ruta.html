@@ -17,7 +17,7 @@
 
     <div class="padreArriba">
 
-        <form method="post" action="/neas/buscar/personalizada/">
+        <form method="post" action="/neas/buscar/personalizada/ {% for r in rutas %} {{ r.ciudad }} {% endfor %}">
 
         {% csrf_token %}
 
