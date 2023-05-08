@@ -34,7 +34,7 @@ def crear_ruta(request):
         nueva_ruta.operador_tur = request.POST.get(Operador_tur)
         nueva_ruta.ciudad = request.POST.get('ciudad')
         nueva_ruta.descripcion = request.POST.get('desc')
-        nueva_ruta.operador_tur = request.user.id
+        nueva_ruta.operador_tur = Operador_tur.objects.filter(id=request.user.id)
         Ruta.save(nueva_ruta)
         return render(request, 'inicio.html')
 
