@@ -162,7 +162,6 @@ class Ruta(models.Model):
     usuarios = models.ManyToManyField(Usuario, default=None)
     ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
 
-
 class Monumento_pi(models.Model):
     nombre = models.CharField(max_length=150)
     imagen = models.CharField(max_length=500)
