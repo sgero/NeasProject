@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .decorators import *
 from .forms import FormularioRegistro
+from .forms import FormularioRegistroOPT
 from .models import *
 
 # Create your views here.
@@ -61,21 +62,34 @@ def registrar_usuario(request):
         else:
             return render(request, "registrar_usuario.html", {"form": form})
 
+#Registro Operador ANTIGUO (Handmade)
+# def registrar_operador(request):
+#     form = FormularioRegistro()
+#     if request.method == "GET":
+#         return render(request, "registrar_operador.html", {"form": form})
+#     #POST
+#     else:
+#         form = FormularioRegistro(request.POST)
+#         if form.is_valid():
+#             user = OperadorLogin()
+#             user.email = form.cleaned_data["email"]
+#             user.username = form.clean_username()
+#             user.password = make_password(request.POST.get("password2"))
+#             user.rol = Roles.OPERADOR
+#             user.save()
+#             return render(request, 'inicio.html')
+#         else:
+#             return render(request, "registrar_operador.html", {"form": form})
 
 def registrar_operador(request):
-    form = FormularioRegistro()
+    form = FormularioRegistroOPT()
     if request.method == "GET":
         return render(request, "registrar_operador.html", {"form": form})
     #POST
     else:
-        form = FormularioRegistro(request.POST)
+        form = FormularioRegistroOPT(request.POST)
         if form.is_valid():
-            user = UsuarioLogin()
-            user.email = form.cleaned_data["email"]
-            user.username = form.clean_username()
-            user.password = make_password(request.POST.get("password2"))
-            user.rol = Roles.OPERADOR
-            user.save()
+            form.save()
             return render(request, 'inicio.html')
         else:
             return render(request, "registrar_operador.html", {"form": form})

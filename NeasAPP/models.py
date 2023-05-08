@@ -120,6 +120,32 @@ class UsuarioLogin(AbstractBaseUser):
     def __str__(self):
         return self.username, self.email
 
+  #Clase para el formulario de registro de Operador Turístico (Creo que esto no hace falta ya que tenemos el UsuarioLogin, pero lo creo por si acaso)
+class OperadorLogin(AbstractBaseUser):
+    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=50, unique=True)
+    password = models.CharField(max_length=50, unique=True)
+    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.OPERADOR, null=True, unique=None)
+    # cif = models.CharField(max_length=255, unique=True)
+    #
+    # telf = models.CharField(max_length=255, unique=True)
+    #
+    # a_fund = models.IntegerField(unique=True)
+    #
+    # website = models.URLField(max_length=1000, unique=True)
+    #
+    # logo = models.URLField(max_length=1000, unique=True)
+    #
+    # info = models.CharField(max_length=1000, unique=True)
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['username, email, password'] #, 'cif', 'telefono', 'anyo_fundacion', 'website', 'logo', 'info'
+
+    objects = UsuarioManager()
+
+    def __str__(self):
+        return self.username, self.email
+
 
 #Entidades de la base de datos
 class Usuario(models.Model):
@@ -127,6 +153,7 @@ class Usuario(models.Model):
     Apellidos = models.CharField(max_length=150)
     dni = models.CharField(max_length=9)
     email = models.EmailField(max_length=150)
+    forgot = models.CharField(max_length=50)
     usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
 
 
@@ -137,8 +164,9 @@ class Operador_tur(models.Model):
     fecha_fundacion_oper = models.DateField()
     logo = models.CharField(max_length=500)
     info = models.CharField(max_length=1000)
-    telefono = models.CharField(max_length=50)
+    telf = models.CharField(max_length=50)
     sitio_web = models.CharField(max_length=500)
+    forgot = models.CharField(max_length=50)
     usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
 
 class Ciudad(models.Model):
