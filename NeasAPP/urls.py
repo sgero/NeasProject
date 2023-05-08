@@ -16,5 +16,8 @@ urlpatterns = [
     path('logout/', desloguearse, name='logout'),
     path('ruta/eliminar/<int:id>', eliminar_ruta),
     path('aboutUs/', sobre_nosotros),
+    path('terminos&condiciones/', terminos),
+    path('politicaPrivacidad/', terminos),
+    path('centroAyuda/', terminos),
     # path('register', ),
 ]

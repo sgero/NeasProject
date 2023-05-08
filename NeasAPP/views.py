@@ -18,7 +18,7 @@ def inicio(request):
 def basic_page(request):
     return render(request, 'basic_page.html')
 
-
+@operator_required
 def crear_ruta(request):
     if request.method == 'GET':
         return render(request, 'crear_ruta.html', {"tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, "Provincia": provincia})
@@ -34,6 +34,7 @@ def crear_ruta(request):
         nueva_ruta.operador_tur = request.POST.get(Operador_tur)
         nueva_ruta.ciudad = request.POST.get('ciudad')
         nueva_ruta.descripcion = request.POST.get('desc')
+        nueva_ruta.operador_tur = request.user.id
         Ruta.save(nueva_ruta)
         return render(request, 'inicio.html')
 
@@ -97,10 +98,13 @@ def login_usuario(request):
             password=form.cleaned_data['password'],)
 
         #Si hemos encontrado el usuario
-        if user is not None:
+        if user is not None and user.rol == "Cliente":
             #Nos logueamos
             login(request, user)
             return render(request, 'inicio.html', {"provincia" : provincia})
+
+        else:
+            return render(request, 'error_loginOp.html')
 
 
     else:
@@ -115,21 +119,22 @@ def login_operador(request):
 
     if request.method == "GET":
         return render(request, "login_operador.html", {"form": form})
+
     elif request.method == "POST":
         form = AuthenticationForm(request=request, data=request.POST)
-
         # Verificar que el formulario es valido
         if form.is_valid():
             # Intentar loguear
-            user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password'], )
+            user = authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password'], )
 
             # Si hemos encontrado el usuario
-            if user is not None:
+            if user is not None and user.rol == "Operador":
                 # Nos logueamos
                 login(request, user)
-                return render(request, 'inicio.html')
+                return render(request, 'inicio.html', {"provincia" : provincia})
+
+            else:
+                return render(request, 'error_loginUser.html')
 
         else:
             # pasar errores a la vista
@@ -147,39 +152,51 @@ def desloguearse(request):
 def buscar_ruta(request):
     ciudad = request.POST.get("provincia")
     list_rutas = Ruta.objects.filter(ciudad=ciudad)
+    request.session['ciudad'] = ciudad
     return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
 
 def filtro_general(request, ciudad):
     transporte = request.POST.get("tipo_transporte")
     tramo_horario = request.POST.get("tramo_horario")
     tipo_ruta = request.POST.get("tipo_ruta")
-    if ciudad == ciudad:
+    ciudad1 = request.session.get('ciudad')
+
+    if ciudad1 == ciudad.strip():
         if transporte != None and tramo_horario != None and tipo_ruta != None:
-            list_rutas = Ruta.objects.filter(transporte=transporte, tramo_horario=tramo_horario, tematica=tipo_ruta)
+            list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tramo_horario=tramo_horario, tematica=tipo_ruta)
 
         elif transporte == None and tramo_horario != None and tipo_ruta != None:
-            list_rutas = Ruta.objects.filter(tramo_horario=tramo_horario, tematica=tipo_ruta)
+            list_rutas = Ruta.objects.filter(ciudad=ciudad, tramo_horario=tramo_horario, tematica=tipo_ruta)
 
         elif tramo_horario == None and tipo_ruta != None and transporte != None:
-            list_rutas = Ruta.objects.filter(transporte=transporte, tematica=tipo_ruta)
+            list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tematica=tipo_ruta)
 
         elif tipo_ruta == None and tramo_horario != None and transporte != None:
-            list_rutas = Ruta.objects.filter(transporte=transporte, tramo_horario=tramo_horario)
+            list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tramo_horario=tramo_horario)
 
         elif transporte == None and tramo_horario == None and tipo_ruta != None:
-            list_rutas = Ruta.objects.filter(tematica=tipo_ruta)
+            list_rutas = Ruta.objects.filter(ciudad=ciudad, tematica=tipo_ruta)
 
         elif transporte == None and tipo_ruta == None and tramo_horario != None:
-            list_rutas = Ruta.objects.filter(tramo_horario=tramo_horario)
+            list_rutas = Ruta.objects.filter(ciudad=ciudad, tramo_horario=tramo_horario)
 
         elif transporte == None and tramo_horario == None and tipo_ruta == None:
             list_rutas = Ruta.objects
 
         else:
-            list_rutas = Ruta.objects.filter(transporte=transporte)
+            list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte)
 
     return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
 
 
 def sobre_nosotros(request):
     return render(request, 'sobre_nosotros.html')
+
+def terminos(request):
+    return render(request, 'terminos.html')
+
+def politicas(request):
+    return render(request, 'politicas.html')
+
+def centroAyuda(request):
+    return render(request, 'centro_ayuda.html')
