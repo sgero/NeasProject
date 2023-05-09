@@ -31,7 +31,6 @@ def crear_ruta(request):
         nueva_ruta.hora_inicio = request.POST.get('hora_inicio')
         nueva_ruta.hora_fin = request.POST.get('hora_fin')
         nueva_ruta.imagen = request.POST.get('imagen')
-        nueva_ruta.operador_tur = request.POST.get(Operador_tur)
         nueva_ruta.ciudad = request.POST.get('ciudad')
         nueva_ruta.descripcion = request.POST.get('desc')
         nueva_ruta.operador_tur = Operador_tur.objects.filter(id=request.user.id)
@@ -155,36 +154,35 @@ def buscar_ruta(request):
     request.session['ciudad'] = ciudad
     return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
 
-def filtro_general(request, ciudad):
+def filtro_general(request):
     transporte = request.POST.get("tipo_transporte")
     tramo_horario = request.POST.get("tramo_horario")
     tipo_ruta = request.POST.get("tipo_ruta")
-    ciudad1 = request.session.get('ciudad')
+    ciudad = request.session.get('ciudad')
 
-    if ciudad1 == ciudad.strip():
-        if transporte != None and tramo_horario != None and tipo_ruta != None:
-            list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tramo_horario=tramo_horario, tematica=tipo_ruta)
+    if transporte != None and tramo_horario != None and tipo_ruta != None:
+        list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tramo_horario=tramo_horario, tematica=tipo_ruta)
 
-        elif transporte == None and tramo_horario != None and tipo_ruta != None:
-            list_rutas = Ruta.objects.filter(ciudad=ciudad, tramo_horario=tramo_horario, tematica=tipo_ruta)
+    elif transporte == None and tramo_horario != None and tipo_ruta != None:
+        list_rutas = Ruta.objects.filter(ciudad=ciudad, tramo_horario=tramo_horario, tematica=tipo_ruta)
 
-        elif tramo_horario == None and tipo_ruta != None and transporte != None:
-            list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tematica=tipo_ruta)
+    elif tramo_horario == None and tipo_ruta != None and transporte != None:
+        list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tematica=tipo_ruta)
 
-        elif tipo_ruta == None and tramo_horario != None and transporte != None:
-            list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tramo_horario=tramo_horario)
+    elif tipo_ruta == None and tramo_horario != None and transporte != None:
+        list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tramo_horario=tramo_horario)
 
-        elif transporte == None and tramo_horario == None and tipo_ruta != None:
-            list_rutas = Ruta.objects.filter(ciudad=ciudad, tematica=tipo_ruta)
+    elif transporte == None and tramo_horario == None and tipo_ruta != None:
+        list_rutas = Ruta.objects.filter(ciudad=ciudad, tematica=tipo_ruta)
 
-        elif transporte == None and tipo_ruta == None and tramo_horario != None:
-            list_rutas = Ruta.objects.filter(ciudad=ciudad, tramo_horario=tramo_horario)
+    elif transporte == None and tipo_ruta == None and tramo_horario != None:
+        list_rutas = Ruta.objects.filter(ciudad=ciudad, tramo_horario=tramo_horario)
 
-        elif transporte == None and tramo_horario == None and tipo_ruta == None:
-            list_rutas = Ruta.objects
+    elif transporte == None and tramo_horario == None and tipo_ruta == None:
+        list_rutas = Ruta.objects
 
-        else:
-            list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte)
+    else:
+        list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte)
 
     return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
 
