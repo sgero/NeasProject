@@ -21,11 +21,44 @@
 
         <div class="container">
 
-            <form method="post">
+            <form name="formOPTHM" method="post" action="/neas/registrar/operador/">
 
                 {% csrf_token %}
 
-                {{ form.as_p }}
+{#                {{ form.as_p }}#}
+
+                <label for="nombre_operador">Usuario: </label>
+                <input id="username" type="text" name="username" value="">
+
+                <label for="password1_operador">Contraseña: </label>
+                <input id="password1" type="text" name="password" value="">
+
+                <label for="password2_operador">Repite Contraseña: </label>
+                <input id="password2" type="text" name="password2" value="">
+
+                <label for="email_operador">Email: </label>
+                <input id="email" type="text" name="email" value="">
+
+                <label for="cif_operador">Cif: </label>
+                <input id="cif" type="text" name="cif" value="">
+
+
+                <label for="telf_operador">Telefono: </label>
+                <input id="telefono" type="text" name="telf" value="">
+
+
+                <label for="anyo_operador">Fundacion: </label>
+                <input id="a_fund" type="text" name="a_fund" value="">
+
+                <label for="web_operador">Website: </label>
+                <input id="website" type="text" name="website" value="">
+
+                <label for="forgot_operador">Forgot: </label>
+                <input id="forgot" type="text" name="forgot" value="">
+
+                 <label for="info_operador">Info: </label>
+                <input id="info" type="text" name="info" value="">
+
 
                 <div class="botoon">
 
