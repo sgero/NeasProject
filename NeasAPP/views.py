@@ -92,16 +92,16 @@ def registrar_operador(request):
         # if form.is_valid():
         usuarioOP = UsuarioLogin()
         datosOP = DatosOperador()
-        usuarioOP.username = form.cleaned_data["username"]
-        usuarioOP.password  = form.cleaned_data["password2"]
+        usuarioOP.username = form.data["username"]
+        usuarioOP.password  =  make_password(request.POST.get("password2"))
         usuarioOP.rol = Roles.OPERADOR
-        usuarioOP.email = form.cleaned_data["email"]
-        datosOP.cif = form.cleaned_data["cif"]
-        datosOP.telf = form.cleaned_data["telf"]
-        datosOP.a_fund = form.cleaned_data["a_fund"]
-        datosOP.website = form.cleaned_data["website"]
-        datosOP.forgot = form.cleaned_data["forgot"]
-        datosOP.info = form.cleaned_data["info"]
+        usuarioOP.email = form.data["email"]
+        datosOP.cif = form.data["cif"]
+        datosOP.telf = form.data["telf"]
+        datosOP.a_fund = form.data["a_fund"]
+        datosOP.website = form.data["website"]
+        datosOP.forgot = form.data["forgot"]
+        datosOP.info = form.data["info"]
         usuarioOP.save()
         datosOP.usuario = usuarioOP
         datosOP.save()
@@ -116,17 +116,17 @@ def login_usuario(request):
     if request.method == "GET":
         return render(request, "login_usuario.html", {"form": form})
     elif request.method == "POST":
-            form = AuthenticationForm(request=request, data=request.POST)
+            form = AuthenticationForm(None, data=request.POST)
 
     #Verificar que el formulario es valido
     # if form.is_valid():
         #Intentar loguear
     user = authenticate(
-        username=form.cleaned_data['username'],
-        password=form.cleaned_data['password'],)
+        username=form.data['username'],
+        password=form.data['password'],)
 
     #Si hemos encontrado el usuario
-    if user is not None and user.rol == "Cliente":
+    if user is not None:
         #Nos logueamos
         login(request, user)
         return render(request, 'inicio.html', {"provincia" : provincia})
