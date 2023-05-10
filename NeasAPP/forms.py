@@ -26,6 +26,8 @@ class FormularioRegistro(UserCreationForm):
 #Formulario de registro para Operadores Turísticos
 class FormularioRegistroOPT(UserCreationForm):
 
+
+
     email = forms.EmailField(max_length=255, required=True,
                              help_text='Requerido. Ingrese una dirección de correo electrónico válida.')
 
@@ -55,6 +57,10 @@ class FormularioRegistroOPT(UserCreationForm):
 
     forgot = forms.CharField(max_length=50, required=True,
                              help_text='Requerido. Introduce una pista para recordar tu contraseña')
+
+
+
+
     class Meta:
         model = OperadorLogin
         fields = ('email', 'username', 'password1', 'password2', 'cif', 'telf', 'a_fund','website', 'logo', 'info', 'forgot')

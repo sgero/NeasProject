@@ -127,4 +127,4 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'NeasAPP/static'),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'NeasAPP.UsuarioLogin'
+AUTH_USER_MODEL = 'NeasAPP.OperadorLogin'

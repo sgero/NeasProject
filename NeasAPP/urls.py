@@ -19,5 +19,4 @@ urlpatterns = [
     path('terminos&condiciones/', terminos),
     path('politicaPrivacidad/', terminos),
     path('centroAyuda/', terminos),
-    # path('register', ),
 ]
