@@ -83,17 +83,32 @@ def registrar_usuario(request):
 #             return render(request, "registrar_operador.html", {"form": form})
 
 def registrar_operador(request):
-    form = FormularioRegistroOPT()
     if request.method == "GET":
-        return render(request, "registrar_operador.html", {"form": form})
+        return render(request, "registrar_operador.html")
     #POST
     else:
-        form = FormularioRegistroOPT(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'inicio.html')
-        else:
-            return render(request, "registrar_operador.html", {"form": form})
+        # form = formOPTHM(request.POST)
+        form = AuthenticationForm(request=request, data=request.POST)
+        # if form.is_valid():
+        usuarioOP = UsuarioLogin()
+        datosOP = DatosOperador()
+        usuarioOP.username = form.data["username"]
+        usuarioOP.password  =  make_password(request.POST.get("password2"))
+        usuarioOP.rol = Roles.OPERADOR
+        usuarioOP.email = form.data["email"]
+        datosOP.cif = form.data["cif"]
+        datosOP.telf = form.data["telf"]
+        datosOP.a_fund = form.data["a_fund"]
+        datosOP.website = form.data["website"]
+        datosOP.forgot = form.data["forgot"]
+        datosOP.info = form.data["info"]
+        usuarioOP.save()
+        datosOP.usuario = usuarioOP
+        datosOP.save()
+
+        return render(request, 'inicio.html')
+        # else:
+        #     return render(request, "registrar_operador.html", {"form": form})
 
 
 def login_usuario(request):
@@ -101,60 +116,62 @@ def login_usuario(request):
     if request.method == "GET":
         return render(request, "login_usuario.html", {"form": form})
     elif request.method == "POST":
-            form = AuthenticationForm(request=request, data=request.POST)
+            form = AuthenticationForm(None, data=request.POST)
 
     #Verificar que el formulario es valido
-    if form.is_valid():
+    # if form.is_valid():
         #Intentar loguear
-        user = authenticate(
-            username=form.cleaned_data['username'],
-            password=form.cleaned_data['password'],)
+    user = authenticate(
+        username=form.data['username'],
+        password=form.data['password'],)
 
-        #Si hemos encontrado el usuario
-        if user is not None and user.rol == "Cliente":
-            #Nos logueamos
-            login(request, user)
-            return render(request, 'inicio.html', {"provincia" : provincia})
-
-        else:
-            return render(request, 'error_loginOp.html')
-
+    #Si hemos encontrado el usuario
+    if user is not None:
+        #Nos logueamos
+        login(request, user)
+        return render(request, 'inicio.html', {"provincia" : provincia})
 
     else:
-        #pasar errores a la vista
-        for error in list(form.errors.values()):
-            messages.error(request, error)
-        return render(request, "login_usuario.html", {"form": form})
+        return render(request, 'error_loginOp.html')
 
 
-def login_operador(request):
-    form = AuthenticationForm()
+    # else:
+    #     #pasar errores a la vista
+    #     for error in list(form.errors.values()):
+    #         messages.error(request, error)
+    #     return render(request, "login_usuario.html", {"form": form})
 
-    if request.method == "GET":
-        return render(request, "login_operador.html", {"form": form})
 
-    elif request.method == "POST":
-        form = AuthenticationForm(None, data=request.POST)
-        # Verificar que el formulario es valido
-        # if form.is_valid():
 
-        # Intentar loguear
-        user = authenticate(username=form.data['username'], password=form.data['password'])
+#vamos a usar el loginusuario
 
-        # Si hemos encontrado el usuario
-        if user is not None and user.rol == "Operador":
-            # Nos logueamos
-            login(request, user)
-            return render(request, 'inicio.html', {"provincia": provincia})
-
-        else:
-            return render(request, 'error_loginUser.html')
-
-        # else:
-        #     # pasar errores a la vista
-        #     for error in list(form.errors.values()):
-        #         messages.error(request, error)
-        #     return render(request, "login_operador.html", {"form": form})
+# def login_operador(request):
+#     form = AuthenticationForm()
+#
+#     if request.method == "GET":
+#         return render(request, "login_operador.html", {"form": form})
+#
+#     elif request.method == "POST":
+#         form = AuthenticationForm(request=request, data=request.POST)
+#         # Verificar que el formulario es valido
+#         if form.is_valid():
+#             # Intentar loguear
+#             user = authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password'], )
+#
+#             # Si hemos encontrado el usuario
+#             if user is not None and user.rol == "Operador":
+#                 # Nos logueamos
+#                 login(request, user)
+#                 return render(request, 'inicio.html', {"provincia" : provincia})
+#
+#             else:
+#                 return render(request, 'error_loginUser.html')
+#
+#         else:
+#             # pasar errores a la vista
+#             for error in list(form.errors.values()):
+#                 messages.error(request, error)
+#             return render(request, "login_operador.html", {"form": form})
 
 
 @user_required
