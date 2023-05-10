@@ -71,7 +71,7 @@
             {% for r in rutas %}
 
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ r.imagen }}" alt="Card image cap">
+                    <img class="card-img-top" id="imgruta" src="{{ r.imagen }}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{ r.nombre }}</h5>
                         <p class="card-text">{{ r.descripcion }}</p>
@@ -80,6 +80,7 @@
                         <li class="list-group-item">{{ r.transporte }}</li>
                         <li class="list-group-item">{{ r.tramo_horario }}</li>
                         <li class="list-group-item">{{ r.tematica }}</li>
+                        <li class="list-group-item">{{ r.operador_tur.username }}</li>
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Eliminar Ruta</a>

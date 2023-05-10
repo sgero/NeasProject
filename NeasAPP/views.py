@@ -34,13 +34,13 @@ def crear_ruta(request):
         nueva_ruta.imagen = request.POST.get('imagen')
         nueva_ruta.ciudad = request.POST.get('ciudad')
         nueva_ruta.descripcion = request.POST.get('desc')
-        nueva_ruta.operador_tur = Operador_tur.objects.filter(id=request.user.id)
+        nueva_ruta.operador_tur_id = request.user.id
         Ruta.save(nueva_ruta)
         return render(request, 'inicio.html')
 
 
 def mostrar_ruta(request):
-    lista_rutas = Ruta.objects.all()
+    lista_rutas = Ruta.objects.filter(operador_tur=request.user.id)
     return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
 
 

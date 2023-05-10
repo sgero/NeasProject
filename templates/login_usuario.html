@@ -17,7 +17,15 @@
 
     <div class="padre">
 
-    <h2>INICIA SESIÓN COMO USUARIO</h2>
+        {% if user is not None and user.rol == "Cliente" %}
+
+            <h2>INICIA SESIÓN COMO OPERADOR</h2>
+
+        {% elif user is None %}
+
+            <h2>INICIA SESIÓN COMO USUARIO</h2>
+
+        {% endif %}
 
         <div class="container">
 

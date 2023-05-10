@@ -35,13 +35,10 @@
     flex-wrap: wrap;
 }
 
-footer {
-    position: absolute !important;
-}
-
 #imgruta {
 
-    width: 100%;
+    width: 286px;
+    height: 188px;
 
 }
 

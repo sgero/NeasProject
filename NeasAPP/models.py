@@ -240,8 +240,7 @@ class Ruta(models.Model):
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
     imagen = models.CharField(max_length=500, default=None)
     valoracion_media = models.FloatField(max_length=4, default=0.0)
-    # operador_tur = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
-    # usuarios = models.ManyToManyField(UsuarioLogin, default=None)
+    operador_tur = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
     ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
     descripcion = models.CharField(max_length=50, default='Descripción', null=True)
 
