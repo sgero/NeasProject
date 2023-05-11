@@ -17,8 +17,6 @@
 
         <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
 
-
-
         {% load bootstrap4 %}
         {% bootstrap_css %}
 
@@ -44,7 +42,7 @@
 
             <p class="empresas">|</p>
 
-            {% if user is not None and  user.rol == "Operador" %}
+            {% if user is not None and user.rol == "Operador" %}
 
                 <a href="/neas/ruta/" class="empresas">ACCEDE A TUS RUTAS </a>
 
@@ -119,9 +117,7 @@
 
     {% endblock %}
     {% block scripts %}  {% endblock %}
-
-
-    <footer>
+<footer>
 
         <section class="d-flex justify-content-lg-between">
 
@@ -153,7 +149,7 @@
 
                         <p class="bg">
 
-                            <a href="centro_ayuda.html" class="g text-reset">Centro de Ayuda</a>
+                            <a href="centroAyuda/" class="g text-reset">Centro de Ayuda</a>
 
                         </p>
 
@@ -169,13 +165,13 @@
 
                         <p class="bg" style="width: 200px;display: flex;justify-content: center;text-align: center">
 
-                            <a href="terminos.html" class="remix bg text-reset">Términos & Condiciones</a>
+                            <a href="terminos&condiciones/" class="remix bg text-reset">Términos & Condiciones</a>
 
                         </p>
 
                         <p class="bg">
 
-                            <a href="politicas.html" class="bg text-reset">Política de Privacidad</a>
+                            <a href="politicaPrivacidad/" class="bg text-reset">Política de Privacidad</a>
 
                         </p>
 

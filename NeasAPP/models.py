@@ -81,6 +81,58 @@ class provincia(models.TextChoices):
     salamanca = ('Salamanca')
     zamora = ('Zamora')
 
+class Monumentos(models.TextChoices):
+    LaSagradaFamilia = ('La Sagrada Familia')
+    LaAlhambra = ('La Alhambra')
+    LaCatedralDeSantiagoDeCompostela = ('La Catedral de Santiago de Compostela')
+    LaMezquitaCatedralDeCórdoba = ('La Mezquita-Catedral de Córdoba')
+    ElPalacioRealDeMadrid = ('El Palacio Real de Madrid')
+    LaGiralda = ('La Giralda')
+    ElParqueGüell = ('El Parque Güell')
+    LaTorreDelOro = ('La Torre del Oro')
+    ElAcueductoDeSegovia = ('El Acueducto de Segovia')
+    LaPlazaDeEspaña = ('La Plaza de España')
+    LaCiudadDeLasArtesYLasCienciasDeValencia = ('La Ciudad de las Artes y las Ciencias de Valencia')
+    ElParqueNacionalDeDoñana = ('El Parque Nacional de Doñana')
+    ElTeatroRomanoDeMérida = ('El Teatro Romano de Mérida')
+    LaBasílicaDelPilarEnZaragoza = ('La Basílica del Pilar en Zaragoza')
+    LaTorreDeHérculesEnLaCoruña = ('La Torre de Hércules en La Coruña')
+    ElMuseoDelPradoEnMadrid = ('El Museo del Prado en Madrid')
+    LaCatedralDeBurgos = ('La Catedral de Burgos')
+    LaCiudadEncantadaEnCuenca = ('La Ciudad Encantada en Cuenca')
+    LaMurallaRomanaDeLugo = ('La Muralla Romana de Lugo')
+    LaAlcazabaDeMálaga = ('La Alcazaba de Málaga')
+    LaTorreDelOroEnSevilla = ('La Torre del Oro en Sevilla')
+    ElCastilloDeLoarreEnHuesca = ('El Castillo de Loarre en Huesca')
+    ElMonasterioDeSanLorenzoDeElEscorialEnMadrid = ('El Monasterio de San Lorenzo de El Escorial en Madrid')
+    ElPuenteNuevoDeRondaEnMálaga = ('El Puente Nuevo de Ronda en Málaga')
+    LaPlayaDeLaConchaEnSanSebastián = ('La Playa de la Concha en San Sebastián')
+    ElMonasterioDePobletEnTarragona = ('El Monasterio de Poblet en Tarragona')
+    ElPalacioDeLaAlhóndigaEnZamora = ('El Palacio de la Alhóndiga en Zamora')
+    LaBasílicaDeLaSagradaFamiliaEnBarcelona = ('La Basílica de la Sagrada Familia en Barcelona')
+    LaCuevaDeAltamiraEnCantabria = ('La Cueva de Altamira en Cantabria')
+    LaCasaBatllóEnBarcelona = ('La Casa Batlló en Barcelona')
+    ElParqueDeMaríaLuisaEnSevilla = ('El Parque de María Luisa en Sevilla')
+    LaTorreDeLaVelaEnGranada = ('La Torre de la Vela en Granada')
+    ElAcueductoDeLosMilagrosEnMérida = ('El Acueducto de los Milagros en Mérida')
+    LaBasílicaDeSantaMaríaDelMarEnBarcelona = ('La Basílica de Santa María del Mar en Barcelona')
+    ElParqueNaturalDeLasIslasCíesEnGalicia = ('El Parque Natural de las Islas Cíes en Galicia')
+    LaCatedralDeSevilla = ('La Catedral de Sevilla')
+    ElParqueDelRetiroEnMadrid = ('El Parque del Retiro en Madrid')
+    ElPalacioDeLaMagdalenaEnSantander = ('El Palacio de la Magdalena en Santander')
+    LaIglesiaDeSanFranciscoElGrandeEnMadrid = ('La Iglesia de San Francisco el Grande en Madrid')
+    ElMonasterioDeSanJuanDeLaPeñaEnHuesca = ('El Monasterio de San Juan de la Peña en Huesca')
+    LaPlayaDeLasCatedralesEnLugo = ('La Playa de las Catedrales en Lugo')
+    LaPlazaMayorDeSalamanca = ('La Plaza Mayor de Salamanca')
+    ElParqueDeLaNaturalezaDeCabárcenoEnCantabria = ('El Parque de la Naturaleza de Cabárceno en Cantabria')
+    LaTorreDeLaMalmuertaEnCórdoba = ('La Torre de la Malmuerta en Córdoba')
+    ElRealAlcázarDeSevilla = ('El Real Alcázar de Sevilla')
+    LaPlayaDeBoloniaEnCádiz = ('La Playa de Bolonia en Cádiz')
+    ElPalacioDeLaGeneralitatDeValencia = ('El Palacio de la Generalitat de Valencia')
+    LaCatedralDeLeón = ('La Catedral de León')
+    ElMonasterioDeMontserratEnBarcelona = ('El Monasterio de Montserrat en Barcelona')
+    ElMuseoGuggenheimEnBilbao = ('El Museo Guggenheim en Bilbao')
+
 
 
 """CREACIÓN DE LA BASE DE DATOS"""
@@ -120,54 +172,56 @@ class UsuarioLogin(AbstractBaseUser):
     def __str__(self):
         return self.username, self.email
 
+class DatosUsuario(models.Model):
+    dni = models.CharField(max_length=9, null=True)
+    usuario = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
+
   #Clase para el formulario de registro de Operador Turístico (Creo que esto no hace falta ya que tenemos el UsuarioLogin, pero lo creo por si acaso)
-class OperadorLogin(AbstractBaseUser):
-    email = models.EmailField(unique=True)
-    username = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=50, unique=True)
-    rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.OPERADOR, null=True, unique=None)
-    # cif = models.CharField(max_length=255, unique=True)
-    #
-    # telf = models.CharField(max_length=255, unique=True)
-    #
-    # a_fund = models.IntegerField(unique=True)
-    #
-    # website = models.URLField(max_length=1000, unique=True)
-    #
-    # logo = models.URLField(max_length=1000, unique=True)
-    #
-    # info = models.CharField(max_length=1000, unique=True)
+class DatosOperador(models.Model):
+    # email = models.EmailField(unique=True)
+    # username = models.CharField(max_length=50, unique=True)
+    # password = models.CharField(max_length=50, unique=True)
+    # rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.OPERADOR, null=True, unique=None)
+    cif = models.CharField(max_length=255, null=True)
+    telf = models.CharField(max_length=255, null=True)
+    a_fund = models.CharField(max_length=4, null=True)
+    website = models.CharField(max_length=1000, null=True)
+    logo = models.CharField(max_length=1000, null=True)
+    forgot = models.CharField(max_length=50, null=True)
+    info = models.CharField(max_length=1000, null=True)
+    usuario = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['username, email, password'] #, 'cif', 'telefono', 'anyo_fundacion', 'website', 'logo', 'info'
-
-    objects = UsuarioManager()
-
-    def __str__(self):
-        return self.username, self.email
+    # USERNAME_FIELD = 'username'
+    # REQUIRED_FIELDS = ['username, email, password, cif, telf, a_fund, website, logo, forgot, info']
+    #
+    # objects = UsuarioManager()
+    #
+    # def __str__(self):
+    #     return self.username, self.email
 
 
 #Entidades de la base de datos
-class Usuario(models.Model):
-    nombre = models.CharField(max_length=150)
-    Apellidos = models.CharField(max_length=150)
-    dni = models.CharField(max_length=9)
-    email = models.EmailField(max_length=150)
-    forgot = models.CharField(max_length=50)
-    usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
+#ESTA CLASE NO HEREDA DEL LOGIN DE DJANGO (ABSTRACTBASE USER SI, QUE ES LA QUE VAMOS A USAR)
+# class Usuario(models.Model):
+#     nombre = models.CharField(max_length=150)
+#     Apellidos = models.CharField(max_length=150)
+#     dni = models.CharField(max_length=9)
+#     email = models.EmailField(max_length=150)
+#     forgot = models.CharField(max_length=50)
+#     usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
 
 
-class Operador_tur(models.Model):
-    nombre = models.CharField(max_length=100)
-    cif = models.CharField(max_length=9)
-    email = models.CharField(max_length=150)
-    fecha_fundacion_oper = models.DateField()
-    logo = models.CharField(max_length=500)
-    info = models.CharField(max_length=1000)
-    telf = models.CharField(max_length=50)
-    sitio_web = models.CharField(max_length=500)
-    forgot = models.CharField(max_length=50)
-    usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
+# class Operador_tur(models.Model):
+#     nombre = models.CharField(max_length=100)
+#     cif = models.CharField(max_length=9)
+#     email = models.CharField(max_length=150)
+#     fecha_fundacion_oper = models.DateField()
+#     logo = models.CharField(max_length=500)
+#     info = models.CharField(max_length=1000)
+#     telf = models.CharField(max_length=50)
+#     sitio_web = models.CharField(max_length=500)
+#     forgot = models.CharField(max_length=50)
+#     usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
 
 class Ciudad(models.Model):
     nombre = models.CharField(choices=provincia.choices, max_length=100)
@@ -186,28 +240,20 @@ class Ruta(models.Model):
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
     imagen = models.CharField(max_length=500, default=None)
     valoracion_media = models.FloatField(max_length=4, default=0.0)
-    operador_tur = models.ForeignKey(Operador_tur, on_delete=models.CASCADE, default=None, null=True)
-    usuarios = models.ManyToManyField(Usuario, default=None)
+    operador_tur = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
     ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
     descripcion = models.CharField(max_length=50, default='Descripción', null=True)
 
 
-class Monumento_pi(models.Model):
-    nombre = models.CharField(max_length=150)
-    imagen = models.CharField(max_length=500)
-    horario_visita = models.TimeField()
-    latitud = models.PositiveIntegerField()
-    longitude = models.PositiveIntegerField()
-    ciudades = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
-    rutas = models.ManyToManyField(Ruta)
-    # valoraciones = models.ManyToManyField(Valoracion_usuario)
-
+class DatosMonumentos(models.Model):
+    monumento = models.CharField(max_length=60, choices=Monumentos.choices, null=True)
+    imagen = models.URLField(null=True)
+    ciudad = models.CharField(max_length=60, choices=provincia.choices, null=True)
+    valoracion_media = models.FloatField(max_length=4, default=0.0, null=True)
 
 class Valoracion_usuario(models.Model):
-    num_estrellas = models.IntegerField()
+    nota = models.FloatField(null=True)
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, default=None, null=True)
-    monumento = models.ForeignKey(Monumento_pi, on_delete=models.CASCADE, default=None, null=True)
-    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-
-
-
+    monumento = models.ForeignKey(DatosMonumentos, on_delete=models.CASCADE, null=True)
+    usuarios = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, null=True)
+    comentario = models.CharField(max_length=200, null=True)

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import UsuarioLogin, OperadorLogin
+from .models import UsuarioLogin
 
 
 class FormularioRegistro(UserCreationForm):
@@ -35,26 +35,27 @@ class FormularioRegistroOPT(UserCreationForm):
     password1 = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())
 
-    cif = forms.CharField(max_length=255, required=True,
+    cif = forms.CharField(max_length=255, required=False,
                           help_text='Requerido. 9 caracteres')
 
-    telf = forms.CharField(max_length=255, required=True,
+    telf = forms.CharField(max_length=255, required=False,
                           help_text='Requerido.')
 
-    a_fund = forms.IntegerField(required=True,
+    a_fund = forms.IntegerField(required=False,
                           help_text='Requerido.')
 
-    website = forms.URLField(max_length=1000, required=True,
+    website = forms.URLField(max_length=1000, required=False,
                           help_text='Requerido.')
 
-    logo = forms.URLField(max_length=1000, required=True,
+    logo = forms.URLField(max_length=1000, required=False,
                           help_text='Requerido.')
-
-    info = forms.CharField(max_length=1000, required=True,
-                           help_text='Requerido. 1000 caracteres o menos. Presenta brevemente tu empresa.')
 
     forgot = forms.CharField(max_length=50, required=True,
                              help_text='Requerido. Introduce una pista para recordar tu contraseña')
+
+    info = forms.CharField(max_length=1000, required=False,
+                           help_text='Requerido. 1000 caracteres o menos. Presenta brevemente tu empresa.')
+
     class Meta:
-        model = OperadorLogin
-        fields = ('email', 'username', 'password1', 'password2', 'cif', 'telf', 'a_fund','website', 'logo', 'info', 'forgot')
+        model = UsuarioLogin
+        fields = ('email', 'username', 'password1', 'password2', 'cif', 'telf', 'a_fund','website', 'logo', 'forgot', 'info')

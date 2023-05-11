@@ -1,0 +1,48 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Mostrar Rutas | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'error_loginOp.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+        <div class="padre">
+
+                <div class="carta mb-3">
+
+                    <div class="hola g-0" style="align-items: center;display: flex;flex-direction: column">
+
+                        <div>
+
+                            <img src="{% static "img/icons8-error-globe-64.png" %}" class="img-fluid rounded-start" id="imgruta" alt="fotoError">
+
+                        </div>
+
+                        <div class="hola col-md-8" style="text-align: center">
+
+                            <h1>HA INTENTADO INICIAR SESIÓN COMO USUARIO SIENDO OPERADOR</h1>
+
+                        </div>
+
+                        <div>
+
+                            <a href="{% url 'login_operador' %}"> Pincha aquí para iniciar sesión correctamente.<i class="fas fa-sign-in-alt"></i> </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+        </div>
+
+{% endblock %}
