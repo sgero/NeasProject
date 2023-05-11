@@ -1,6 +1,6 @@
 footer {
 
-    position: relative !important;
+    position: absolute !important;
 
 }
 
@@ -24,8 +24,7 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 40px;
-
+    margin-top: 35px;
 
 }
 
