@@ -1,14 +1,6 @@
-
 footer {
     position: relative !important;
 }
-
-
-
-
-
-
-
 
 * {
   padding: 0;
@@ -18,13 +10,14 @@ footer {
 
 body {
   background: #c1bdba;
-  font-family: "Ubuntu", helvetica;
+  font-family: "Ubuntu", helvetica, serif;
+
 }
 
 a {
   text-decoration: none;
   color: #1ab188;
-  transition: 0.5s ease;
+  transition: 0.2s ease;
 }
 
 a:hover {
@@ -34,11 +27,14 @@ a:hover {
 .contenedor-formularios {
   background: #D9EAD3;
   padding: 40px;
-  max-width: 800px;
+  max-width: 500px;
   margin: 40px auto;
   border-radius: 6px;
   box-shadow: 0 4px 10px 4px rgba(19,35,47,0.3);
+  border: 2px solid #6A998B;
 }
+
+
 
 .contenedor-tabs {
   list-style: none;
@@ -63,7 +59,7 @@ a:hover {
   width: 50%;
   text-align: center;
   cursor: pointer;
-  transition: 0.5s ease;
+  transition: 0.2s ease;
 }
 
 .contenedor-tabs li a:hover {
@@ -77,6 +73,8 @@ a:hover {
   width: 100%;
   margin-bottom: 20px;
   border-radius: 5px;
+  font-weight: bolder;
+  font-size: 35px;
 }
 
 .contenido-tab > div:last-child {
@@ -95,7 +93,7 @@ label {
   transform: translateY(6px);
   left: 13px;
   color: rgba(255,255,255,0.5);
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
   -webkit-backface-visibility: hidden;
   pointer-events: none;
   font-size: 22px;
@@ -117,7 +115,7 @@ label.active .req {
 }
 
 label.highlight {
-  color: #fff;
+  color: black;
 }
 
 input {
@@ -132,13 +130,15 @@ input {
   border-top: none;
   border-left: none;
   border-right: none;
-  color: #fff;
+  color: black;
   border-radius: 0;
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
   border-radius: 5px;
+
 }
 
 input:focus {
+  font-size: 22px;
   outline: none;
   border-color: #1ab188;
 }
@@ -174,7 +174,7 @@ input:focus {
   font-size: 2rem;
   background: #6A998B;
   color: #fff;
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
 }
 
 .button:hover,
@@ -193,6 +193,7 @@ input:focus {
   margin-top: -20px;
   text-align: right;
   margin-bottom: 20px;
+  font-size: 13px;
 }
 
 p {
@@ -222,5 +223,18 @@ p {
 }
 
 .credenciales{
-  color: black;
+  color: #a7a7a7;
+}
+
+.nocuenta{
+  color: #117C63;
+}
+form{
+  margin-top: 25px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 7px;
 }

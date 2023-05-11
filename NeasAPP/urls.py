@@ -14,7 +14,7 @@ urlpatterns = [
     path('registrar/operador/', registrar_operador, name='registrar_operador'),
     path('basic/page/', basic_page),
     path('logout/', desloguearse, name='logout'),
-    path('ruta/eliminar/<int:id>', eliminar_ruta),
+    path('ruta/eliminar/<int:id>', eliminar_ruta, name='eliminar_ruta'),
     path('aboutUs/', sobre_nosotros),
     path('terminos&condiciones/', terminos),
     path('politicaPrivacidad/', terminos),

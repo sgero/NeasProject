@@ -9,71 +9,174 @@
 
 {% block css %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'registrar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'login_operador.css' %}">
 
 {% endblock %}
 
 {% block content1 %}
 
-    <div class="padre padre1">
+     <div class="contenedor-formularios">
 
-    <h2>REGÍSTRATE COMO OPERADOR TURÍSTICO</h2>
+        <ul class="contenedor-tabs">
 
-        <div class="container">
+            <li class="tab tab-segunda active"><a href="#">OPERADOR</a></li>
 
-            <form name="formOPTHM" method="post" action="/neas/registrar/operador/">
+        </ul>
 
-                {% csrf_token %}
+        <div class="contenido-tab">
 
-{#                {{ form.as_p }}#}
+            <div id="iniciar-sesion">
 
-                <label for="nombre_operador">Usuario: </label>
-                <input id="username" type="text" name="username" value="">
+                <h1>Registrate</h1>
 
-                <label for="password1_operador">Contraseña: </label>
-                <input id="password1" type="password" name="password" value="">
+                <form action="#" method="post" id="myForm">
 
-                <label for="password2_operador">Repite Contraseña: </label>
-                <input id="password2" type="password" name="password2" value="">
+                    {% csrf_token %}
 
-                <label for="email_operador">Email: </label>
-                <input id="email" type="email" name="email" value="">
+                    <div class="contenedor-input">
 
-                <label for="cif_operador">Cif: </label>
-                <input id="cif" type="text" name="cif" value="">
+                        <label class="credenciales">
 
-                <label for="telf_operador">Telefono: </label>
-                <input id="telefono" type="tel" name="telf" value="">
+                            Usuario <span class="req">*</span>
 
-                <label for="anyo_operador">Fundacion: </label>
-                <input id="a_fund" type="date" name="a_fund" value="">
+                        </label>
 
-                <label for="web_operador">Website: </label>
-                <input id="website" type="url" name="website" value="">
+                        <input type="text" name="username" required>
 
-                <label for="forgot_operador">Forgot: </label>
-                <input id="forgot" type="text" name="forgot" value="">
+                    </div>
 
-                 <label for="info_operador">Info: </label>
-                <input id="info" type="text" name="info" value="">
+                     <div class="contenedor-input">
 
+                        <label class="credenciales">
 
-                <div class="botoon">
+                            Contraseña <span class="req">*</span>
 
-                    <button class="boton boton2" type="submit">Regístrate</button>
+                        </label>
 
-                </div>
+                        <input type="password" name="password1" id="password1" required>
 
-            </form>
+                    </div>
 
-            <a class="nav-item nav-link" href="{% url 'login_operador' %}">
+                    <div class="contenedor-input">
 
-                ¿Tienes ya una cuenta? Inicia sesión aquí.<i class="fas fa-sign-in-alt"></i>
+                        <label class="credenciales">
+
+                            Repite Contraseña <span class="req">*</span>
+
+                        </label>
+
+                        <input type="password" name="password2" id="password2" required>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                            Email <span class="req">*</span>
+
+                        </label>
+
+                        <input type="email" name="email" required>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                           CIF <span class="req">*</span>
+
+                        </label>
+
+                        <input type="text" name="cif" required>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                           Número <span class="req">*</span>
+
+                        </label>
+
+                        <input type="text" name="telf" required>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                           Fundación <span class="req">*</span>
+
+                        </label>
+
+                        <input type="text" name="a_fund" required>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                           Website <span class="req">*</span>
+
+                        </label>
+
+                        <input type="text" name="website" required>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                            Forgot <span class="req">*</span>
+
+                        </label>
+
+                        <input type="text" name="forgot" required/>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                            Info <span class="req">*</span>
+
+                        </label>
+
+                        <input type="text" name="info" required>
+
+                    </div>
+
+                    <p class="forgot"><a href="#">¿Has olvidado la contraseña?</a></p>
+
+                    <input type="submit" class="button button-block" value="Entrar">
+
+                </form>
+
+            </div>
+
+            <a id="sincuenta" class="nav-item nav-link" href="{% url 'login_operador' %}">
+
+                <p class="nocuenta"> ¿Ya tienes cuenta? Inicia sesión aquí. </p><i
+                    class="fas fa-sign-in-alt"></i>
 
             </a>
 
         </div>
 
     </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'login.js' %}"></script>
 
 {% endblock %}
