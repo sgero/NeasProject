@@ -30,7 +30,7 @@
 
             <img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">
 
-            {% if user is not None and  user.rol == "Operador" %}
+            {% if user is not None and user.rol == "Operador" %}
 
                 <a href="/neas/ruta/crear/" class="empresas">REGISTRAR MI RUTA</a>
 
@@ -116,7 +116,9 @@
     {% block content1 %}
 
     {% endblock %}
+
     {% block scripts %}  {% endblock %}
+
 <footer>
 
         <section class="d-flex justify-content-lg-between">
