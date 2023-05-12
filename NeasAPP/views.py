@@ -35,8 +35,9 @@ def crear_ruta(request):
         nueva_ruta.ciudad = request.POST.get('ciudad')
         nueva_ruta.descripcion = request.POST.get('desc')
         nueva_ruta.operador_tur_id = request.user.id
+        nueva_ruta.precio = request.POST.get('precio')
         Ruta.save(nueva_ruta)
-        return render(request, 'inicio.html')
+        return render(request, 'inicio.html', {"provincia":provincia})
 
 
 def mostrar_ruta(request):
@@ -56,12 +57,14 @@ def registrar_usuario(request):
         return render(request, "registrar_usuario.html", {"form": form})
     #POST
     else:
+        user = UsuarioLogin()
         form = FormularioRegistro(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'inicio.html')
-        else:
-            return render(request, "registrar_usuario.html", {"form": form})
+        user.email = form.data["email"]
+        user.username = form.clean_username()
+        user.password = make_password(request.POST.get("password2"))
+        user.rol = Roles.CLIENTE
+        user.save()
+        return render(request, 'inicio.html')
 
 #Registro Operador ANTIGUO (Handmade)
 # def registrar_operador(request):
@@ -130,6 +133,29 @@ def login_usuario(request):
         #Nos logueamos
         login(request, user)
         return render(request, 'inicio.html', {"provincia" : provincia})
+
+    else:
+        return render(request, 'error_loginOp.html')
+
+def login_operador(request):
+    form = AuthenticationForm()
+    if request.method == "GET":
+        return render(request, "login_operador.html", {"form": form})
+    elif request.method == "POST":
+        form = AuthenticationForm(None, data=request.POST)
+
+    # Verificar que el formulario es valido
+    # if form.is_valid():
+    # Intentar loguear
+    user = authenticate(
+        username=form.data['username'],
+        password=form.data['password'], )
+
+    # Si hemos encontrado el usuario
+    if user is not None:
+        # Nos logueamos
+        login(request, user)
+        return render(request, 'inicio.html', {"provincia": provincia})
 
     else:
         return render(request, 'error_loginOp.html')
