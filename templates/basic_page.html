@@ -17,8 +17,6 @@
 
         <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
 
-
-
         {% load bootstrap4 %}
         {% bootstrap_css %}
 
@@ -32,7 +30,7 @@
 
             <img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">
 
-            {% if user is not None and  user.rol == "Operador" %}
+            {% if user is not None and user.rol == "Operador" %}
 
                 <a href="/neas/ruta/crear/" class="empresas">REGISTRAR MI RUTA</a>
 
@@ -44,7 +42,7 @@
 
             <p class="empresas">|</p>
 
-            {% if user is not None and  user.rol == "Operador" %}
+            {% if user is not None and user.rol == "Operador" %}
 
                 <a href="/neas/ruta/" class="empresas">ACCEDE A TUS RUTAS </a>
 
@@ -118,10 +116,10 @@
     {% block content1 %}
 
     {% endblock %}
+
     {% block scripts %}  {% endblock %}
 
-
-    <footer>
+<footer>
 
         <section class="d-flex justify-content-lg-between">
 

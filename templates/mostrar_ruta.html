@@ -71,7 +71,7 @@
             {% for r in rutas %}
 
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ r.imagen }}" alt="Card image cap">
+                    <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{ r.nombre }}</h5>
                         <p class="card-text">{{ r.descripcion }}</p>
@@ -80,10 +80,17 @@
                         <li class="list-group-item">{{ r.transporte }}</li>
                         <li class="list-group-item">{{ r.tramo_horario }}</li>
                         <li class="list-group-item">{{ r.tematica }}</li>
+                        <li class="list-group-item">{{ r.operador_tur.username }}</li>
                     </ul>
-                    <div class="card-body">
-                        <a href="#" class="card-link">Eliminar Ruta</a>
-                        <a href="#" class="card-link">Valorar Ruta</a>
+                    <div class="card-body" style="display: flex; justify-content: space-around">
+                        <a href="#" class="card-link" style="align-items:center; display:flex">Valorar Ruta</a>
+
+                        {% if r.operador_tur.id is user.id %}
+
+                            <a href="/neas/ruta/eliminar/{{ r.id }}" class="card-link"><img class="imgeliminar" src="{% static "img/eliminar_ruta.png" %}"></a>
+
+                        {% endif %}
+
                     </div>
                 </div>
 
@@ -101,7 +108,7 @@
 
                         <div>
 
-                            <img src="{% static "img/icons8-error-globe-64.png" %}" class="img-fluid rounded-start" id="imgruta" alt="fotoError">
+                            <img src="{% static "img/icons8-error-globe-64.png" %}" class="img-fluid rounded-start imgruta2"  alt="fotoError">
 
                         </div>
 
@@ -120,4 +127,3 @@
     {% endif %}
 
 {% endblock %}
-
