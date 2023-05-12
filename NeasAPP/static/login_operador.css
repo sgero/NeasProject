@@ -51,20 +51,14 @@ a:hover {
 .contenedor-tabs li a {
   display: block;
   text-decoration: none;
-  padding: 15px;
-  background: rgba(160,179,176,0.25);
+  padding: 5px;
   color: #a0b3b0;
   font-size: 20px;
   float: left;
   width: 50%;
   text-align: center;
-  cursor: pointer;
+  cursor: auto;
   transition: 0.2s ease;
-}
-
-.contenedor-tabs li a:hover {
-  background: #117c63;
-  color: #fff;
 }
 
 .contenedor-tabs .active a {
