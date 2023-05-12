@@ -56,12 +56,14 @@ def registrar_usuario(request):
         return render(request, "registrar_usuario.html", {"form": form})
     #POST
     else:
+        user = UsuarioLogin()
         form = FormularioRegistro(request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, 'inicio.html')
-        else:
-            return render(request, "registrar_usuario.html", {"form": form})
+        user.email = form.data["email"]
+        user.username = form.clean_username()
+        user.password = make_password(request.POST.get("password2"))
+        user.rol = Roles.CLIENTE
+        user.save()
+        return render(request, 'inicio.html')
 
 #Registro Operador ANTIGUO (Handmade)
 # def registrar_operador(request):
