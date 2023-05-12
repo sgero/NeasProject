@@ -15,98 +15,110 @@
 
 {% block content1 %}
 
-    <div class="inicio">
+    <div class="contenedor-formularios">
 
-        <form method="post" action="/neas/ruta/crear/">
+        <ul class="contenedor-tabs">
 
-            {% csrf_token %}
+            <li class="tab tab-segunda active"><a href="#">CREA TU RUTA</a></li>
 
-            <div class="mb-3">
+        </ul>
 
-                <label for="nombre">Nombre: </label>
-                <input id="nombre" name="nombre" type="text" required/>
+        <div class="contenido-tab">
+
+            <div id="iniciar-sesion">
+
+                <form method="post" action="/neas/ruta/crear/" id="myForm">
+
+                    {% csrf_token %}
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales" for="nombre">Nombre: <span class="req">*</span></label>
+                        <input id="nombre" name="nombre" type="text" required/>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales" for="desc">Descripción: <span class="req">*</span></label>
+                        <input id="desc" name="desc" type="text" required/>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <select id="ciudad" name="ciudad">
+                            <option value="" disabled selected hidden>Elige tu ciudad:</option>
+                            {% for p in Provincia %}
+                                <option  value="{{ p }}"> {{ p }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <select required id="tipo_ruta" name="tipo_ruta">
+                            <option value="" disabled selected hidden>Elige tu ruta:</option>
+                            {% for t in tipo_rutas %}
+                                <option value="{{ t }}"> {{ t }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <select required id="tramo_horario" name="tramo_horario">
+                            <option value="" disabled selected hidden>Elige tu horario:</option>
+                            {% for t in tramo_horario %}
+                                <option value="{{ t }}"> {{ t }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <select required id="tipo_transporte" name="tipo_transporte">
+                            <option value="" disabled selected hidden>Elige tu transporte:</option>
+                            {% for ti in tipo_transporte %}
+                                <option value="{{ ti }}"> {{ ti }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <input id="hora_inicio" name="hora_inicio" type="time" required/>
+
+                        <input id="hora_fin" name="hora_fin" type="time" required/>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales" for="imagen">URL Imagen: <span class="req">*</span></label>
+                        <input id="imagen" name="imagen" type="url" required/>
+
+                    </div>
+
+                    <input type="submit" class="button button-block" value="Crear Ruta">
+
+                </form>
 
             </div>
 
-            <div class="mb-3">
-
-                <label for="ciudad" class="form-label">Ciudad: </label>
-
-                <select id="ciudad" name="ciudad">
-
-                    <option value="" disabled selected hidden>Elige tu ciudad:</option>
-
-                    {% for p in Provincia %}
-
-                        <option  value="{{ p }}"> {{ p }}</option>
-
-                    {% endfor %}
-
-                </select>
-
-            </div>
-
-            <div class="mb-3">
-
-                <label for="desc">Descripción:</label>
-                <input id="desc" name="desc" type="text" required/>
-
-            </div>
-
-            <div class="mb-3">
-
-                <label for="tipo_ruta" class="form-label">Tipo de Ruta</label>
-                <select required id="tipo_ruta" name="tipo_ruta">
-                    {% for t in tipo_rutas %}
-                        <option value="{{ t }}"> {{ t }}</option>
-                    {% endfor %}
-                </select>
-
-            </div>
-
-            <div class="mb-3">
-
-                <label for="tramo_horario" class="form-label">Tramo Horario: </label>
-                <select required id="tramo_horario" name="tramo_horario">
-                    {% for t in tramo_horario %}
-                        <option value="{{ t }}"> {{ t }}</option>
-                    {% endfor %}
-                </select>
-
-            </div>
-
-            <div class="mb-3">
-
-                <label for="tipo_transporte" class="form-label">Tipo de Transporte: </label>
-                <select required id="tipo_transporte" name="tipo_transporte">
-                    {% for ti in tipo_transporte %}
-                        <option value="{{ ti }}"> {{ ti }}</option>
-                    {% endfor %}
-                </select>
-
-            </div>
-
-            <div class="mb-3">
-
-                <label for="hora_inicio">Hora de comienzo aproximada:</label>
-                <input id="hora_inicio" name="hora_inicio" type="time" required/>
-
-                <label for="hora_fin">Hora de finalización aproximada:</label>
-                <input id="hora_fin" name="hora_fin" type="time" required/>
-
-            </div>
-
-            <div class="mb-3">
-
-                <label for="imagen">URL Imagen: </label>
-                <input id="imagen" name="imagen" type="url" required/>
-
-            </div>
-
-            <input class="boton" type="submit" value="Crear Ruta"/>
-
-        </form>
+        </div>
 
     </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'login.js' %}"></script>
 
 {% endblock %}

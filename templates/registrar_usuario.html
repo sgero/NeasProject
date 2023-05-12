@@ -15,34 +15,96 @@
 
 {% block content1 %}
 
-    <div class="padre padre1">
+    <div class="contenedor-formularios">
 
-    <h2>REGÍSTRATE COMO USUARIO</h2>
+        <ul class="contenedor-tabs">
 
-        <div class="container">
+            <li class="tab tab-segunda active"><a href="#">USUARIO</a></li>
 
-            <form method="post">
+        </ul>
 
-                {% csrf_token %}
+        <div class="contenido-tab">
 
-                {{ form.as_p }}
+            <div id="iniciar-sesion">
 
-                <div class="botoon">
+                <h1>Registrate</h1>
 
-                    <button class="boton boton2" type="submit">Regístrate</button>
+                <form action="/neas/registrar/usuario/" method="post" id="myForm">
 
-                </div>
+                    {% csrf_token %}
 
-            </form>
+                    <div class="contenedor-input">
 
-            <a class="nav-item nav-link" href="{% url 'login_usuario' %}">
+                        <label class="credenciales">
 
-                ¿Tienes ya una cuenta? Inicia sesión aquí.<i class="fas fa-sign-in-alt"></i>
+                            Email <span class="req">*</span>
+
+                        </label>
+
+                        <input type="email" name="email" required>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                            Usuario <span class="req">*</span>
+
+                        </label>
+
+                        <input type="text" name="username" required>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                            Contraseña <span class="req">*</span>
+
+                        </label>
+
+                        <input type="password" name="password1" id="password1" required>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                            Repite Contraseña <span class="req">*</span>
+
+                        </label>
+
+                        <input type="password" name="password2" id="password2" required>
+
+                    </div>
+
+                    <p class="forgot"><a href="#">¿Has olvidado la contraseña?</a></p>
+
+                    <input type="submit" class="button button-block" value="Registrate">
+
+                </form>
+
+            </div>
+
+            <a id="sincuenta" class="nav-item nav-link" href="{% url 'login_usuario' %}">
+
+                <p class="nocuenta"> ¿Ya tienes cuenta? Inicia sesión aquí. </p>
+                <i class="fas fa-sign-in-alt"></i>
 
             </a>
 
         </div>
 
     </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'login.js' %}"></script>
 
 {% endblock %}

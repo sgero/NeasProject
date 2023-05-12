@@ -1,11 +1,65 @@
-h2{
+footer {
 
-   text-align: center;
+    position: relative !important;
 
 }
 
-footer{
+form {
 
-    position: relative !important;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+h2 {
+
+      justify-content: center;
+    display: flex;
+
+}
+
+.padre {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 40px;
+
+
+}
+
+.padre1 {
+
+    margin-top: 2%;
+
+}
+
+input {
+
+    width: 100%;
+    border-radius: 10px;
+    height: 35px;
+    border: 1px solid silver;
+    outline: none;
+    padding: 0.5em;
+
+}
+
+.boton2 {
+
+    width: 23%;
+    justify-content: center;
+    flex-wrap: wrap;
+
+}
+
+.botoon {
+
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
 
 }
