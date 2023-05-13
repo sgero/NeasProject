@@ -23,14 +23,14 @@
 
             <div class="mb-3">
 
-                <label for="nombre">Nombre</label>
+                <label for="nombre">Nombre: </label>
                 <input id="nombre" name="nombre" type="text" required/>
 
             </div>
 
             <div class="mb-3">
 
-                <label for="ciudad" class="form-label">Ciudad</label>
+                <label for="ciudad" class="form-label">Ciudad: </label>
 
                 <select id="ciudad" name="ciudad">
 
@@ -66,7 +66,7 @@
 
             <div class="mb-3">
 
-                <label for="tramo_horario" class="form-label">Tramo Horario</label>
+                <label for="tramo_horario" class="form-label">Tramo Horario: </label>
                 <select required id="tramo_horario" name="tramo_horario">
                     {% for t in tramo_horario %}
                         <option value="{{ t }}"> {{ t }}</option>
@@ -77,7 +77,7 @@
 
             <div class="mb-3">
 
-                <label for="tipo_transporte" class="form-label">Tipo de Transporte</label>
+                <label for="tipo_transporte" class="form-label">Tipo de Transporte: </label>
                 <select required id="tipo_transporte" name="tipo_transporte">
                     {% for ti in tipo_transporte %}
                         <option value="{{ ti }}"> {{ ti }}</option>
@@ -98,12 +98,12 @@
 
             <div class="mb-3">
 
-                <label for="imagen">URL Imagen</label>
+                <label for="imagen">URL Imagen: </label>
                 <input id="imagen" name="imagen" type="url" required/>
 
             </div>
 
-            <input class="boton" type="submit" value="Enviar Ruta"/>
+            <input class="boton" type="submit" value="Crear Ruta"/>
 
         </form>
 

@@ -87,3 +87,10 @@ footer {
   width: 50% !important;
 
 }
+
+a:hover {
+
+  color : white !important;
+  text-decoration: none !important;
+
+}
