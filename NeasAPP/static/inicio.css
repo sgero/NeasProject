@@ -181,18 +181,18 @@ ol, li {
 }
 
 .carousel__slide {
-  position: relative;
-  flex: 0 0 100%;
-  width: 50%;
-  background-image: url('img/last.jpeg');
+    position: relative;
+    flex: 0 0 100%;
+    width: 50%;
+    background-image: url('img/last.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
-  counter-increment: item;
+    counter-increment: item;
     opacity: 0.9;
 }
 
 .carousel__slide:nth-child(2) {
-  background-image: url('img/paris.jpeg');
+  background-image: url('img/seville.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
 }
