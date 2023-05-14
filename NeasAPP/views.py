@@ -15,6 +15,8 @@ def inicio2(request):
 def inicio(request):
     return render(request, 'inicio.html', {"provincia": provincia})
 
+def forgot(request):
+    return render(request, 'forgot.html')
 
 def basic_page(request):
     return render(request, 'basic_page.html')
