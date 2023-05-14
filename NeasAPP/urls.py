@@ -19,6 +19,6 @@ urlpatterns = [
     path('terminos&condiciones/', terminos),
     path('politicaPrivacidad/', terminos),
     path('centroAyuda/', terminos),
-    path('login/forgot/', forgot, name='forgot'),
+    path('forgot/', forgot, name='forgot'),
     # path('register', ),
 ]
