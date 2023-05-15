@@ -19,5 +19,6 @@ urlpatterns = [
     path('terminos&condiciones/', terminos, name='terminos&condiciones'),
     path('politicaPrivacidad/', politicas, name='politicaPrivacidad'),
     path('centroAyuda/', centroAyuda, name='centroAyuda'),
-
+    path('accesoDenegados/', acceso_denegado, name='acceso_denegado'),
+    path('eleccionOperador/', eleccion_operador, name='eleccion_operador')
 ]
