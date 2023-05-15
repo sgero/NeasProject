@@ -26,17 +26,22 @@
     <body>
 
     <header>
-        <div id="partearriba">
 
-            <img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">
+        <div id="partearriba">
 
             {% if user is not None and user.rol == "Operador" %}
 
-                <a href="/neas/ruta/crear/" class="empresas">REGISTRAR MI RUTA</a>
+                <a class="empresas" href="{% url 'login_usuario' %}">OPERADOR</a>
+
+            {% endif %}
+
+            {% if user is not None and user.rol == "Operador" %}
+
+                <a href="/neas/ruta/crear/" class="empresas"><img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">REGISTRAR MI RUTA</a>
 
             {% else %}
 
-                <a href="{% url 'registrar_operador' %}" class="empresas">REGISTRAR MI RUTA</a>
+                <a href="{% url 'registrar_operador' %}" class="empresas"><img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">REGISTRAR MI RUTA</a>
 
             {% endif %}
 
