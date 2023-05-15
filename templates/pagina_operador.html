@@ -17,15 +17,24 @@
 
 <!-- Código HTML para el menú desplegable de operadores -->
 {% if user.is_authenticated and user.rol == 'Operador' %}
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Opciones de Ruta
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="{% url 'crear_ruta' %}">Crear Ruta</a>
-      <a class="dropdown-item" href="{% url 'mostrar_ruta' %}">Ver Mis Rutas</a>
-    </div>
-  </div>
+    <form method="post">
+       {% csrf_token %}
+        <label for="menu">Seleccione una opción:</label>
+        <select id="menu" name="menu">
+            <option value="crear">Crear ruta</option>
+            <option value="mostrar">Mostrar ruta</option>
+        </select>
+        <input type="submit" value="Enviar">
+    </form>
+
+        {% if request.method == 'POST' %}
+        {% if request.POST.menu == 'crear' %}
+            {% url 'crear_ruta' %}
+        {% elif request.POST.menu == 'mostrar' %}
+            {% url 'mostrar_ruta' %}
+        {% endif %}
+    {% endif %}
+
 {% endif %}
 
 
