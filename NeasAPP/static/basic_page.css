@@ -49,6 +49,9 @@ body{
 html, body {
     margin: 0;
     padding: 0;
+    /*background-image: url("/NeasAPP/static/img/fondocss3.jpg");*/
+     /* Fondo degradado de tonos verdes y blanco pastel */
+    background: linear-gradient(to bottom right, #FFFFFF, #9AACB5, #FFFFFF);
     }
 
 
@@ -125,6 +128,7 @@ p{
 
 .bg{
     background-color: #78909C;
+
 
 }
 

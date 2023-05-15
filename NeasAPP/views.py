@@ -15,6 +15,8 @@ def inicio2(request):
 def inicio(request):
     return render(request, 'inicio.html', {"provincia": provincia})
 
+def forgot(request):
+    return render(request, 'forgot.html')
 
 def basic_page(request):
     return render(request, 'basic_page.html')
@@ -132,7 +134,12 @@ def login_usuario(request):
     if user is not None:
         #Nos logueamos
         login(request, user)
-        return render(request, 'inicio.html', {"provincia" : provincia})
+        if user.rol == "Operador":
+
+            return render(request, 'pagina_operador.html', {"provincia": provincia})
+
+        else:
+            return render(request, 'inicio.html', {"provincia": provincia})
 
     else:
         return render(request, 'error_loginOp.html')
@@ -256,3 +263,8 @@ def politicas(request):
 
 def centroAyuda(request):
     return render(request, 'centro_ayuda.html')
+
+@operador_required
+def vista_operador(request):
+    # Código de la vista para usuarios con rol de operador
+    return render(request, 'pagina_operador.html')
