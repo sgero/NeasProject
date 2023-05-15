@@ -246,11 +246,13 @@ class Ruta(models.Model):
     precio = models.IntegerField(null=True)
 
 
-class DatosMonumentos(models.Model):
-    monumento = models.CharField(max_length=60, choices=Monumentos.choices, null=True)
-    imagen = models.URLField(null=True)
-    ciudad = models.CharField(max_length=60, choices=provincia.choices, null=True)
-    valoracion_media = models.FloatField(max_length=4, default=0.0, null=True)
+# class DatosMonumentos(models.Model):
+#     monumento = models.CharField(max_length=60, choices=Monumentos.choices, null=True)
+#     imagen = models.URLField(null=True)
+#     ciudad = models.CharField(max_length=60, choices=provincia.choices, null=True)
+#     valoracion_media = models.FloatField(max_length=4, default=0.0, null=True)
+#     valoracion_usuario = models.ForeignKey(Valoracion_usuario, on_delete=models.CASCADE, null=True)
+#     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
 
 class Valoracion_usuario(models.Model):
     nota = models.FloatField(null=True)
@@ -258,3 +260,16 @@ class Valoracion_usuario(models.Model):
     monumento = models.ForeignKey(DatosMonumentos, on_delete=models.CASCADE, null=True)
     usuarios = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, null=True)
     comentario = models.CharField(max_length=200, null=True)
+
+class Monumento_pi(models.Model):
+    nombre = models.CharField(max_length=150, choices=Monumentos.choices)
+    imagen = models.CharField(max_length=500)
+    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE, null=True)
+    valoracion_media = models.FloatField(max_length=4, default=0.0, null=True)
+    valoracion_usuario = models.ForeignKey(Valoracion_usuario, on_delete=models.CASCADE, null=True)
+
+
+class Monumento_Ruta(models.Model):
+    ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
+    Monumento = models.ForeignKey(Monumento_pi, on_delete=models.CASCADE, null=True)
+
