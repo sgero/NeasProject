@@ -1,0 +1,32 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Operador | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+<!-- Código HTML para el menú desplegable de operadores -->
+{% if user.is_authenticated and user.rol == 'Operador' %}
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Opciones de Ruta
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="{% url 'crear_ruta' %}">Crear Ruta</a>
+      <a class="dropdown-item" href="{% url 'mostrar_ruta' %}">Ver Mis Rutas</a>
+    </div>
+  </div>
+{% endif %}
+
+
+{% endblock %}

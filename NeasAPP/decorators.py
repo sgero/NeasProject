@@ -31,3 +31,20 @@ def rol_requerido(rol_requerido):
                 return render(request, 'error.html')
         return _wrapped_view
     return decorator
+
+
+def operador_required(view_func):
+    """
+    Decorador para requerir que un usuario tenga el rol de "operador"
+    para poder acceder a una vista específica.
+    """
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated or request.user.rol != 'operador':
+            # Si el usuario no ha iniciado sesión o no tiene el rol de operador,
+            # redirigir a una página de acceso denegado o cualquier otra página deseada
+            return redirect('pagina_de_acceso_denegado')
+        else:
+            # Si el usuario tiene el rol de operador, mostrar la página solicitada
+            return view_func(request, *args, **kwargs)
+
+    return wrapper
