@@ -257,7 +257,6 @@ class Ruta(models.Model):
 class Valoracion_usuario(models.Model):
     nota = models.FloatField(null=True)
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, default=None, null=True)
-    monumento = models.ForeignKey(DatosMonumentos, on_delete=models.CASCADE, null=True)
     usuarios = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, null=True)
     comentario = models.CharField(max_length=200, null=True)
 
