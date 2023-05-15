@@ -32,7 +32,7 @@ body{
 #partearriba{
     background-color: #F9FBFD;
     display: flex;
-    justify-content:end;
+    justify-content:space-between;
     align-items: center;
     color: #B4C4B2;
     padding: 2px;
@@ -52,7 +52,9 @@ html, body {
     /*background-image: url("/NeasAPP/static/img/fondocss3.jpg");*/
      /* Fondo degradado de tonos verdes y blanco pastel */
     background: linear-gradient(to bottom right, #FFFFFF, #9AACB5, #FFFFFF);
+    background-repeat: revert;
     }
+
 
 
 #parteabajo{

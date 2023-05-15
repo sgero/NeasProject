@@ -21,7 +21,7 @@
 
         {% csrf_token %}
 
-            <div class="mb-3">
+            <div class="">
 
                 <label for="tipo_ruta" class="form-label">Tipo de Ruta:</label>
                 <select id="tipo_ruta" name="tipo_ruta">
@@ -33,7 +33,7 @@
 
             </div>
 
-            <div class="mb-3">
+            <div class="">
 
                 <label for="tramo_horario" class="form-label">Tramo Horario:</label>
                 <select id="tramo_horario" name="tramo_horario">
@@ -45,7 +45,7 @@
 
             </div>
 
-            <div class="mb-3">
+            <div class="">
 
                 <label for="tipo_transporte" class="form-label">Tipo de Transporte:</label>
                 <select id="tipo_transporte" name="tipo_transporte">
@@ -71,21 +71,25 @@
             {% for r in rutas %}
 
                 <div class="card" style="width: 18rem;">
+
                     <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ r.nombre }}</h5>
-                        <p class="card-text">{{ r.descripcion }}</p>
+
+                    <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
+                        <p class="card-text">{{ r.tematica }}</p>
+                        <p class="card-text">•</p>
+                        <p class="card-text">{{ r.transporte }}</p>
+                    </div >
+
+                    <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
+                        <h5>{{ r.nombre }}</h5>
+                        <h4>-</h4>
+                        <h5>{{ r.valoracion_media }}</h5>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">{{ r.transporte }}</li>
-                        <li class="list-group-item">{{ r.tramo_horario }}</li>
-                        <li class="list-group-item">{{ r.tematica }}</li>
-                        <li class="list-group-item">{{ r.operador_tur.username }}</li>
-                    </ul>
-                    <form>
-                        <label for="comment">Comentario:</label>
-                        <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
-                    </form>
+
+                    <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
+                        <p class="card-title">{{ r.ciudad }}</p>
+                        <p class="card-title">{{ r.precio }}€ de precio medio.</p>
+                    </div>
 
                     <div class="card-body" style="display: flex; justify-content: space-around">
                         <a href="#" class="card-link" style="align-items:center; display:flex">Valorar Ruta</a>
