@@ -134,7 +134,12 @@ def login_usuario(request):
     if user is not None:
         #Nos logueamos
         login(request, user)
-        return render(request, 'inicio.html', {"provincia" : provincia})
+        if user.rol == "Operador":
+
+            return render(request, 'pagina_operador.html', {"provincia": provincia})
+
+        else:
+            return render(request, 'inicio.html', {"provincia": provincia})
 
     else:
         return render(request, 'error_loginOp.html')

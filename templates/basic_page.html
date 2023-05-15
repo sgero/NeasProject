@@ -36,19 +36,7 @@
 
             {% else %}
 
-                <a href="/neas/registrar/operador/" class="empresas">REGISTRAR MI RUTA</a>
-
-            {% endif %}
-
-            <p class="empresas">|</p>
-
-            {% if user is not None and user.rol == "Operador" %}
-
-                <a href="/neas/ruta/" class="empresas">ACCEDE A TUS RUTAS </a>
-
-            {% else %}
-
-                <a href="{% url 'login_operador' %}" class="empresas">ACCEDE A TUS RUTAS </a>
+                <a href="{% url 'registrar_operador' %}" class="empresas">REGISTRAR MI RUTA</a>
 
             {% endif %}
 
@@ -145,7 +133,7 @@
 
                         <p class="bg">
 
-                            <a href="aboutUs/" class="g text-reset">Sobre Nosotros</a>
+                            <a href="{% url 'sobre_nosotros' %}" class="g text-reset">Sobre Nosotros</a>
 
                         </p>
 

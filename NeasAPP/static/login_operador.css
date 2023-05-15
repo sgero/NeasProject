@@ -34,8 +34,6 @@ a:hover {
   border: 2px solid #6A998B;
 }
 
-
-
 .contenedor-tabs {
   list-style: none;
   padding: 0;
@@ -68,11 +66,7 @@ a:hover {
   margin-bottom: 20px;
   border-radius: 5px;
   font-weight: bolder;
-  font-size: 35px;
-}
-
-.contenido-tab > div:last-child {
-  display: none;
+  font-size: 25px;
 }
 
 h1 {
@@ -101,7 +95,7 @@ label .req {
 label.active {
   transform: translateY(50px);
   left: 2px;
-  font-size: 14px;
+  font-size: 8px;
 }
 
 label.active .req {
