@@ -136,7 +136,7 @@ def login_usuario(request):
         login(request, user)
         if user.rol == "Operador":
 
-            return render(request, 'pagina_operador.html', {"provincia": provincia})
+            return render(request, 'pagina_operador.html')
 
         else:
             return render(request, 'inicio.html', {"provincia": provincia})
