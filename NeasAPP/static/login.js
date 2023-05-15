@@ -1,10 +1,8 @@
-$(document).ready(function(){
-
+$(document).ready(function () {
+    // Agregar animación a los campos de formulario
     $(".contenedor-formularios").find("input, textarea").on("keyup blur focus", function (e) {
-
         var $this = $(this),
-          label = $this.prev("label");
-
+            label = $this.prev("label");
         if (e.type === "keyup") {
             if ($this.val() === "") {
                 label.removeClass("active highlight");
@@ -12,35 +10,29 @@ $(document).ready(function(){
                 label.addClass("active highlight");
             }
         } else if (e.type === "blur") {
-            if($this.val() === "") {
+            if ($this.val() === "") {
                 label.removeClass("active highlight");
-                } else {
-                label.removeClass("highlight");
-                }
-        } else if (e.type === "focus") {
-            if($this.val() === "") {
+            } else {
                 label.removeClass("highlight");
             }
-            else if($this.val() !== "") {
+        } else if (e.type === "focus") {
+            if ($this.val() === "") {
+                label.removeClass("highlight");
+            } else if ($this.val() !== "") {
                 label.addClass("highlight");
             }
         }
-
     });
 
-    $(".tab a").on("click", function (e) {
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            var password1 = $('#password1').val();
+            var password2 = $('#password2').val();
 
-        e.preventDefault();
-
-        $(this).parent().addClass("active");
-        $(this).parent().siblings().removeClass("active");
-
-        target = $(this).attr("href");
-
-        $(".contenido-tab > div").not(target).hide();
-
-        $(target).fadeIn(600);
-
+            if (password1 !== password2) {
+                alert('Las contraseñas no coinciden');
+                event.preventDefault();
+            }
+        });
     });
-
 });

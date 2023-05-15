@@ -15,6 +15,8 @@ def inicio2(request):
 def inicio(request):
     return render(request, 'inicio.html', {"provincia": provincia})
 
+def forgot(request):
+    return render(request, 'forgot.html')
 
 def basic_page(request):
     return render(request, 'basic_page.html')
@@ -35,8 +37,9 @@ def crear_ruta(request):
         nueva_ruta.ciudad = request.POST.get('ciudad')
         nueva_ruta.descripcion = request.POST.get('desc')
         nueva_ruta.operador_tur_id = request.user.id
+        nueva_ruta.precio = request.POST.get('precio')
         Ruta.save(nueva_ruta)
-        return render(request, 'inicio.html')
+        return render(request, 'inicio.html', {"provincia":provincia})
 
 
 def mostrar_ruta(request):
@@ -132,6 +135,29 @@ def login_usuario(request):
         #Nos logueamos
         login(request, user)
         return render(request, 'inicio.html', {"provincia" : provincia})
+
+    else:
+        return render(request, 'error_loginOp.html')
+
+def login_operador(request):
+    form = AuthenticationForm()
+    if request.method == "GET":
+        return render(request, "login_operador.html", {"form": form})
+    elif request.method == "POST":
+        form = AuthenticationForm(None, data=request.POST)
+
+    # Verificar que el formulario es valido
+    # if form.is_valid():
+    # Intentar loguear
+    user = authenticate(
+        username=form.data['username'],
+        password=form.data['password'], )
+
+    # Si hemos encontrado el usuario
+    if user is not None:
+        # Nos logueamos
+        login(request, user)
+        return render(request, 'inicio.html', {"provincia": provincia})
 
     else:
         return render(request, 'error_loginOp.html')
@@ -232,3 +258,8 @@ def politicas(request):
 
 def centroAyuda(request):
     return render(request, 'centro_ayuda.html')
+
+@operador_required
+def vista_operador(request):
+    # Código de la vista para usuarios con rol de operador
+    return render(request, 'pagina_operador.html')
