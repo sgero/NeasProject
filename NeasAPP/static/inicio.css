@@ -192,19 +192,19 @@ ol, li {
 }
 
 .carousel__slide:nth-child(2) {
-  background-image: url('img/seville.jpeg');
+  background-image: url('img/p2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .carousel__slide:nth-child(3) {
-  background-image: url('img/istanbul.jpeg');
+  background-image: url('img/p3.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .carousel__slide:nth-child(4) {
-  background-image: url('img/puente.jpeg');
+  background-image: url('img/p3.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }

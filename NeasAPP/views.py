@@ -258,3 +258,8 @@ def politicas(request):
 
 def centroAyuda(request):
     return render(request, 'centro_ayuda.html')
+
+@operador_required
+def vista_operador(request):
+    # Código de la vista para usuarios con rol de operador
+    return render(request, 'pagina_operador.html')
