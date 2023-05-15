@@ -17,7 +17,7 @@
 
 <!-- Código HTML para el menú desplegable de operadores -->
 {% if user.is_authenticated and user.rol == 'Operador' %}
-    <form method="post">
+    <form method="post" action="{% url 'eleccion_operador' %}">
        {% csrf_token %}
         <label for="menu">Seleccione una opción:</label>
         <select id="menu" name="menu">
@@ -27,13 +27,6 @@
         <input type="submit" value="Enviar">
     </form>
 
-        {% if request.method == 'POST' %}
-        {% if request.POST.menu == 'crear' %}
-            {% url 'crear_ruta' %}
-        {% elif request.POST.menu == 'mostrar' %}
-            {% url 'mostrar_ruta' %}
-        {% endif %}
-    {% endif %}
 
 {% endif %}
 

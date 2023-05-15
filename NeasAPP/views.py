@@ -272,3 +272,11 @@ def vista_operador(request):
 
 def acceso_denegado(request):
     return render(request, 'acceso_denegado.html')
+
+
+def eleccion_operador(request):
+    # Código de la vista para usuarios con rol de operador
+    if request.POST['menu'] == 'crear':
+        return render(request, 'crear_ruta.html')
+    else:
+        return render(request, 'mostrar_ruta.html')
