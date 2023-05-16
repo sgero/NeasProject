@@ -1,9 +1,9 @@
 {% block content %}
-{% load static %}
+    {% load static %}
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 
-<html lang="en">
+    <html lang="en">
 
     <head>
 
@@ -20,7 +20,7 @@
         {% load bootstrap4 %}
         {% bootstrap_css %}
 
-
+        <link rel="stylesheet" type="text/css" href="{% static 'dark_web.css' %}">
     </head>
 
     <body>
@@ -52,7 +52,12 @@
                 <a href="/neas/"><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
 
             </div>
-
+{#            <div id="darkmode">#}
+                <button class="darkModeSwitch ms-2" id="switch">
+                    <span><i class="fas fa-sun"></i></span>
+                    <span><i class="fas fa-moon"></i></span>
+                </button>
+{#            </div>#}
             <div id="botones">
 
                 <div class="botones">
@@ -105,8 +110,6 @@
         </div>
 
 
-
-
     </header>
 
     {% block content1 %}
@@ -115,7 +118,7 @@
 
     {% block scripts %}  {% endblock %}
 
-<footer>
+    <footer>
 
         <section class="d-flex justify-content-lg-between">
 
@@ -190,9 +193,10 @@
         </div>
 
     </footer>
-
+    <script type="text/javascript" src”dark_web.js
+    "></script>
     </body>
 
-</html>
+    </html>
 
 {% endblock %}
