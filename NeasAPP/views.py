@@ -162,7 +162,7 @@ def login_usuario(request):
         login(request, user)
         if user.rol == "Operador":
 
-            return render(request, 'pagina_operador.html', {"provincia": provincia})
+            return render(request, 'pagina_operador.html')
 
         else:
             return render(request, 'inicio.html', {"provincia": provincia})
@@ -294,3 +294,15 @@ def centroAyuda(request):
 def vista_operador(request):
     # Código de la vista para usuarios con rol de operador
     return render(request, 'pagina_operador.html')
+
+
+def acceso_denegado(request):
+    return render(request, 'acceso_denegado.html')
+
+
+def eleccion_operador(request):
+    # Código de la vista para usuarios con rol de operador
+    if request.POST['menu'] == 'crear':
+        return render(request, 'crear_ruta.html')
+    else:
+        return render(request, 'mostrar_ruta.html')

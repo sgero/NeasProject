@@ -42,9 +42,11 @@ def operador_required(view_func):
         if not request.user.is_authenticated or request.user.rol != 'operador':
             # Si el usuario no ha iniciado sesión o no tiene el rol de operador,
             # redirigir a una página de acceso denegado o cualquier otra página deseada
-            return redirect('pagina_de_acceso_denegado')
+            return redirect('acceso_denegado')
         else:
             # Si el usuario tiene el rol de operador, mostrar la página solicitada
             return view_func(request, *args, **kwargs)
 
     return wrapper
+
+
