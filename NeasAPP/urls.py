@@ -7,6 +7,7 @@ urlpatterns = [
     path('buscar/', buscar_ruta, name='buscar'),
     path('buscar/personalizada/', filtro_general, name='filtro'),
     path('ruta/crear/', crear_ruta, name='crear_ruta'),
+    path('ruta/modificar/<int:id>', modificar_ruta, name='modificar_ruta'),
     path('ruta/', mostrar_ruta, name='mostrar_ruta'),
     path('login/usuario', login_usuario, name='login_usuario'),
     #path('login/operador', login_operador, name='login_operador'),
