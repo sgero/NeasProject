@@ -39,7 +39,15 @@ def crear_ruta(request):
         nueva_ruta.operador_tur_id = request.user.id
         nueva_ruta.precio = request.POST.get('precio')
         Ruta.save(nueva_ruta)
-        return render(request, 'inicio.html', {"provincia":provincia})
+
+        for m in request.POST.getlist('monumento_pi'):
+
+            nuevo_monumento_ruta = Monumento_Ruta()
+            nuevo_monumento_ruta.Monumento = m
+            nuevo_monumento_ruta.ruta = nueva_ruta
+            nuevo_monumento_ruta.save()
+
+        return inicio(request)
 
 def modificar_ruta(request,id):
 
@@ -157,21 +165,17 @@ def editar_perfil(request):
         return inicio(request)
 
 
-def cambiar_contraseña(request,id):
+def cambiar_contraseña(request):
 
-    user = request.user
+    usuario = UsuarioLogin.objects.get(username=request.session['usuario'])
 
     if request.method == 'GET':
-        return render(request, 'editar_perfil.html',
-                      {"usuario": user , "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
-                       "provincia": provincia})
+        return render(request, 'cambiar_contraseña.html')
     else:
-        usuario = user
-        usuario.username = request.POST.get('username')
-        usuario.email = request.POST.get('email')
-        usuario.imagen = request.POST.get('imagen')
-        UsuarioLogin.save(usuario)
-        return mostrar_ruta(request)
+        user = usuario
+        user.password = make_password(request.POST.get("password2"))
+        UsuarioLogin.save(user)
+        return inicio(request)
 
 
 def login_usuario(request):
@@ -188,7 +192,7 @@ def login_usuario(request):
         username=form.data['username'],
         password=form.data['password'],)
 
-    request.session['username'] = form.data['username']
+    request.session['usuario'] = form.data['username']
 
     #Si hemos encontrado el usuario
     if user is not None:
@@ -213,7 +217,7 @@ def login_operador(request):
         username=form.data['username'],
         password=form.data['password'], )
 
-    request.session['username'] = form.data['username']
+    request.session['usuario'] = form.data['username']
 
     # Si hemos encontrado el usuario
     if user is not None:
@@ -263,17 +267,6 @@ def login_operador(request):
 #                 messages.error(request, error)
 #             return render(request, "login_operador.html", {"form": form})
 
-def cambiar_contraseña(request):
-
-    usuario = UsuarioLogin.objects.get(username=request.session['username'])
-
-    if request.method == 'GET':
-        return render(request, 'cambiar_constraseña.html')
-    else:
-        user = usuario
-        user.password = make_password(request.POST.get("password2"))
-        UsuarioLogin.save(user)
-        return inicio(request)
 
 @user_required
 def desloguearse(request):
@@ -347,3 +340,8 @@ def eleccion_operador(request):
         return render(request, 'crear_ruta.html')
     else:
         return redirect(mostrar_ruta)
+
+
+def eleccion_monumento(request):
+
+    return render(request, 'eleccion_monumento.html', {'monumentos' : Monumentos})

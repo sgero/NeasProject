@@ -24,6 +24,7 @@ urlpatterns = [
     path('centroAyuda/', centroAyuda, name='centroAyuda'),
     path('accesoDenegados/', acceso_denegado, name='acceso_denegado'),
     path('eleccionOperador/', eleccion_operador, name='eleccion_operador'),
+    path('eleccionMonumento/', eleccion_monumento, name='eleccion_monumento'),
     # path('paginaOperador/', vista_operador, name='vista_operador')
 
 ]
