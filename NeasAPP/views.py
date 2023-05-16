@@ -140,6 +140,40 @@ def registrar_operador(request):
         #     return render(request, "registrar_operador.html", {"form": form})
 
 
+def editar_perfil(request):
+
+    user = request.user
+
+    if request.method == 'GET':
+        return render(request, 'editar_perfil.html',
+                      {"usuario": user , "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
+                       "provincia": provincia})
+    else:
+        usuario = user
+        usuario.username = request.POST.get('username')
+        usuario.email = request.POST.get('email')
+        usuario.imagen = request.POST.get('imagen')
+        UsuarioLogin.save(usuario)
+        return inicio(request)
+
+
+def cambiar_contraseña(request,id):
+
+    user = request.user
+
+    if request.method == 'GET':
+        return render(request, 'editar_perfil.html',
+                      {"usuario": user , "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
+                       "provincia": provincia})
+    else:
+        usuario = user
+        usuario.username = request.POST.get('username')
+        usuario.email = request.POST.get('email')
+        usuario.imagen = request.POST.get('imagen')
+        UsuarioLogin.save(usuario)
+        return mostrar_ruta(request)
+
+
 def login_usuario(request):
     form = AuthenticationForm()
     if request.method == "GET":

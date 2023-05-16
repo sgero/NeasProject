@@ -13,6 +13,7 @@ urlpatterns = [
     #path('login/operador', login_operador, name='login_operador'),
     path('registrar/usuario/', registrar_usuario, name='registrar_usuario'),
     path('registrar/operador/', registrar_operador, name='registrar_operador'),
+    path('editar/', editar_perfil, name='editar_perfil'),
     path('basic/page/', basic_page),
     path('logout/', desloguearse, name='logout'),
     path('ruta/eliminar/<int:id>', eliminar_ruta, name='eliminar_ruta'),
