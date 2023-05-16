@@ -115,9 +115,9 @@
 
                     <div class="contenedor-input">
 
-                        <input id="hora_inicio" name="hora_inicio" type="time" required value="{{ ruta.hora_inicio }}"/>
+                        <input id="hora_inicio" name="hora_inicio" type="time" required value="{{ ruta.hora_inicio | time:'H:i'}}"/>
 
-                        <input id="hora_fin" name="hora_fin" type="time" required value="{{ ruta.hora_fin }}"/>
+                        <input id="hora_fin" name="hora_fin" type="time" required value="{{ ruta.hora_fin | time:'H:i' }}"/>
 
                     </div>
 

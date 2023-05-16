@@ -43,8 +43,6 @@ def crear_ruta(request):
 
 def modificar_ruta(request,id):
 
-
-
     ruta = Ruta.objects.get(id = id)
 
     if request.method == 'GET':
