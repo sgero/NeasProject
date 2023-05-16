@@ -1,5 +1,5 @@
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -41,6 +41,32 @@ def crear_ruta(request):
         Ruta.save(nueva_ruta)
         return render(request, 'inicio.html', {"provincia":provincia})
 
+def modificar_ruta(request,id):
+
+
+
+    ruta = Ruta.objects.get(id = id)
+
+    if request.method == 'GET':
+        return render(request, 'modificar_ruta.html',
+                      {"ruta": ruta , "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
+                       "provincia": provincia})
+    else:
+        ruta_act = ruta
+        ruta_act.nombre = request.POST.get('nombre')
+        ruta_act.tematica = request.POST.get('tipo_ruta')
+        ruta_act.transporte = request.POST.get('tipo_transporte')
+        ruta_act.tramo_horario = request.POST.get('tramo_horario')
+        ruta_act.hora_inicio = request.POST.get('hora_inicio')
+        ruta_act.hora_fin = request.POST.get('hora_fin')
+        ruta_act.imagen = request.POST.get('imagen')
+        ruta_act.ciudad = request.POST.get('ciudad')
+        ruta_act.descripcion = request.POST.get('desc')
+        ruta_act.operador_tur_id = request.user.id
+        ruta_act.precio = request.POST.get('precio')
+        Ruta.save(ruta_act)
+        return mostrar_ruta(request)
+
 
 def mostrar_ruta(request):
     lista_rutas = Ruta.objects.filter(operador_tur=request.user.id)
@@ -50,7 +76,7 @@ def mostrar_ruta(request):
 def eliminar_ruta(request, id):
     ruta = Ruta.objects.get(id=id)
     Ruta.delete(ruta)
-    return redirect('/neas/ruta')
+    return redirect('/neas/ruta/mostrar/')
 
 
 def registrar_usuario(request):
