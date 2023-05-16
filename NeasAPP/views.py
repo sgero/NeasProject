@@ -154,6 +154,8 @@ def login_usuario(request):
         username=form.data['username'],
         password=form.data['password'],)
 
+    request.session['username'] = form.data['username']
+
     #Si hemos encontrado el usuario
     if user is not None:
         #Nos logueamos
@@ -176,6 +178,8 @@ def login_operador(request):
     user = authenticate(
         username=form.data['username'],
         password=form.data['password'], )
+
+    request.session['username'] = form.data['username']
 
     # Si hemos encontrado el usuario
     if user is not None:
@@ -225,6 +229,17 @@ def login_operador(request):
 #                 messages.error(request, error)
 #             return render(request, "login_operador.html", {"form": form})
 
+def cambiar_contraseña(request):
+
+    usuario = UsuarioLogin.objects.get(username=request.session['username'])
+
+    if request.method == 'GET':
+        return render(request, 'cambiar_constraseña.html')
+    else:
+        user = usuario
+        user.password = make_password(request.POST.get("password2"))
+        UsuarioLogin.save(user)
+        return inicio(request)
 
 @user_required
 def desloguearse(request):
