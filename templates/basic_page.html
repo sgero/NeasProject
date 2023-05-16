@@ -26,22 +26,20 @@
     <body>
 
     <header>
-        <div id="partearriba">
 
-            <img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">
+        <div id="partearriba">
 
             {% if user is not None and user.rol == "Operador" %}
 
-                <a href="/neas/ruta/crear/" class="empresas">REGISTRAR MI RUTA</a>
-                <a href="{% url 'mostrar_ruta' %}" class="empresas">VER MIS RUTA</a>
+{#                <a class="empresas" href="{% url 'vista_operador' %}">OPERADOR</a>#}
 
-            {% else %}
-
-                <a href="{% url 'registrar_operador' %}" class="empresas">REGISTRAR MI RUTA</a>
-                <a href="{% url 'mostrar_ruta' %}" class="empresas">VER MIS RUTA</a>
-
-
-
+                <div class="dropdown">
+                    <button class="boton color">OPERADOR</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'crear_ruta' %}">Crear Rutas</a>
+                        <a href="{% url 'mostrar_ruta' %}">Ver mis Rutas</a>
+                    </div>
+                </div>
 
             {% endif %}
 
@@ -67,17 +65,22 @@
 
                     {% else %}
 
-                        <a href="{% url 'registrar_usuario'%}" class="color">
+                        <div class="dropdown">
 
-                            <button class="boton">
+                                <button class="boton">
 
-                                <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+                                    <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
 
-                                REGISTRO
+                                    REGISTRO
 
-                            </button>
+                                </button>
 
-                        </a>
+                            <div class="dropdown-content">
+                                <a href="{% url 'registrar_operador' %}">Operador</a>
+                                <a href="{% url 'registrar_usuario' %}">Cliente</a>
+                            </div>
+
+                        </div>
 
                         <div>|</div>
 
