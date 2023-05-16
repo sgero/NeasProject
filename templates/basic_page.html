@@ -33,10 +33,15 @@
             {% if user is not None and user.rol == "Operador" %}
 
                 <a href="/neas/ruta/crear/" class="empresas">REGISTRAR MI RUTA</a>
+                <a href="{% url 'mostrar_ruta' %}" class="empresas">VER MIS RUTA</a>
 
             {% else %}
 
                 <a href="{% url 'registrar_operador' %}" class="empresas">REGISTRAR MI RUTA</a>
+                <a href="{% url 'mostrar_ruta' %}" class="empresas">VER MIS RUTA</a>
+
+
+
 
             {% endif %}
 
