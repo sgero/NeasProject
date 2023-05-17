@@ -2,11 +2,15 @@
 {% load static %}
 
 {% block title %}
-    Login Usuario | NEAS
+
+    Crear Rutas | NEAS
+
 {% endblock %}
 
 {% block css %}
+
     <link rel="stylesheet" type="text/css" href="{% static 'login_operador.css' %}">
+
 {% endblock %}
 
 {% block content1 %}
@@ -15,7 +19,7 @@
 
         <ul class="contenedor-tabs">
 
-            <li class="tab tab-segunda active"><a href="#">Inicia Sesión</a></li>
+            <li class="tab tab-segunda active"><a href="#">CAMBIO DE CONSTRASEÑA</a></li>
 
         </ul>
 
@@ -23,33 +27,26 @@
 
             <div id="iniciar-sesion">
 
-                <form action="#" method="post">
+                <form method="post" action="#" id="myForm">
 
                     {% csrf_token %}
 
                     <div class="contenedor-input">
 
-                        <label class="credenciales">
-                            Usuario <span class="req">*</span>
-                        </label>
-
-                        <input type="text" name="username" required>
+                        <label class="credenciales" for="password1">Nueva contraseña <span class="req">*</span></label>
+                        <input id="password1" name="password1" type="password" required/>
 
                     </div>
 
                     <div class="contenedor-input">
 
-                        <label class="credenciales">
-                            Contraseña <span class="req">*</span>
-                        </label>
-
-                        <input type="password" name="password" required>
+                        <label class="credenciales" for="password2">Repite tu constraseña: <span class="req">*</span></label>
+                        <input id="password2" name="password2" type="password" required/>
 
                     </div>
 
-                    <p class="forgot"><a href="{% url 'cambiar_contraseña' %}">¿Has olvidado la contraseña?</a></p>
 
-                    <input type="submit" class="button button-block" value="Entrar">
+                    <input type="submit" class="button button-block" value="Cambiar contraseña">
 
                 </form>
 
@@ -58,7 +55,6 @@
         </div>
 
     </div>
-
 
 {% endblock %}
 

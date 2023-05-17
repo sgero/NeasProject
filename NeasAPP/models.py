@@ -164,6 +164,7 @@ class UsuarioLogin(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
     rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True, unique=None)
+    imagen = models.CharField(max_length=1000, null=True, unique=True, default='NeasAPP/static/img/userfoto.png')
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username, email, password']
 
@@ -269,4 +270,4 @@ class Monumento_pi(models.Model):
 
 class Monumento_Ruta(models.Model):
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
-    Monumento = models.ForeignKey(Monumento_pi, on_delete=models.CASCADE, null=True)
+    Monumento = models.CharField(choices=Monumentos.choices, max_length=200, null=True)

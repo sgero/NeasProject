@@ -1,5 +1,5 @@
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -27,19 +27,51 @@ def crear_ruta(request):
         return render(request, 'crear_ruta.html', {"tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, "Provincia": provincia})
     else:
         nueva_ruta = Ruta()
-        nueva_ruta.nombre = request.POST.get('nombre')
-        nueva_ruta.tematica = request.POST.get('tipo_ruta')
-        nueva_ruta.transporte = request.POST.get('tipo_transporte')
-        nueva_ruta.tramo_horario = request.POST.get('tramo_horario')
-        nueva_ruta.hora_inicio = request.POST.get('hora_inicio')
-        nueva_ruta.hora_fin = request.POST.get('hora_fin')
-        nueva_ruta.imagen = request.POST.get('imagen')
-        nueva_ruta.ciudad = request.POST.get('ciudad')
-        nueva_ruta.descripcion = request.POST.get('desc')
+        nueva_ruta.nombre = request.session['nombre']
+        nueva_ruta.tematica = request.session['tipo_ruta']
+        nueva_ruta.transporte = request.session['tipo_transporte']
+        nueva_ruta.tramo_horario = request.session['tramo_horario']
+        nueva_ruta.hora_inicio = request.session['hora_inicio']
+        nueva_ruta.hora_fin = request.session['hora_fin']
+        nueva_ruta.imagen = request.session['imagen']
+        nueva_ruta.ciudad = request.session['ciudad']
+        nueva_ruta.descripcion = request.session['desc']
         nueva_ruta.operador_tur_id = request.user.id
-        nueva_ruta.precio = request.POST.get('precio')
+        nueva_ruta.precio = request.session['precio']
         Ruta.save(nueva_ruta)
-        return render(request, 'inicio.html', {"provincia":provincia})
+
+        for m in request.POST.getlist('monumento'):
+
+            nuevo_monumento_ruta = Monumento_Ruta()
+            nuevo_monumento_ruta.Monumento = m
+            nuevo_monumento_ruta.ruta = nueva_ruta
+            nuevo_monumento_ruta.save()
+
+        return inicio(request)
+
+def modificar_ruta(request,id):
+
+    ruta = Ruta.objects.get(id = id)
+
+    if request.method == 'GET':
+        return render(request, 'modificar_ruta.html',
+                      {"ruta": ruta , "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
+                       "provincia": provincia})
+    else:
+        ruta_act = ruta
+        ruta_act.nombre = request.POST.get('nombre')
+        ruta_act.tematica = request.POST.get('tipo_ruta')
+        ruta_act.transporte = request.POST.get('tipo_transporte')
+        ruta_act.tramo_horario = request.POST.get('tramo_horario')
+        ruta_act.hora_inicio = request.POST.get('hora_inicio')
+        ruta_act.hora_fin = request.POST.get('hora_fin')
+        ruta_act.imagen = request.POST.get('imagen')
+        ruta_act.ciudad = request.POST.get('ciudad')
+        ruta_act.descripcion = request.POST.get('desc')
+        ruta_act.operador_tur_id = request.user.id
+        ruta_act.precio = request.POST.get('precio')
+        Ruta.save(ruta_act)
+        return mostrar_ruta(request)
 
 
 def mostrar_ruta(request):
@@ -50,7 +82,7 @@ def mostrar_ruta(request):
 def eliminar_ruta(request, id):
     ruta = Ruta.objects.get(id=id)
     Ruta.delete(ruta)
-    return redirect('/neas/ruta')
+    return mostrar_ruta(request)
 
 
 def registrar_usuario(request):
@@ -116,6 +148,36 @@ def registrar_operador(request):
         #     return render(request, "registrar_operador.html", {"form": form})
 
 
+def editar_perfil(request):
+
+    user = request.user
+
+    if request.method == 'GET':
+        return render(request, 'editar_perfil.html',
+                      {"usuario": user , "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
+                       "provincia": provincia})
+    else:
+        usuario = user
+        usuario.username = request.POST.get('username')
+        usuario.email = request.POST.get('email')
+        usuario.imagen = request.POST.get('imagen')
+        UsuarioLogin.save(usuario)
+        return inicio(request)
+
+
+def cambiar_contraseña(request):
+
+    usuario = UsuarioLogin.objects.get(username=request.session['usuario'])
+
+    if request.method == 'GET':
+        return render(request, 'cambiar_contraseña.html')
+    else:
+        user = usuario
+        user.password = make_password(request.POST.get("password2"))
+        UsuarioLogin.save(user)
+        return inicio(request)
+
+
 def login_usuario(request):
     form = AuthenticationForm()
     if request.method == "GET":
@@ -130,16 +192,13 @@ def login_usuario(request):
         username=form.data['username'],
         password=form.data['password'],)
 
+    request.session['usuario'] = form.data['username']
+
     #Si hemos encontrado el usuario
     if user is not None:
         #Nos logueamos
         login(request, user)
-        if user.rol == "Operador":
-
-            return render(request, 'pagina_operador.html')
-
-        else:
-            return render(request, 'inicio.html', {"provincia": provincia})
+        return render(request, 'inicio.html', {"provincia": provincia})
 
     else:
         return render(request, 'error_loginOp.html')
@@ -157,6 +216,8 @@ def login_operador(request):
     user = authenticate(
         username=form.data['username'],
         password=form.data['password'], )
+
+    request.session['usuario'] = form.data['username']
 
     # Si hemos encontrado el usuario
     if user is not None:
@@ -269,7 +330,6 @@ def vista_operador(request):
     # Código de la vista para usuarios con rol de operador
     return render(request, 'pagina_operador.html')
 
-
 def acceso_denegado(request):
     return render(request, 'acceso_denegado.html')
 
@@ -279,4 +339,20 @@ def eleccion_operador(request):
     if request.POST['menu'] == 'crear':
         return render(request, 'crear_ruta.html')
     else:
-        return render(request, 'mostrar_ruta.html')
+        return redirect(mostrar_ruta)
+
+
+def eleccion_monumento(request):
+
+    request.session['nombre'] = request.POST.get('nombre')
+    request.session['tipo_ruta'] = request.POST.get('tipo_ruta')
+    request.session['tipo_transporte'] = request.POST.get('tipo_transporte')
+    request.session['tramo_horario'] = request.POST.get('tramo_horario')
+    request.session['hora_inicio'] = request.POST.get('hora_inicio')
+    request.session['hora_fin'] = request.POST.get('hora_fin')
+    request.session['imagen'] = request.POST.get('imagen')
+    request.session['ciudad'] = request.POST.get('ciudad')
+    request.session['desc'] = request.POST.get('desc')
+    request.session['precio'] = request.POST.get('precio')
+
+    return render(request, 'eleccion_monumento.html', {'monumentos': Monumentos})
