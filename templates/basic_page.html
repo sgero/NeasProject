@@ -20,33 +20,25 @@
         {% load bootstrap4 %}
         {% bootstrap_css %}
 
-
     </head>
 
     <body>
 
-    <header>
-        <div id="partearriba">
-
-            <img src="{% static "img/rutafoto.png" %}" width="20" height="20" class="empresas">
-
-            {% if user is not None and user.rol == "Operador" %}
-
-                <a href="/neas/ruta/crear/" class="empresas">REGISTRAR MI RUTA</a>
-
-            {% else %}
-
-                <a href="{% url 'registrar_operador' %}" class="empresas">REGISTRAR MI RUTA</a>
-
-            {% endif %}
-
-        </div>
+    <header id="header">
 
         <div id="parteabajo">
 
             <div id="logo">
 
-                <a href="/neas/"><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
+                <a class="logoneas" href="/neas/"><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
+
+                {% if user.is_authenticated and user.rol == "Operador" %}
+
+                <div id="main">
+                    <span style="font-size:30px;cursor:pointer;display: flex;justify-content: center;align-items: center;" onclick="openNav()">&#9776; <img src="{{ user.imagen }}" width="130" height="100" id="foto1"></span>
+                </div>
+
+                {% endif %}
 
             </div>
 
@@ -62,17 +54,22 @@
 
                     {% else %}
 
-                        <a href="{% url 'registrar_usuario'%}" class="color">
+                        <div class="dropdown">
 
-                            <button class="boton">
+                                <button class="boton">
 
-                                <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+                                    <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
 
-                                REGISTRO
+                                    REGISTRO
 
-                            </button>
+                                </button>
 
-                        </a>
+                            <div class="dropdown-content">
+                                <a href="{% url 'registrar_operador' %}">Operador</a>
+                                <a href="{% url 'registrar_usuario' %}">Cliente</a>
+                            </div>
+
+                        </div>
 
                         <div>|</div>
 
@@ -96,16 +93,20 @@
 
         </div>
 
-
-
-
     </header>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="{% url 'editar_perfil' %}">Editar mi Perfil</a>
+        <a href="{% url 'mostrar_ruta' %}">Ver mis Rutas</a>
+        <a href="{% url 'crear_ruta' %}">Crear Rutas</a>
+    </div>
 
     {% block content1 %}
 
-    {% endblock %}
+    {% endblock content1 %}
 
-    {% block scripts %}  {% endblock %}
+    {% block scripts %}  {% endblock scripts %}
 
 <footer>
 
@@ -177,14 +178,17 @@
 
             © 2023 Copyright:
 
-            <a class="text-reset fw-bold" href="/neas">NEAS</a>
+            <a class="text-reset fw-bold" href="{% url 'inicio' %}">NEAS</a>
 
         </div>
 
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'sidenavbar.js' %}"></script>
+
     </body>
 
 </html>
 
-{% endblock %}
+{% endblock content %}

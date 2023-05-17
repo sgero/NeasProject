@@ -2,20 +2,24 @@
 {% load static %}
 
 {% block title %}
-    Login Operador| NEAS
+
+    Editar Perfil | NEAS
+
 {% endblock %}
 
 {% block css %}
+
     <link rel="stylesheet" type="text/css" href="{% static 'login_operador.css' %}">
+
 {% endblock %}
 
 {% block content1 %}
 
-    <div class="contenedor-formularios">
+     <div class="contenedor-formularios">
 
         <ul class="contenedor-tabs">
 
-            <li class="tab tab-segunda active"><a href="#">OPERADOR</a></li>
+            <li class="tab tab-segunda active"><a href="#">EDITAR PERFIL</a></li>
 
         </ul>
 
@@ -23,51 +27,55 @@
 
             <div id="iniciar-sesion">
 
-                <h1>Iniciar Sesión</h1>
-
-                <form action="#" method="post">
+                <form action="#" method="post" id="myForm">
 
                     {% csrf_token %}
 
                     <div class="contenedor-input">
 
                         <label class="credenciales">
+
                             Usuario <span class="req">*</span>
+
                         </label>
 
-                        <input type="text" name="username" required>
+                        <input type="text" name="username" required value="{{ usuario.username }}">
 
                     </div>
 
                     <div class="contenedor-input">
 
                         <label class="credenciales">
-                            Contraseña <span class="req">*</span>
+
+                            Email <span class="req">*</span>
+
                         </label>
 
-                        <input type="password" name="password" required>
+                        <input type="email" name="email" required value="{{ usuario.email }}">
 
                     </div>
 
-                    <p class="forgot"><a href="{% url 'cambiar_contraseña' %}">¿Has olvidado la contraseña?</a></p>
+                    <div class="contenedor-input">
 
-                    <input type="submit" class="button button-block" value="Entrar">
+                        <label class="credenciales">
+
+                            Imagen <span class="req">*</span>
+
+                        </label>
+
+                        <input type="imagen" name="imagen" required value="Ingrese su imagen">
+
+                    </div>
+
+                    <input type="submit" class="button button-block" value="Editar">
 
                 </form>
 
             </div>
 
-            <a id="sincuenta" class="nav-item nav-link" href="/neas/registrar/usuario/">
-
-                <p class="nocuenta"> ¿Aún no tienes una cuenta? Regístrate aquí. </p><i
-                    class="fas fa-sign-in-alt"></i>
-
-            </a>
-
         </div>
 
     </div>
-
 
 {% endblock %}
 

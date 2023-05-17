@@ -164,6 +164,7 @@ class UsuarioLogin(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
     rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True, unique=None)
+    imagen = models.CharField(max_length=1000, null=True, unique=True, default='NeasAPP/static/img/userfoto.png')
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username, email, password']
 
@@ -246,15 +247,27 @@ class Ruta(models.Model):
     precio = models.IntegerField(null=True)
 
 
-class DatosMonumentos(models.Model):
-    monumento = models.CharField(max_length=60, choices=Monumentos.choices, null=True)
-    imagen = models.URLField(null=True)
-    ciudad = models.CharField(max_length=60, choices=provincia.choices, null=True)
-    valoracion_media = models.FloatField(max_length=4, default=0.0, null=True)
+# class DatosMonumentos(models.Model):
+#     monumento = models.CharField(max_length=60, choices=Monumentos.choices, null=True)
+#     imagen = models.URLField(null=True)
+#     ciudad = models.CharField(max_length=60, choices=provincia.choices, null=True)
+#     valoracion_media = models.FloatField(max_length=4, default=0.0, null=True)
+#     valoracion_usuario = models.ForeignKey(Valoracion_usuario, on_delete=models.CASCADE, null=True)
+#     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
 
 class Valoracion_usuario(models.Model):
     nota = models.FloatField(null=True)
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, default=None, null=True)
-    monumento = models.ForeignKey(DatosMonumentos, on_delete=models.CASCADE, null=True)
     usuarios = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, null=True)
     comentario = models.CharField(max_length=200, null=True)
+
+class Monumento_pi(models.Model):
+    nombre = models.CharField(max_length=150, choices=Monumentos.choices)
+    imagen = models.CharField(max_length=500)
+    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE, null=True)
+    valoracion_media = models.FloatField(max_length=4, default=0.0, null=True)
+    valoracion_usuario = models.ForeignKey(Valoracion_usuario, on_delete=models.CASCADE, null=True)
+
+class Monumento_Ruta(models.Model):
+    ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
+    Monumento = models.CharField(choices=Monumentos.choices, max_length=200, null=True)

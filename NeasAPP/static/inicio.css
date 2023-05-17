@@ -331,6 +331,7 @@ ol, li {
     left: 50%;
     transform: translateX(-50%);
     width: 60%;
+    transition: margin-left .5s;
 }
 
 footer{
@@ -342,5 +343,6 @@ footer{
 .carrusel{
 
     margin-bottom: -306px;
+    transition: margin-left .5s;
 
 }
