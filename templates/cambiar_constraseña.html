@@ -1,0 +1,66 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Crear Rutas | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'login_operador.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+    <div class="contenedor-formularios">
+
+        <ul class="contenedor-tabs">
+
+            <li class="tab tab-segunda active"><a href="#">CAMBIO DE CONSTRASEÑA</a></li>
+
+        </ul>
+
+        <div class="contenido-tab">
+
+            <div id="iniciar-sesion">
+
+                <form method="post" action="#" id="myForm">
+
+                    {% csrf_token %}
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales" for="password1">Nueva contraseña <span class="req">*</span></label>
+                        <input id="password1" name="password1" type="password" required/>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales" for="password2">Repite tu constraseña: <span class="req">*</span></label>
+                        <input id="password2" name="password2" type="password" required/>
+
+                    </div>
+
+
+                    <input type="submit" class="button button-block" value="Cambiar contraseña">
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'login.js' %}"></script>
+
+{% endblock %}
