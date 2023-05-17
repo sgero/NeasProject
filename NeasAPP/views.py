@@ -27,20 +27,20 @@ def crear_ruta(request):
         return render(request, 'crear_ruta.html', {"tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, "Provincia": provincia})
     else:
         nueva_ruta = Ruta()
-        nueva_ruta.nombre = request.POST.get('nombre')
-        nueva_ruta.tematica = request.POST.get('tipo_ruta')
-        nueva_ruta.transporte = request.POST.get('tipo_transporte')
-        nueva_ruta.tramo_horario = request.POST.get('tramo_horario')
-        nueva_ruta.hora_inicio = request.POST.get('hora_inicio')
-        nueva_ruta.hora_fin = request.POST.get('hora_fin')
-        nueva_ruta.imagen = request.POST.get('imagen')
-        nueva_ruta.ciudad = request.POST.get('ciudad')
-        nueva_ruta.descripcion = request.POST.get('desc')
+        nueva_ruta.nombre = request.session['nombre']
+        nueva_ruta.tematica = request.session['tipo_ruta']
+        nueva_ruta.transporte = request.session['tipo_transporte']
+        nueva_ruta.tramo_horario = request.session['tramo_horario']
+        nueva_ruta.hora_inicio = request.session['hora_inicio']
+        nueva_ruta.hora_fin = request.session['hora_fin']
+        nueva_ruta.imagen = request.session['imagen']
+        nueva_ruta.ciudad = request.session['ciudad']
+        nueva_ruta.descripcion = request.session['desc']
         nueva_ruta.operador_tur_id = request.user.id
-        nueva_ruta.precio = request.POST.get('precio')
+        nueva_ruta.precio = request.session['precio']
         Ruta.save(nueva_ruta)
 
-        for m in request.POST.getlist('monumento_pi'):
+        for m in request.POST.getlist('monumento'):
 
             nuevo_monumento_ruta = Monumento_Ruta()
             nuevo_monumento_ruta.Monumento = m
@@ -82,7 +82,7 @@ def mostrar_ruta(request):
 def eliminar_ruta(request, id):
     ruta = Ruta.objects.get(id=id)
     Ruta.delete(ruta)
-    return redirect('/neas/ruta/mostrar/')
+    return mostrar_ruta(request)
 
 
 def registrar_usuario(request):
@@ -344,4 +344,15 @@ def eleccion_operador(request):
 
 def eleccion_monumento(request):
 
-    return render(request, 'eleccion_monumento.html', {'monumentos' : Monumentos})
+    request.session['nombre'] = request.POST.get('nombre')
+    request.session['tipo_ruta'] = request.POST.get('tipo_ruta')
+    request.session['tipo_transporte'] = request.POST.get('tipo_transporte')
+    request.session['tramo_horario'] = request.POST.get('tramo_horario')
+    request.session['hora_inicio'] = request.POST.get('hora_inicio')
+    request.session['hora_fin'] = request.POST.get('hora_fin')
+    request.session['imagen'] = request.POST.get('imagen')
+    request.session['ciudad'] = request.POST.get('ciudad')
+    request.session['desc'] = request.POST.get('desc')
+    request.session['precio'] = request.POST.get('precio')
+
+    return render(request, 'eleccion_monumento.html', {'monumentos': Monumentos})

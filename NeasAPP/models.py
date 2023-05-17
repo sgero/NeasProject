@@ -270,4 +270,4 @@ class Monumento_pi(models.Model):
 
 class Monumento_Ruta(models.Model):
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
-    Monumento = models.ForeignKey(Monumento_pi, on_delete=models.CASCADE, null=True)
+    Monumento = models.CharField(choices=Monumentos.choices, max_length=200, null=True)
