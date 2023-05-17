@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-
 from .models import UsuarioLogin, Valoracion_usuario
+from .widgets import StarRatingWidget
 
 
 class FormularioRegistro(UserCreationForm):
@@ -61,6 +61,7 @@ class FormularioRegistroOPT(UserCreationForm):
         fields = ('email', 'username', 'password1', 'password2', 'cif', 'telf', 'a_fund','website', 'logo', 'forgot', 'info')
 
 class FormularioValoracion(forms.ModelForm):
+    calificacion = forms.IntegerField(widget=StarRatingWidget(), label="")
     class Meta:
         model = Valoracion_usuario
         fields = ['calificacion']

@@ -47,7 +47,6 @@ def get_rutas_and_valoraciones(request):
     return lista_rutas, rutas_valoradas
 
 def mostrar_ruta(request):
-    print("La vista mostrar_ruta se está llamando")
     lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
     form = FormularioValoracion()
     return render(request, 'mostrar_ruta.html',{"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h,"tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
@@ -220,6 +219,7 @@ def desloguearse(request):
 def buscar_ruta(request, ciudad=None):
     ciudad = ciudad or request.POST.get("provincia")
     lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
+
     lista_rutas = lista_rutas.filter(ciudad=ciudad)
     request.session['ciudad'] = ciudad
     form = FormularioValoracion()
@@ -279,7 +279,6 @@ def vista_operador(request):
 def valorar_ruta(request, id):
     ruta = Ruta.objects.get(id=id)
 
-    # Comprobamos si el usuario ya ha valorado esta ruta
     if Valoracion_usuario.objects.filter(ruta=ruta, usuarios=request.user).exists():
         messages.error(request, "Ya has valorado esta ruta")
         return redirect(request.META.get('HTTP_REFERER', 'default_if_none'))
@@ -293,12 +292,10 @@ def valorar_ruta(request, id):
             valoracion.ruta = ruta
             valoracion.save()
 
-            # Recalculamos la valoración media de la ruta
             valoraciones = Valoracion_usuario.objects.filter(ruta=ruta)
             suma_valoraciones = sum([val.calificacion for val in valoraciones])
             media_valoracion = suma_valoraciones / len(valoraciones)
 
-            # Actualizamos la valoración media de la ruta
             ruta.valoracion_media = media_valoracion
             ruta.save()
             ciudad = request.session.get('ciudad')

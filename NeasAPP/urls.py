@@ -1,4 +1,6 @@
 from django.urls import path, include
+
+from . import views
 from .views import *
 
 urlpatterns = [
@@ -21,5 +23,6 @@ urlpatterns = [
     path('terminos&condiciones/', terminos, name='terminos&condiciones'),
     path('politicaPrivacidad/', politicas, name='politicaPrivacidad'),
     path('centroAyuda/', centroAyuda, name='centroAyuda'),
-
+    path('ruta/<int:ruta_id>/', mostrar_ruta, name='mostrar_ruta'),
+    path('ruta/<int:ruta_id>/valorar/', valorar_ruta, name='valorar_ruta'),
 ]

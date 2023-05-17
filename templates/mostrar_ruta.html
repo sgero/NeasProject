@@ -10,6 +10,7 @@
 {% block css %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'mostrar_rutas.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
 {% endblock %}
 
@@ -34,7 +35,6 @@
             </div>
 
             <div class="mb-3">
-
                 <label for="tramo_horario" class="form-label">Tramo Horario:</label>
                 <select id="tramo_horario" name="tramo_horario">
                     <option value="" disabled selected hidden>Elige tu horario:</option>
@@ -42,11 +42,9 @@
                         <option value="{{ t }}"> {{ t }}</option>
                     {% endfor %}
                 </select>
-
             </div>
 
             <div class="mb-3">
-
                 <label for="tipo_transporte" class="form-label">Tipo de Transporte:</label>
                 <select id="tipo_transporte" name="tipo_transporte">
                     <option value="" disabled selected hidden>Elige tu transporte:</option>
@@ -54,15 +52,11 @@
                         <option value="{{ ti }}"> {{ ti }}</option>
                     {% endfor %}
                 </select>
-
             </div>
 
             <input class="boton" type="submit" value="Buscar Ruta"/>
-
         </form>
-
     </div>
-
 
     {% if rutas.count > 0 %}
 
@@ -81,15 +75,14 @@
                         <li class="list-group-item">{{ r.tramo_horario }}</li>
                         <li class="list-group-item">{{ r.tematica }}</li>
                         <li class="list-group-item">{{ r.operador_tur.username }}</li>
-                        <li class="list-group-item">Nota media: {{ r.valoracion_media }}</li>
+                        <li class="list-group-item">Estrellas: {{ r.valoracion_media }}</li>
                     </ul>
 
 
                     <div class="card-body" style="display: flex; justify-content: space-around">
 
                         {% if r.id not in rutas_valoradas %}
-                            <p>La ruta {{ r.id }} no ha sido valorada aún.</p>
-                            <form action="{% url 'valorar_ruta' r.id %}" method="post">
+                            <form action="{% url 'valorar_ruta' id=r.id %}" method="post">
                                 {% csrf_token %}
                                 {{ form.as_p }}
                                 <button type="submit">Valorar</button>
