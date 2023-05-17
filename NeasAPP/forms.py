@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import UsuarioLogin
+from .models import UsuarioLogin, Valoracion_usuario
 
 
 class FormularioRegistro(UserCreationForm):
@@ -59,3 +59,8 @@ class FormularioRegistroOPT(UserCreationForm):
     class Meta:
         model = UsuarioLogin
         fields = ('email', 'username', 'password1', 'password2', 'cif', 'telf', 'a_fund','website', 'logo', 'forgot', 'info')
+
+class FormularioValoracion(forms.ModelForm):
+    class Meta:
+        model = Valoracion_usuario
+        fields = ['calificacion']

@@ -19,7 +19,7 @@
 
         <form method="post" action="/neas/buscar/personalizada/">
 
-        {% csrf_token %}
+            {% csrf_token %}
 
             <div class="mb-3">
 
@@ -81,14 +81,24 @@
                         <li class="list-group-item">{{ r.tramo_horario }}</li>
                         <li class="list-group-item">{{ r.tematica }}</li>
                         <li class="list-group-item">{{ r.operador_tur.username }}</li>
+                        <li class="list-group-item">Nota media: {{ r.valoracion_media }}</li>
                     </ul>
+
+
                     <div class="card-body" style="display: flex; justify-content: space-around">
-                        <a href="#" class="card-link" style="align-items:center; display:flex">Valorar Ruta</a>
+
+                        {% if r.id not in rutas_valoradas %}
+                            <p>La ruta {{ r.id }} no ha sido valorada aún.</p>
+                            <form action="{% url 'valorar_ruta' r.id %}" method="post">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit">Valorar</button>
+                            </form>
+                        {% endif %}
 
                         {% if r.operador_tur.id is user.id %}
-
-                            <a href="/neas/ruta/eliminar/{{ r.id }}" class="card-link"><img class="imgeliminar" src="{% static "img/eliminar_ruta.png" %}"></a>
-
+                            <a href="/neas/ruta/eliminar/{{ r.id }}" class="card-link"><img class="imgeliminar"
+                                                                                            src="{% static "img/eliminar_ruta.png" %}"></a>
                         {% endif %}
 
                     </div>
@@ -102,25 +112,26 @@
 
         <div class="padre">
 
-                <div class="carta mb-3">
+            <div class="carta mb-3">
 
-                    <div class="hola g-0" style="align-items: center;display: flex;flex-direction: column">
+                <div class="hola g-0" style="align-items: center;display: flex;flex-direction: column">
 
-                        <div>
+                    <div>
 
-                            <img src="{% static "img/icons8-error-globe-64.png" %}" class="img-fluid rounded-start imgruta2"  alt="fotoError">
+                        <img src="{% static "img/icons8-error-globe-64.png" %}" class="img-fluid rounded-start imgruta2"
+                             alt="fotoError">
 
-                        </div>
+                    </div>
 
-                        <div class="hola col-md-8" style="text-align: center">
+                    <div class="hola col-md-8" style="text-align: center">
 
-                            <h1>LO SENTIMOS, NO HEMOS ENCONTRADO LO QUE BUSCABAS</h1>
-
-                        </div>
+                        <h1>LO SENTIMOS, NO HEMOS ENCONTRADO LO QUE BUSCABAS</h1>
 
                     </div>
 
                 </div>
+
+            </div>
 
         </div>
 

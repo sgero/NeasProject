@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .decorators import *
-from .forms import FormularioRegistro
+from .forms import FormularioRegistro, FormularioValoracion
 from .forms import FormularioRegistroOPT
 from .models import *
 
@@ -41,11 +41,16 @@ def crear_ruta(request):
         Ruta.save(nueva_ruta)
         return render(request, 'inicio.html', {"provincia":provincia})
 
+def get_rutas_and_valoraciones(request):
+    lista_rutas = Ruta.objects.all()
+    rutas_valoradas = Valoracion_usuario.objects.filter(usuarios=request.user).values_list('ruta', flat=True)
+    return lista_rutas, rutas_valoradas
 
 def mostrar_ruta(request):
-    lista_rutas = Ruta.objects.filter(operador_tur=request.user.id)
-    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
-
+    print("La vista mostrar_ruta se está llamando")
+    lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
+    form = FormularioValoracion()
+    return render(request, 'mostrar_ruta.html',{"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h,"tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
 
 def eliminar_ruta(request, id):
     ruta = Ruta.objects.get(id=id)
@@ -57,7 +62,6 @@ def registrar_usuario(request):
     form = FormularioRegistro()
     if request.method == "GET":
         return render(request, "registrar_usuario.html", {"form": form})
-    #POST
     else:
         user = UsuarioLogin()
         form = FormularioRegistro(request.POST)
@@ -213,11 +217,13 @@ def desloguearse(request):
     return render(request, "logout.html")
     #return redirect('/neas/logout/')
 
-def buscar_ruta(request):
-    ciudad = request.POST.get("provincia")
-    list_rutas = Ruta.objects.filter(ciudad=ciudad)
+def buscar_ruta(request, ciudad=None):
+    ciudad = ciudad or request.POST.get("provincia")
+    lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
+    lista_rutas = lista_rutas.filter(ciudad=ciudad)
     request.session['ciudad'] = ciudad
-    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+    form = FormularioValoracion()
+    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
 
 def filtro_general(request):
     transporte = request.POST.get("tipo_transporte")
@@ -268,3 +274,37 @@ def centroAyuda(request):
 def vista_operador(request):
     # Código de la vista para usuarios con rol de operador
     return render(request, 'pagina_operador.html')
+
+
+def valorar_ruta(request, id):
+    ruta = Ruta.objects.get(id=id)
+
+    # Comprobamos si el usuario ya ha valorado esta ruta
+    if Valoracion_usuario.objects.filter(ruta=ruta, usuarios=request.user).exists():
+        messages.error(request, "Ya has valorado esta ruta")
+        return redirect(request.META.get('HTTP_REFERER', 'default_if_none'))
+
+    if request.method == 'POST':
+        form = FormularioValoracion(request.POST)
+
+        if form.is_valid():
+            valoracion = form.save(commit=False)
+            valoracion.usuarios = request.user
+            valoracion.ruta = ruta
+            valoracion.save()
+
+            # Recalculamos la valoración media de la ruta
+            valoraciones = Valoracion_usuario.objects.filter(ruta=ruta)
+            suma_valoraciones = sum([val.calificacion for val in valoraciones])
+            media_valoracion = suma_valoraciones / len(valoraciones)
+
+            # Actualizamos la valoración media de la ruta
+            ruta.valoracion_media = media_valoracion
+            ruta.save()
+            ciudad = request.session.get('ciudad')
+            return redirect('buscar_ruta_ciudad', ciudad=ciudad)
+
+    else:
+        form = FormularioValoracion()
+
+    return render(request, 'mostrar_ruta.html', {'form': form, 'ruta': ruta})
