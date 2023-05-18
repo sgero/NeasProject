@@ -19,7 +19,7 @@
 
             <div class="inicio" id="inicio">
 
-                <form method="post" action="/neas/buscar/">
+                <form method="post" action="{% url 'buscar' %}">
 
                     {% csrf_token %}
 

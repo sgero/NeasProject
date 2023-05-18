@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.db.models import Model, ForeignKey
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -164,7 +165,7 @@ class UsuarioLogin(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
     rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True, unique=None)
-    imagen = models.CharField(max_length=1000, null=True, unique=True, default='NeasAPP/static/img/userfoto.png')
+    imagen = models.CharField(max_length=1000, null=True, default='NeasAPP/static/img/userfoto.png')
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username, email, password']
 
@@ -240,11 +241,16 @@ class Ruta(models.Model):
     tramo_horario = models.CharField(max_length=50, choices=tramo_h.choices)
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
     imagen = models.ImageField(default=None)
-    valoracion_media = models.FloatField(max_length=4, default=0.0)
+    valoracion_media = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal('0.0'))
     operador_tur = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
     ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
     descripcion = models.CharField(max_length=50, default='Descripción', null=True)
     precio = models.IntegerField(null=True)
+
+    @property
+    def la_valoracion_media(self):
+        valoraciones = Valoracion_usuario.objects.filter(ruta=self)
+        return valoraciones.aggregate(models.Avg('calificacion'))['calificacion__avg'] or 0.0
 
 
 # class DatosMonumentos(models.Model):
@@ -256,8 +262,16 @@ class Ruta(models.Model):
 #     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
 
 class Valoracion_usuario(models.Model):
-    nota = models.FloatField(null=True)
+    CALIFICACIONES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    calificacion = models.IntegerField(choices=CALIFICACIONES, null=True)
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, default=None, null=True)
+    monumento = models.CharField(choices=Monumentos.choices, max_length=200, null=True)
     usuarios = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, null=True)
     comentario = models.CharField(max_length=200, null=True)
 
@@ -271,3 +285,6 @@ class Monumento_pi(models.Model):
 class Monumento_Ruta(models.Model):
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
     Monumento = models.CharField(choices=Monumentos.choices, max_length=200, null=True)
+
+
+
