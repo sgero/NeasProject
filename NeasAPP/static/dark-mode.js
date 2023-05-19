@@ -29,10 +29,16 @@ const body = document.querySelector('body');
       modeText = body.querySelector('.mode-text');
 
       toggle.addEventListener('click', () => {
-          body.classList.toggle('close');
+          sidebar.classList.toggle('close');
       });
 
-            modeSwitch.addEventListener('click', () => {
+      searchBtn.addEventListener('click', () => {
+          sidebar.classList.remove('close');
+      });
+
+
+
+      modeSwitch.addEventListener('click', () => {
           body.classList.toggle('dark');
 
           if(body.classList.contains('dark')){

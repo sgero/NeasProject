@@ -429,6 +429,7 @@ body.dark{
     width: 30px;
     height: 30px;
     margin-right: 10px;
+    justify-content: center;
 }
 
 
@@ -532,11 +533,22 @@ body.dark .sidebar header .toggle{
 }
 
 
+.sidebar .menu{
+    margin-top: 35px;
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: var(--tran-04);
+}
+
 .sidebar .search-box {
     background: var(--primary-color-light);
     border-radius: 6px;
 
 }
+
+
 
 .search-box .input {
     height:100%;
@@ -545,6 +557,8 @@ body.dark .sidebar header .toggle{
     outline: none;
     border: none;
     border-radius: 6px;
+    font-size:16px;
+    font-weight:500;
 }
 
 .search-box input {
