@@ -1,12 +1,21 @@
 from django.contrib.auth.hashers import make_password
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django import forms
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, get_object_or_404
+from .models import Ruta, ComentariosUsuarios
+from .forms import UserComment
+from django.http import HttpResponse
+
 from .decorators import *
 from .forms import FormularioRegistro
 from .forms import FormularioRegistroOPT
+from .forms import UserComment
 from .models import *
+
 
 # Create your views here.
 def inicio2(request):
@@ -356,3 +365,32 @@ def eleccion_monumento(request):
     request.session['precio'] = request.POST.get('precio')
 
     return render(request, 'eleccion_monumento.html', {'monumentos': Monumentos})
+
+def DetallesRutas(request, id):
+    ruta = get_object_or_404(Ruta, id=id)
+    comentario = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+
+    if request.method == 'POST':
+        form = UserComment(request.POST, request.FILES)
+        comentarios = ComentariosUsuarios.objects.all()
+
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.ruta = ruta
+            comentario.autor_comentario = request.user
+            comentario.User = request.user
+            comentario.save()
+
+            return render(request, 'mostrar_ruta_especifica.html', {'ruta':ruta ,'comentario': comentario, 'comentarios': comentarios, 'id': id})
+
+        else:
+            form = UserComment()
+
+    else:
+        # Si no se envió un formulario, simplemente renderiza la plantilla con los comentarios existentes
+        comentarios = ComentariosUsuarios.objects.all()
+        form = UserComment()
+        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form})
+
+    # Agrega una respuesta HTTP predeterminada al final de la vista
+    return HttpResponse("Algo salió mal, por favor vuelve a intentarlo")

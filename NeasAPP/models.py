@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+from django.utils.timezone import now
 from django.db import models
 from django.db.models import Model, ForeignKey
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -164,7 +166,7 @@ class UsuarioLogin(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
     rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True, unique=None)
-    imagen = models.CharField(max_length=1000, null=True, unique=True, default='NeasAPP/static/img/userfoto.png')
+    imagen = models.CharField(max_length=1000, null=True, default='NeasAPP/static/img/userfoto.png')
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username, email, password']
 
@@ -232,6 +234,8 @@ class Ciudad(models.Model):
         return self.nombre
 
 
+
+
 class Ruta(models.Model):
     nombre = models.CharField(max_length=500, default=None)
     hora_inicio = models.TimeField(default=None)
@@ -246,7 +250,15 @@ class Ruta(models.Model):
     descripcion = models.CharField(max_length=50, default='Descripción', null=True)
     precio = models.IntegerField(null=True)
 
+class ComentariosUsuarios(models.Model):
 
+    autor_comentario = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
+    ruta = models.ForeignKey(Ruta, related_name="comentarios", on_delete=models.CASCADE, default=None)
+    comentario = models.TextField()
+    fecha_creacion = models.DateTimeField(editable=False , auto_now_add=True)
+
+    def __str__(self):
+        return self.autor_comentario , self.ruta.nombre
 # class DatosMonumentos(models.Model):
 #     monumento = models.CharField(max_length=60, choices=Monumentos.choices, null=True)
 #     imagen = models.URLField(null=True)

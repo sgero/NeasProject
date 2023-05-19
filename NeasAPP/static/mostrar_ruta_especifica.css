@@ -1,0 +1,51 @@
+.contenedor-formularios {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+
+}
+
+.padre {
+    width: 30%;
+    margin-right: 2%;
+}
+
+.card {
+    margin-bottom: 30px;
+}
+
+#iniciar-sesion {
+    width: 65%;
+}
+
+.comentarios {
+    width: 100%;
+}
+
+.social-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.imagencomentario {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.social-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.social-description {
+    margin-left: 70px;
+}
+
+.social-description p {
+    margin-bottom: 0;
+}

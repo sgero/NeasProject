@@ -25,6 +25,8 @@ urlpatterns = [
     path('accesoDenegados/', acceso_denegado, name='acceso_denegado'),
     path('eleccionOperador/', eleccion_operador, name='eleccion_operador'),
     path('eleccionMonumento/', eleccion_monumento, name='eleccion_monumento'),
+    path('ruta/detalles/<int:id>', DetallesRutas, name='detalles_ruta'),
+
     # path('paginaOperador/', vista_operador, name='vista_operador')
 
 ]
