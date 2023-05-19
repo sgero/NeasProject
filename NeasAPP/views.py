@@ -93,6 +93,7 @@ def mostrar_ruta_op(request):
 
 def mostrar_ruta_especifica(request, id):
     ruta = Ruta.objects.get(id=id)
+    ruta = Ruta.objects.get(id=id)
     return render(request, 'mostrar_ruta_especifica.html', {"ruta": ruta})
 
 
@@ -294,6 +295,7 @@ def desloguearse(request):
 def buscar_ruta(request, ciudad=None):
     ciudad = ciudad or request.POST.get("provincia")
     lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
+
     lista_rutas = lista_rutas.filter(ciudad=ciudad)
     request.session['ciudad'] = ciudad
     form = FormularioValoracion()
@@ -302,10 +304,11 @@ def buscar_ruta(request, ciudad=None):
 
 def buscar(request):
     ciudad = request.POST.get("provincia")
+    list_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
     list_rutas = Ruta.objects.filter(ciudad=ciudad)
-    form = FormularioValoracion()
     request.session['ciudad'] = ciudad
-    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form':form})
+    form = FormularioValoracion()
+    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form':form, 'rutas_valoradas':rutas_valoradas})
 
 
 def filtro_general(request):

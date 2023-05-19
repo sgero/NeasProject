@@ -28,8 +28,8 @@ urlpatterns = [
     path('accesoDenegados/', acceso_denegado, name='acceso_denegado'),
     path('eleccionOperador/', eleccion_operador, name='eleccion_operador'),
     path('eleccionMonumento/', eleccion_monumento, name='eleccion_monumento'),
-    path('buscar/ruta/valorar/<int:id>', valorar_ruta, name='valorar_ruta'),
-    path('ruta/<int:ruta_id>/valorar/', valorar_ruta, name='valorar_ruta'),
+    path('ruta/valorar/<int:id>', valorar_ruta, name='valorar_ruta'),
+    path('ruta/<int:ruta_id>/valorar/', valorar_ruta, name='valorar_ruta2'),
     # path('paginaOperador/', vista_operador, name='vista_operador')
 
 ]

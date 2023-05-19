@@ -91,13 +91,11 @@
                         <p class="card-title">{{ r.precio }}€ de precio medio.</p>
                     </div>
 
-
-
                         <div class="card-body" style="display: flex; justify-content: space-around">
 
+                            {% if r.id not in rutas_valoradas %}
 
-
-                                <form action="ruta/valorar/{{ r.id }}" method="post">
+                                <form action="{% url 'valorar_ruta' id=r.id %}" method="post">
 
                                     {% csrf_token %}
 
@@ -107,6 +105,7 @@
 
                                 </form>
 
+                            {% endif %}
 
                             {% if r.operador_tur.id is user.id %}
 

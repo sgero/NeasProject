@@ -63,7 +63,7 @@ class FormularioRegistroOPT(UserCreationForm):
 
 class FormularioValoracion(forms.ModelForm):
 
-    calificacion = forms.IntegerField(widget=StarRatingWidget(), label="")
+    calificacion = forms.IntegerField(widget=StarRatingWidget(), label='')
     class Meta:
         model = Valoracion_usuario
         fields = ['calificacion']
