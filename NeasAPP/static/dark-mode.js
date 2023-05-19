@@ -28,9 +28,19 @@ const body = document.querySelector('body');
       modeSwitch = body.querySelector('.toggle-switch');
       modeText = body.querySelector('.mode-text');
 
-      modeSwitch.addEventListener('click', () => {
-          body.classList.toggle('dark');
+      toggle.addEventListener('click', () => {
+          body.classList.toggle('close');
       });
 
+            modeSwitch.addEventListener('click', () => {
+          body.classList.toggle('dark');
+
+          if(body.classList.contains('dark')){
+              modeText.innerText = 'Modo de día';
+            }else{
+              modeText.innerText = 'Modo Oscuro';
+            }
+
+      });
 
 

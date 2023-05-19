@@ -371,7 +371,7 @@ header{
 
 
 /* Transition */
---tran-03: all 0.2s ease;
+--tran-02: all 0.2s ease;
 --tran-03: all 0.3s ease;
 --tran-04: all 0.4s ease;
 --tran-05: all 0.5s ease;
@@ -380,6 +380,7 @@ header{
 body{
     height: 100vh;
     background: var(--body-color);
+    transition: var(--tran-04);
 }
 
 body.dark{
@@ -392,12 +393,34 @@ body.dark{
     --text-color: #b0eab0;
 }
 
+/*sidebar*/
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    background: var(--sidebar-color);
+    transition: var(--tran-05);
+    z-index: 100;
+}
 
-/*Resuable CSS*/
+.sidebar.close {
+    width: 250px;
+}
+
+.sidebar.close .text{
+    /*opacity: 0;*/
+}
+
+/*Reusable CSS*/
 .sidebar .text {
     font-size: 15px;
     font-weight: 400;
     color: var(--text-color);
+    transition: var(--tran-04);
+    white-space: nowrap;
+    opacity: 1;
 }
 
 .sidebar .image {
@@ -408,15 +431,6 @@ body.dark{
     margin-right: 10px;
 }
 
-/*sidebar*/
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 250px;
-    background: var(--sidebar-color);
-}
 
 .sidebar li {
     height: 50px;
@@ -506,17 +520,36 @@ header .image-text .header-text {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    transition: var(--tran-03);
 
 }
 
+.sidebar.close header .toggle{
+    transform: translateY(-50%) rotate(180deg);
+}
+body.dark .sidebar header .toggle{
+    color: var(--text-color);
+}
+
+
 .sidebar .search-box {
     background: var(--primary-color-light);
+    border-radius: 6px;
 
 }
 
 .search-box .input {
     height:100%;
     width: 70%;
+    background: var(--primary-color-light);
+    outline: none;
+    border: none;
+    border-radius: 6px;
+}
+
+.search-box input {
+    height:100%;
+    width: 90%;
     background: var(--primary-color-light);
     outline: none;
     border: none;
@@ -546,6 +579,11 @@ header .image-text .header-text {
     transition: var(--tran-04);
 }
 
+body.dark .sidebar li .a:hover .icon,
+body.dark .sidebar li .a:hover .text {
+    color: var(--text-color);
+}
+
 .sidebar .menu-bar {
     background: none;
     height: 50%;
@@ -557,6 +595,8 @@ header .image-text .header-text {
 
 .menu-bar .mode {
     background: var(--primary-color-light);
+    position: relative;
+    border-radius: 6px;
 }
 
 .menu-bar .mode .moon-sun{
@@ -570,13 +610,25 @@ header .image-text .header-text {
 }
 .menu-bar .mode i{
     position: absolute;
+    transition: var(--tran-03);
 }
 
 .menu-bar .mode i.sun{
     opacity: 0;
 }
 
+body.dark .menu-bar .mode i.sun{
+    opacity: 1;
+}
+
+body.dark .menu-bar .mode i.moon{
+    opacity: 0;
+}
+
+
 .menu-bar .mode .toggle-switch {
+    position: absolute;
+    right: 0;
     height: 100%;
     width: 60px;
     background: none;
@@ -584,6 +636,8 @@ header .image-text .header-text {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    background: var(--primary-color-light);
+    border-radius: 6px;
 }
 
 .toggle-switch .switch {
@@ -613,9 +667,28 @@ body.dark .switch::before{
     left: 24px;
 }
 
+/*.home{*/
+/*    position: relative;*/
+/*    left:88px;*/
+/*    height: 100vh;*/
+/*    width: calc(100%-88px);*/
+/*    background: red;*/
+/*    transition: var(--tran-05);*/
+/*}*/
+
+.home .text{
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-left: 20px;
+
+}
 
 
-
+/*.sidebar.close ~ .home{*/
+/*    left: 88px;*/
+/*    width: calc(100% - 88px);*/
+/*}*/
 
 
 
