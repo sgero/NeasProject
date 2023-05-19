@@ -49,3 +49,13 @@
 .social-description p {
     margin-bottom: 0;
 }
+.social p{
+
+    color: black;
+    margin-left:10px;
+}
+.social {
+
+    margin-left: 10px;
+    color: black
+}

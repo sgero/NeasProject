@@ -80,12 +80,11 @@
 
                                     <div class="social-box">
                                       <img class="imagencomentario" alt="" src="{{ c.autor_comentario.imagen }}">
-                                      <p class="social-name">{{ c.autor_comentario.username }}</p>
-                                      <a href="#" class="social-image"><img src="https://scontent-lhr3-1.cdninstagram.com/hphotos-xfa1/t51.2885-15/e15/11264213_113434222321783_209746117_n.jpg" /></a>
-                                      <div class="social-description"> <p> {{ c.comentario }}</p></div>
-                                       <p>{{ c.fecha_creacion }}</p>
-                                      <a href="#" class="social-logo"><i class="fa fa-instagram"></i></a>
+                                      <p class="social">{{ c.autor_comentario.username }}</p>
+                                      <div class="social"> <p> {{ c.comentario }}</p></div>
+                                       <div class="social"><p>{{ c.fecha_creacion }}</p></div>
                                     </div>
+
                             {% endfor %}
                         {% endif %}
                     </div>
