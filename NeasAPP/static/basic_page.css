@@ -63,6 +63,7 @@ html, body {
     align-items: center;
     box-shadow: 1px 5px 8px gray;
     flex-direction: row;
+    padding-bottom: 10px;
 }
 
 #botones{
@@ -210,45 +211,45 @@ h3 {
     background-color: #3e8e41;
 }
 
-/*estilo para sidenav*/
+/*!*estilo para sidenav*!*/
 
-body {
-  transition: background-color .5s;
-}
+/*body {*/
+/*  transition: background-color .5s;*/
+/*}*/
 
-.sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background: linear-gradient(180deg, #FFFFFF 0%, #9AACB5 100%);
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
+/*.sidenav {*/
+/*  height: 100%;*/
+/*  width: 0;*/
+/*  position: fixed;*/
+/*  z-index: 1;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  background: linear-gradient(180deg, #FFFFFF 0%, #9AACB5 100%);*/
+/*  overflow-x: hidden;*/
+/*  transition: 0.5s;*/
+/*  padding-top: 60px;*/
+/*}*/
 
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #101010;
-  display: block;
-  transition: 0.5s;
-}
+/*.sidenav a {*/
+/*  padding: 8px 8px 8px 32px;*/
+/*  text-decoration: none;*/
+/*  font-size: 25px;*/
+/*  color: #101010;*/
+/*  display: block;*/
+/*  transition: 0.5s;*/
+/*}*/
 
-.sidenav a:hover {
-  color: #8aa987;
-}
+/*.sidenav a:hover {*/
+/*  color: #8aa987;*/
+/*}*/
 
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
+/*.sidenav .closebtn {*/
+/*  position: absolute;*/
+/*  top: 0;*/
+/*  right: 25px;*/
+/*  font-size: 36px;*/
+/*  margin-left: 50px;*/
+/*}*/
 
 #main {
   transition: margin-left .5s;
@@ -272,6 +273,7 @@ header{
 
     display: flex;
     justify-content: center;
+        padding-left: 120px;
 
 }
 
@@ -367,7 +369,7 @@ header{
 --body-color-accent-text-light-hover: #000000;
 --body-color-accent-text-light-active: #000000;
 
-
+--body-color-dark: linear-gradient(90deg, #e4ffc7 0%, #6c8c6c 35%, #e4ffc7 100%);
 
 
 /* Transition */
@@ -376,6 +378,8 @@ header{
 --tran-04: all 0.4s ease;
 --tran-05: all 0.5s ease;
 }
+
+
 
 body{
     height: 100vh;
@@ -406,11 +410,12 @@ body.dark{
 }
 
 .sidebar.close {
-    width: 250px;
+    width: 68px;
+    opacity:1;
 }
 
 .sidebar.close .text{
-    /*opacity: 0;*/
+    opacity: 0;
 }
 
 /*Reusable CSS*/
@@ -421,6 +426,7 @@ body.dark{
     transition: var(--tran-04);
     white-space: nowrap;
     opacity: 1;
+    display: flex;
 }
 
 .sidebar .image {
@@ -429,7 +435,21 @@ body.dark{
     width: 30px;
     height: 30px;
     margin-right: 10px;
+    margin-left:55px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    /*padding-left: 80px;*/
     justify-content: center;
+}
+
+.sidebar.close .image .namet{
+    opacity: 0;
+}
+
+.sidebar .image .namet{
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    margin-top: 15px;
 }
 
 
@@ -473,10 +493,12 @@ body.dark{
     height: 60px;
     border-radius: 50%;
     margin-right: 10px;
-    /*align-content: center;*/
-    /*justify-content: center;*/
-    /*display: flex;*/
+    align-content: center;
+    justify-content: center;
+    display: flex;
 }
+
+
 
 .sidebar header .image-text {
     display: flex;
@@ -681,14 +703,14 @@ body.dark .switch::before{
     left: 24px;
 }
 
-/*.home{*/
-/*    position: relative;*/
-/*    left:88px;*/
-/*    height: 100vh;*/
-/*    width: calc(100%-88px);*/
-/*    background: red;*/
-/*    transition: var(--tran-05);*/
-/*}*/
+.home{
+    position: relative;
+    left:88px;
+    height: 100vh;
+
+    background: none;
+    transition: var(--tran-05);
+}
 
 .home .text{
     font-size: 20px;
@@ -699,10 +721,10 @@ body.dark .switch::before{
 }
 
 
-/*.sidebar.close ~ .home{*/
-/*    left: 88px;*/
-/*    width: calc(100% - 88px);*/
-/*}*/
+.sidebar.close ~ .home{
+    left: 88px;
+    width: calc(100% - 88px);
+}
 
 
 

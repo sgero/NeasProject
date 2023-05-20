@@ -1,52 +1,156 @@
-// // Detecta si el usuario tiene el modo oscuro preferido en su sistema operativo
-// const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+// const body = document.querySelector('body');
+// const sidebar = body.querySelector('.sidebar');
+// const toggle = body.querySelector('.toggle');
+// const searchBtn = body.querySelector('.search-box .bx-search');
+// const modeSwitch = body.querySelector('.toggle-switch');
+// const modeText = body.querySelector('.mode-text');
 //
-// // Obtiene el botón de alternar modo oscuro
-// const darkModeToggle = document.getElementById('dark-mode-toggle');
+//       toggle.addEventListener('click', () => {
+//           sidebar.classList.toggle('close');
+//       });
 //
-// // Función para cambiar el modo oscuro
-// function toggleDarkMode() {
-//   // Obtiene el elemento <link> que carga el archivo CSS del modo oscuro
-//   const darkModeCSS = document.getElementById('dark-mode-css');
+//       searchBtn.addEventListener('click', () => {
+//           sidebar.classList.remove('close');
+//       });
 //
-//   // Alterna la existencia de la clase 'dark-mode' en el elemento <link>
-//   darkModeCSS.href = darkModeCSS.href.includes('dark-mode') ? '{% static "basic-page.css" %}' : '{% static "dark-mode.css" %}';
+//
+//
+//       modeSwitch.addEventListener('click', () => {
+//           body.classList.toggle('dark');
+//
+//           if(body.classList.contains('dark')){
+//               modeText.innerText = 'Modo de día';
+//             }else{
+//               modeText.innerText = 'Modo Oscuro';
+//             }
+//
+//       });
+
+
+
+
+
+// const body = document.querySelector('body');
+// const sidebar = body.querySelector('.sidebar');
+// const toggle = body.querySelector('.toggle');
+// const searchBtn = body.querySelector('.search-box .bx-search');
+// const modeSwitch = body.querySelector('.toggle-switch');
+// const modeText = body.querySelector('.mode-text');
+//
+// if (toggle && sidebar) {
+//   toggle.addEventListener('click', () => {
+//     sidebar.classList.toggle('close');
+//   });
 // }
 //
-// // Asigna un evento de clic al botón de alternar modo oscuro
-// darkModeToggle.addEventListener('click', toggleDarkMode);
-//
-// // Si el usuario prefiere el modo oscuro, cambia al modo oscuro de inmediato
-// if (prefersDarkMode) {
-//   toggleDarkMode();
+// if (searchBtn && sidebar) {
+//   searchBtn.addEventListener('click', () => {
+//     sidebar.classList.remove('close');
+//   });
 // }
+//
+// if (modeSwitch && body && modeText) {
+//   modeSwitch.addEventListener('click', () => {
+//     body.classList.toggle('dark');
+//
+//     if (body.classList.contains('dark')) {
+//       modeText.innerText = 'Modo de día';
+//     } else {
+//       modeText.innerText = 'Modo Oscuro';
+//     }
+//   });
+// }
+//
+
+
+
 
 const body = document.querySelector('body');
-      sidebar = body.querySelector('.sidebar');
-      toggle = body.querySelector('.toggle');
-      searchBtn = body.querySelector('.search-box .bx-search');
-      modeSwitch = body.querySelector('.toggle-switch');
-      modeText = body.querySelector('.mode-text');
+const sidebar = body.querySelector('.sidebar');
+const toggle = body.querySelector('.toggle');
+const searchBtn = body.querySelector('.search-box .bx-search');
+const modeSwitch = body.querySelector('.toggle-switch');
+const modeText = body.querySelector('.mode-text');
 
-      toggle.addEventListener('click', () => {
-          sidebar.classList.toggle('close');
-      });
+// Función para guardar el estado del modo oscuro en el localStorage
+const saveDarkModeState = (darkModeEnabled) => {
+  localStorage.setItem('darkModeEnabled', darkModeEnabled);
+};
 
-      searchBtn.addEventListener('click', () => {
-          sidebar.classList.remove('close');
-      });
+// Función para cargar el estado del modo oscuro del localStorage
+const loadDarkModeState = () => {
+  const darkModeEnabled = localStorage.getItem('darkModeEnabled');
+  if (darkModeEnabled === 'true') {
+    body.classList.add('dark');
+    modeText.innerText = 'Modo de día';
+  } else {
+    body.classList.remove('dark');
+    modeText.innerText = 'Modo Oscuro';
+  }
+};
+
+// Verificar si el modo oscuro está guardado en el localStorage y cargarlo al cargar la página
+loadDarkModeState();
+
+if (toggle && sidebar) {
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('close');
+  });
+}
+
+if (searchBtn && sidebar) {
+  searchBtn.addEventListener('click', () => {
+    sidebar.classList.remove('close');
+  });
+}
+
+if (modeSwitch && body && modeText) {
+  modeSwitch.addEventListener('click', () => {
+    body.classList.toggle('dark');
+
+    if (body.classList.contains('dark')) {
+      modeText.innerText = 'Modo de día';
+      saveDarkModeState(true);
+    } else {
+      modeText.innerText = 'Modo Oscuro';
+      saveDarkModeState(false);
+    }
+  });
+}
 
 
 
-      modeSwitch.addEventListener('click', () => {
-          body.classList.toggle('dark');
 
-          if(body.classList.contains('dark')){
-              modeText.innerText = 'Modo de día';
-            }else{
-              modeText.innerText = 'Modo Oscuro';
-            }
-
-      });
-
-
+//
+// // SIDEBAR
+//
+// // ...
+//
+// // Función para guardar el estado del sidebar en el sessionStorage
+// const saveSidebarState = (isOpen) => {
+//   sessionStorage.setItem('sidebarOpen', isOpen);
+// };
+//
+// // Función para cargar el estado del sidebar del sessionStorage
+// const loadSidebarState = () => {
+//   const sidebarOpen = sessionStorage.getItem('sidebarOpen');
+//   if (sidebarOpen === 'true') {
+//     sidebar.classList.remove('close');
+//   } else {
+//     sidebar.classList.add('close');
+//   }
+// };
+//
+// // Verificar si el estado del sidebar está guardado en el sessionStorage y cargarlo al cargar la página
+// loadSidebarState();
+//
+// // ...
+//
+// if (toggle && sidebar) {
+//   toggle.addEventListener('click', () => {
+//     sidebar.classList.toggle('close');
+//     saveSidebarState(!sidebar.classList.contains('close'));
+//   });
+// }
+//
+// // ...
