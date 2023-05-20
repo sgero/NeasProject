@@ -27,6 +27,7 @@ urlpatterns = [
     path('eleccionMonumento/', eleccion_monumento, name='eleccion_monumento'),
     path('ruta/detalles/<int:id>', DetallesRutas, name='detalles_ruta'),
 
+
     # path('paginaOperador/', vista_operador, name='vista_operador')
 
 ]

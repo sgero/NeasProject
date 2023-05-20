@@ -15,6 +15,8 @@ from .forms import FormularioRegistro
 from .forms import FormularioRegistroOPT
 from .forms import UserComment
 from .models import *
+from django.urls import reverse
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -372,7 +374,6 @@ def DetallesRutas(request, id):
 
     if request.method == 'POST':
         form = UserComment(request.POST, request.FILES)
-        comentarios = ComentariosUsuarios.objects.all()
 
         if form.is_valid():
             comentario = form.save(commit=False)
@@ -380,17 +381,19 @@ def DetallesRutas(request, id):
             comentario.autor_comentario = request.user
             comentario.User = request.user
             comentario.save()
+            comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+            form = UserComment()
 
-            return render(request, 'mostrar_ruta_especifica.html', {'ruta':ruta ,'comentario': comentario, 'comentarios': comentarios, 'id': id})
+            return redirect('detalles_ruta', id=id)
 
         else:
             form = UserComment()
 
     else:
-        # Si no se envió un formulario, simplemente renderiza la plantilla con los comentarios existentes
-        comentarios = ComentariosUsuarios.objects.all()
-        form = UserComment()
-        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form})
 
-    # Agrega una respuesta HTTP predeterminada al final de la vista
-    return HttpResponse("Algo salió mal, por favor vuelve a intentarlo")
+        comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+        form = UserComment()
+
+
+
+        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form , 'ruta': ruta})

@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import UsuarioLogin , ComentariosUsuarios
 
 
+
 class FormularioRegistro(UserCreationForm):
 
     email = forms.EmailField(max_length=255, required=True,
