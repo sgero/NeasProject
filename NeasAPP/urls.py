@@ -27,5 +27,6 @@ urlpatterns = [
     path('eleccionMonumento/', eleccion_monumento, name='eleccion_monumento'),
     # path('paginaOperador/', vista_operador, name='vista_operador'),
     path('rutas_mas_valoradas/', rutas_mas_valoradas, name='rutas_mas_valoradas'),
+    path('generar_pdf/', generar_pdf, name='generar_pdf'),
 
 ]
