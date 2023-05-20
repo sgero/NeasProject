@@ -1,4 +1,5 @@
 from django.contrib.auth.hashers import make_password
+from django.db.models import Avg
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
@@ -356,3 +357,8 @@ def eleccion_monumento(request):
     request.session['precio'] = request.POST.get('precio')
 
     return render(request, 'eleccion_monumento.html', {'monumentos': Monumentos})
+
+
+def rutas_mas_valoradas(request):
+    rutas = Ruta.objects.annotate(avg_valoracion=Avg('valoraciones__valor')).order_by('-avg_valoracion')[:5]
+    return render(request, 'rutas_mas_valoradas.html', {'rutas': rutas})

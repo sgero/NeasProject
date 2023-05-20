@@ -1,0 +1,37 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Rutas Más Valoradas | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'mostrar_rutas.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+    <div class="padreArriba">
+
+        <form method="post" action="/neas/buscar/personalizada/">
+
+            {% csrf_token %}
+
+            <div class="rutasmv">
+
+                <h1>Rutas más valoradas</h1>
+
+                <ul>
+                    {% for ruta in rutas %}
+                        <li>{{ ruta.nombre }} - Valoración promedio: {{ ruta.avg_valoracion }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
