@@ -80,7 +80,7 @@ html, body {
 }
 
 .boton{
-    background-color: #D9EAD3;
+    background-color: #d3e4ea;
     border-radius: 7px;
     border-width: thin;
     display: flex;
@@ -172,7 +172,7 @@ h3 {
 }
 
 .dropbtn {
-  background-color: #4CAF50;
+  background-color: #4c7aaf;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -208,7 +208,7 @@ h3 {
 }
 
 .dropdown:hover .dropbtn {
-    background-color: #3e8e41;
+    background-color: #3e728e;
 }
 
 /*!*estilo para sidenav*!*/
@@ -340,7 +340,7 @@ header{
 
 --body-color: #E4E9F7;
     --sidebar-color: #FFF;
-    --primary-color: #8ddc8d;
+    --primary-color: #8dbedc;
     --primary-color-light: #F6F5FF;
     --toggle-color: #DDD;
     --text-color: #707070;
@@ -369,7 +369,7 @@ header{
 --body-color-accent-text-light-hover: #000000;
 --body-color-accent-text-light-active: #000000;
 
---body-color-dark: linear-gradient(90deg, #e4ffc7 0%, #6c8c6c 35%, #e4ffc7 100%);
+--body-color-dark: linear-gradient(to bottom right, #FFFFFF, #9AACB5, #FFFFFF);
 
 
 /* Transition */
@@ -390,11 +390,11 @@ body{
 body.dark{
     background: var(--body-color-dark);
     --body-color: #3d3e41;
-    --sidebar-color: #484545;
-    --primary-color: #1e3807;
-    --primary-color-light: #085e08;
+    --sidebar-color: #78909C;
+    --primary-color: #072b38;
+    --primary-color-light: #08375e;
     --toggle-color: #48544d;
-    --text-color: #b0eab0;
+    --text-color: #b0d6ea;
 }
 
 /*sidebar*/
