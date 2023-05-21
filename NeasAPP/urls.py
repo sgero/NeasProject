@@ -33,6 +33,9 @@ urlpatterns = [
     path('generar_pdf/', generar_pdf, name='generar_pdf'),
     path('ruta/valorar/<int:id>', valorar_ruta, name='valorar_ruta'),
     path('ruta/<int:ruta_id>/valorar/', valorar_ruta, name='valorar_ruta2'),
+    path('ruta/detalles/<int:id>', DetallesRutas, name='detalles_ruta'),
+
+
     # path('paginaOperador/', vista_operador, name='vista_operador')
 
 ]

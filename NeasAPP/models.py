@@ -1,4 +1,6 @@
 from decimal import Decimal
+from datetime import datetime, timezone
+from django.utils.timezone import now
 from django.db import models
 from django.db.models import Model, ForeignKey
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -241,7 +243,7 @@ class Ruta(models.Model):
     tramo_horario = models.CharField(max_length=50, choices=tramo_h.choices)
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
     imagen = models.ImageField(default=None)
-    valoracion_media = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal('0.0'))
+    valoracion_media = models.FloatField(max_length=4, default=0.0)
     operador_tur = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
     ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
     descripcion = models.CharField(max_length=50, default='Descripción', null=True)
@@ -252,7 +254,15 @@ class Ruta(models.Model):
         valoraciones = Valoracion_usuario.objects.filter(ruta=self)
         return valoraciones.aggregate(models.Avg('calificacion'))['calificacion__avg'] or 0.0
 
+class ComentariosUsuarios(models.Model):
 
+    autor_comentario = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
+    ruta = models.ForeignKey(Ruta, related_name="comentarios", on_delete=models.CASCADE, default=None)
+    comentario = models.TextField()
+    fecha_creacion = models.DateTimeField(editable=False , auto_now_add=True)
+
+    def __str__(self):
+        return self.autor_comentario , self.ruta.nombre
 # class DatosMonumentos(models.Model):
 #     monumento = models.CharField(max_length=60, choices=Monumentos.choices, null=True)
 #     imagen = models.URLField(null=True)
@@ -285,6 +295,3 @@ class Monumento_pi(models.Model):
 class Monumento_Ruta(models.Model):
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
     Monumento = models.CharField(choices=Monumentos.choices, max_length=200, null=True)
-
-
-

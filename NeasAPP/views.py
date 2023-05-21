@@ -1,16 +1,27 @@
 from django.contrib.auth.hashers import make_password
 from django.db.models import Avg
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django import forms
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, get_object_or_404
+from .models import Ruta, ComentariosUsuarios
+from .forms import UserComment
+from django.http import HttpResponse
+
 from reportlab.pdfgen import canvas
 
 from .decorators import *
 from .forms import FormularioRegistro, FormularioValoracion
 from .forms import FormularioRegistroOPT
+from .forms import UserComment
 from .models import *
+from django.urls import reverse
+from django.shortcuts import redirect
+
 
 # Create your views here.
 def inicio2(request):
@@ -90,15 +101,7 @@ def mostrar_ruta(request):
 
 def mostrar_ruta_op(request):
     lista_rutas = Ruta.objects.filter(operador_tur=request.user.id)
-    form = FormularioValoracion()
-    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica,
-                                                 "tipo_transporte": tipo_vehiculo, 'form': form})
-
-
-def mostrar_ruta_especifica(request, id):
-    ruta = Ruta.objects.get(id=id)
-    ruta = Ruta.objects.get(id=id)
-    return render(request, 'mostrar_ruta_especifica.html', {"ruta": ruta})
+    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
 
 
 def eliminar_ruta(request, id):
@@ -453,3 +456,33 @@ def valorar_ruta(request, id):
         form = FormularioValoracion()
 
     return render(request, 'mostrar_ruta.html', {'form': form, 'ruta': ruta})
+
+def DetallesRutas(request, id):
+    ruta = get_object_or_404(Ruta, id=id)
+    comentario = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+
+    if request.method == 'POST':
+        form = UserComment(request.POST, request.FILES)
+
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.ruta = ruta
+            comentario.autor_comentario = request.user
+            comentario.User = request.user
+            comentario.save()
+            comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+            form = UserComment()
+
+            return redirect('detalles_ruta', id=id)
+
+        else:
+            form = UserComment()
+
+    else:
+
+        comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+        form = UserComment()
+
+
+
+        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form , 'ruta': ruta})
