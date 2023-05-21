@@ -1,9 +1,9 @@
 {% block content %}
-{% load static %}
+    {% load static %}
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 
-<html lang="en">
+    <html lang="en">
 
     <head>
 
@@ -13,7 +13,11 @@
 
         {% block css %}  {% endblock %}
 
-        <link rel="stylesheet" type="text/css" href="{% static 'basic_page.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'basic_page.css' %}" id="light-mode-css">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'dark-mode.css' %}" id="dark-mode-css">
+
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
         <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
 
@@ -26,18 +30,99 @@
 
     <header id="header">
 
+
         <div id="parteabajo">
 
             <div id="logo">
 
-                <a class="logoneas" href="/neas/"><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto"></a>
+                <a class="logoneas" href="/neas/"><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100"
+                                                       id="foto"></a>
+
+
+                {#                {% if user.is_authenticated and user.rol == "Operador" %}#}
+                {##}
+                {#                <div id="main">#}
+                {#                    <span style="font-size:30px;cursor:pointer;display: flex;justify-content: center;align-items: center;" onclick="openNav()">&#9776; <img src="{{ user.imagen }}" width="130" height="100" id="foto1"></span>#}
+                {#                </div>#}
+                {##}
+                {#                {% endif %}#}
 
                 {% if user.is_authenticated and user.rol == "Operador" %}
+                    <nav class="sidebar close">
+                        <header>
+                            <div class="image-text">
+                <span class="image">
+                    <img src="{{ user.imagen }}" alt="user-image" class="user-image">
+                    <h3 class="namet">{{ user.get_username }}</h3>
+                </span>
 
-                <div id="main">
-                    <span style="font-size:30px;cursor:pointer;display: flex;justify-content: center;align-items: center;" onclick="openNav()">&#9776; <img src="{{ user.imagen }}" width="130" height="100" id="foto1"></span>
-                </div>
+                                {#                <div class="text header-text">#}
+                                {#                    <span class="name">Editar mi perfil</span>#}
+                                {#                        <span class="see-ruta">Ver mis rutas</span>#}
+                                {#                        <span class="edit-ruta">Crear ruta nueva</span>#}
+                                {#                </div>#}
 
+                            </div>
+
+                            <i class="bx bx-chevron-left toggle"> </i>
+
+                        </header>
+                        <div class="menu-bar">
+                            <div class="menu">
+                                <li class="search-box">
+                                    <i class='bx bx-search-alt-2 icon'></i>
+                                    <input type="text" placeholder="Buscar...">
+
+                                </li>
+                                <ul class="menu-links">
+                                    <li class="nav-link">
+                                        <a href="{% url 'editar_perfil' %}"><i class='bx bx-user'></i>
+                                            <span class="text nav-text">Editar mi perfil</span>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-link">
+                                        <a href="{% url 'mostrar_ruta' %}"><i class='bx bx-git-repo-forked'></i>
+                                            <span class="text nav-text">Ver mis Rutas </span>
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-link">
+                                        <a href="{% url 'crear_ruta' %}"><i class='bx bx-buildings'></i>
+                                            <span class="text nav-text">Crear Rutas </span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                                <div class="bottom-content">
+                                    <li class="nav-link">
+                                        <a href="{% url 'logout' %}"><i class='bx bx-log-out-circle'></i>
+                                            <span class="text nav-text">Logout </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="mode">
+                                        <div class="moon-sun">
+                                            <i class='bx bx-moon icon moon'></i>
+                                            <i class='bx bx-sun icon sun'></i>
+                                        </div>
+                                        <span class="mode-text text">Modo Oscuro </span>
+                                        <div class="toggle-switch">
+                                            <span class="switch"></span>
+                                        </div>
+
+
+                                    </li>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </nav>
                 {% endif %}
 
             </div>
@@ -56,13 +141,13 @@
 
                         <div class="dropdown">
 
-                                <button class="boton">
+                            <button class="boton">
 
-                                    <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+                                <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
 
-                                    REGISTRO
+                                REGISTRO
 
-                                </button>
+                            </button>
 
                             <div class="dropdown-content">
                                 <a href="{% url 'registrar_operador' %}">Operador</a>
@@ -93,14 +178,34 @@
 
         </div>
 
+
     </header>
 
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="{% url 'editar_perfil' %}">Editar mi Perfil</a>
-        <a href="{% url 'mostrar_ruta_op' %}">Ver mis Rutas</a>
-        <a href="{% url 'crear_ruta' %}">Crear Rutas</a>
-    </div>
+
+    {#    <section class="home">#}
+    {#        <div class="text">#}
+    {#            <h1>NEAS</h1>#}
+    {#            <p>¡Bienvenido a NEAS! Aquí podrás encontrar las mejores rutas turísticas de Sevilla. ¡No te las pierdas!</p>#}
+    {#        </div>#}
+    {##}
+    {#    </section>#}
+
+    {##}
+    {#    <div id="mySidenav" class="sidenav">#}
+    {#        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>#}
+    {#        <a href="{% url 'editar_perfil' %}">Editar mi Perfil</a>#}
+    {#        <a href="{% url 'mostrar_ruta' %}">Ver mis Rutas</a>#}
+    {#        <a href="{% url 'crear_ruta' %}">Crear Rutas</a>#}
+    {##}
+    {#        <button id="dark-mode-toggle">Modo Oscuro</button>#}
+    {##}
+    {##}
+    {#    </div>#}
+
+
+
+
+
 
     {% block content1 %}
 
@@ -108,7 +213,7 @@
 
     {% block scripts %}  {% endblock scripts %}
 
-<footer>
+    <footer>
 
         <section class="d-flex justify-content-lg-between">
 
@@ -186,9 +291,10 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="{% static 'sidenavbar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dark-mode.js' %}"></script>
 
     </body>
 
-</html>
+    </html>
 
 {% endblock content %}

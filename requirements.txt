@@ -1,2 +1,4 @@
 Django == 4.2
 django-bootstrap4 == 22.3
+Pillow == 9.5.0
+reportlab == 3.6.1

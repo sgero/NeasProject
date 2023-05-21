@@ -245,7 +245,7 @@ class Ruta(models.Model):
     operador_tur = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
     ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
     descripcion = models.CharField(max_length=50, default='Descripción', null=True)
-    precio = models.IntegerField(null=True)
+    precio = models.FloatField(null=True)
 
     @property
     def la_valoracion_media(self):
