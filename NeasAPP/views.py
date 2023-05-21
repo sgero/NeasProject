@@ -363,11 +363,12 @@ def eleccion_monumento(request):
 
 
 def rutas_mas_valoradas(request):
-    rutas = Ruta.objects.annotate(avg_valoracion=Avg('valoraciones__valor')).order_by('-avg_valoracion')[:5]
+    rutas = Ruta.objects.annotate.order_by('valoracion_media')[:5]
     return render(request, 'rutas_mas_valoradas.html', {'rutas': rutas})
 
 
 def generar_pdf(request):
+    rutas = request.POST.getlist('rutas')
     # Obtener los datos de las rutas seleccionadas
     # routes = ...
 
@@ -383,8 +384,8 @@ def generar_pdf(request):
     p.drawString(100, 700, "Rutas seleccionadas:")
 
     y = 670
-    for rutas in  lista_rutas:
-        p.drawString(100, y, ruta.nombre)
+    for r in rutas:
+        p.drawString(100, y, r.nombre)
         y -= 20
 
     # Finalizar el PDF
