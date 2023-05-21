@@ -57,19 +57,18 @@
 
                         <div class="card-body" style="display: flex; justify-content: space-around">
 
-                            {% if ruta.id not in rutas_valoradas and user.rol == "Cliente" %}
+
 
                                 <form action="{% url 'valorar_ruta' ruta.id %}" method="post">
 
                                     {% csrf_token %}
 
-                                    {{ form.as_p }}
+                                    {{ form2.as_p }}
 
                                     <button type="submit">Valorar</button>
 
                                 </form>
 
-                            {% endif %}
 
                             {% if r.operador_tur.id is user.id %}
 

@@ -106,12 +106,6 @@ html, body {
     cursor: pointer;
 }
 
-.inicio{
-    display: flex;
-    align-content: center;
-    justify-content: center;
-}
-
 h6{
     color: #EBEFEF;
 
