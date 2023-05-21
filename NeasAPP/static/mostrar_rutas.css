@@ -69,6 +69,7 @@ footer {
 .card-title {
 
     margin: 0 !important;
+    color: #858585;
 
 }
 
@@ -104,8 +105,9 @@ select {
 
     outline: none;
     border-radius: 5px;
-    padding: 2px 5px;
     font-size: medium;
+    border: 1px solid silver;
+    padding: 5px 8px;
 
 }
 
@@ -139,3 +141,33 @@ a.card-link {
     flex: 0 !important;
 
 }
+
+h4, h5{
+
+    margin: 0 !important
+
+}
+
+.card-body {
+
+    padding: 4% !important;
+    background-color: #acc8d7;
+
+}
+
+/*.card {*/
+/*  width: 200px;*/
+/*  height: 150px;*/
+/*  border-radius: 10px;*/
+/*  margin-bottom: 10px;*/
+/*  background-color: blue;*/
+/*  color: white;*/
+/*}*/
+
+/*.card-content {*/
+/*  padding: 10px;*/
+/*}*/
+
+/*h2 {*/
+/*  margin-top: 0;*/
+/*}*/

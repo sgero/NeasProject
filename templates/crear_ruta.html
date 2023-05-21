@@ -27,7 +27,7 @@
 
             <div id="iniciar-sesion">
 
-                <form method="post" action="/neas/ruta/crear/" id="myForm">
+                <form method="post" action="{% url 'eleccion_monumento' %}" id="myForm">
 
                     {% csrf_token %}
 
@@ -111,7 +111,8 @@
 
                     </div>
 
-                    <input type="submit" class="button button-block" value="Crear Ruta">
+
+                    <input type="submit" class="button button-block" value="Continuar">
 
                 </form>
 

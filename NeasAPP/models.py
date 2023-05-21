@@ -1,11 +1,12 @@
-from decimal import Decimal
-
 from django.db import models
 from django.db.models import Model, ForeignKey
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+# Create your models here.
 
+#Creamos los Enum para los valores de BBDD
 class tipo_vehiculo(models.TextChoices):
+
     turismo = ('Turismo')
     ciclomotor = ('Ciclomotor')
     motocicleta = ('Motocicleta')
@@ -14,6 +15,7 @@ class tipo_vehiculo(models.TextChoices):
 
 
 class tematica(models.TextChoices):
+
     gastronomico = ('Gastronómico')
     cultural = ('Cultural')
     historico = ('Historico')
@@ -27,9 +29,9 @@ class tramo_h(models.TextChoices):
     tarde = ('Tarde')
     noche = ('Noche')
 
-
 class provincia(models.TextChoices):
-    sevilla = ('Sevilla')
+
+    sevilla =('Sevilla')
     cadiz = ('Cádiz')
     granada = ('Granada')
     cordoba = ('Cordoba')
@@ -40,45 +42,44 @@ class provincia(models.TextChoices):
     caceres = ('Caceres')
     badajoz = ('Badajoz')
     murcia = ('Murcia')
-    alicante = ('Alicante')
+    alicante =('Alicante')
     valencia = ('Valencia')
-    castellon = ('Castellon')
+    castellon =  ('Castellon')
     islas_baleares = ('Islas Baleares')
-    tenerife = ('Tenerife')
-    las_palmas = ('Las Palmas')
+    tenerife =  ('Tenerife')
+    las_palmas =  ('Las Palmas')
     albacete = ('Albacete')
-    cuenca = ('Cuenca')
-    toledo = ('Toledo')
-    ciudad_real = ('Ciudad Real')
-    guadalajara = ('Guadalajara')
-    madrid = ('Madrid')
+    cuenca =  ('Cuenca')
+    toledo =  ('Toledo')
+    ciudad_real =  ('Ciudad Real')
+    guadalajara =('Guadalajara')
+    madrid =  ('Madrid')
     teruel = ('Teruel')
-    zaragoza = ('Zaragoza')
-    huesca = ('Huesca')
+    zaragoza =  ('Zaragoza')
+    huesca =('Huesca')
     tarragona = ('Tarragona')
-    lerida = ('Lerida')
+    lerida =  ('Lerida')
     barcelona = ('Barcelona')
-    gerona = ('Gerona')
-    la_rioja = ('La Rioja')
-    navarra = ('Navarra')
+    gerona =  ('Gerona')
+    la_rioja =  ('La Rioja')
+    navarra =  ('Navarra')
     vizcaya = ('Vizcaya')
-    alava = ('Alava')
+    alava =  ('Alava')
     cantabria = ('Cantabria')
     asturias = ('Asturias')
     lugo = ('Lugo')
     orense = ('Orense')
-    pontevedra = ('Pontevedra')
+    pontevedra =('Pontevedra')
     la_coruña = ('La Coruña')
     leon = ('León')
     palencia = ('Palencia')
     burgos = ('Burgos')
-    soria = ('Soria')
+    soria =  ('Soria')
     valladolid = ('Valladolid')
     segovia = ('Segovia')
     avila = ('Avila')
     salamanca = ('Salamanca')
     zamora = ('Zamora')
-
 
 class Monumentos(models.TextChoices):
     LaSagradaFamilia = ('La Sagrada Familia')
@@ -133,10 +134,9 @@ class Monumentos(models.TextChoices):
     ElMuseoGuggenheimEnBilbao = ('El Museo Guggenheim en Bilbao')
 
 
+
 """CREACIÓN DE LA BASE DE DATOS"""
-
-
-# Entidades para el login y los roles
+#Entidades para el login y los roles
 class Roles(models.TextChoices):
     ADMIN = 'Admin'
     CLIENTE = 'Cliente'
@@ -145,27 +145,26 @@ class Roles(models.TextChoices):
     def mostrar(self):
         return
 
-
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
         if not email:
             raise ValueError("El usuario debe tener un email válido")
-        user = self.model(email=self.normalize_email(email), **extra_fields)
+        user = self.model(email=self.normalize_email(email),**extra_fields )
         user.set_password(password)
-        user.save(using=self.db)
+        user.save(using = self.db)
         return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
+    def create_superuser(self,email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault("is_susperuser", True)
-        return self.create_user(email, password, **extra_fields)
-
+        return self.create_user(email,password,**extra_fields)
 
 class UsuarioLogin(AbstractBaseUser):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
     rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True, unique=None)
+    imagen = models.CharField(max_length=1000, null=True, unique=True, default='NeasAPP/static/img/userfoto.png')
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username, email, password']
 
@@ -174,13 +173,11 @@ class UsuarioLogin(AbstractBaseUser):
     def __str__(self):
         return self.username, self.email
 
-
 class DatosUsuario(models.Model):
     dni = models.CharField(max_length=9, null=True)
     usuario = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
 
-
-# Clase para el formulario de registro de Operador Turístico (Creo que esto no hace falta ya que tenemos el UsuarioLogin, pero lo creo por si acaso)
+  #Clase para el formulario de registro de Operador Turístico (Creo que esto no hace falta ya que tenemos el UsuarioLogin, pero lo creo por si acaso)
 class DatosOperador(models.Model):
     # email = models.EmailField(unique=True)
     # username = models.CharField(max_length=50, unique=True)
@@ -204,8 +201,8 @@ class DatosOperador(models.Model):
     #     return self.username, self.email
 
 
-# Entidades de la base de datos
-# ESTA CLASE NO HEREDA DEL LOGIN DE DJANGO (ABSTRACTBASE USER SI, QUE ES LA QUE VAMOS A USAR)
+#Entidades de la base de datos
+#ESTA CLASE NO HEREDA DEL LOGIN DE DJANGO (ABSTRACTBASE USER SI, QUE ES LA QUE VAMOS A USAR)
 # class Usuario(models.Model):
 #     nombre = models.CharField(max_length=150)
 #     Apellidos = models.CharField(max_length=150)
@@ -242,39 +239,35 @@ class Ruta(models.Model):
     tematica = models.CharField(choices=tematica.choices, max_length=100)
     tramo_horario = models.CharField(max_length=50, choices=tramo_h.choices)
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
-    imagen = models.CharField(default=None, max_length=50)
-    valoracion_media = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal('0.0'))
+    imagen = models.ImageField(default=None)
+    valoracion_media = models.FloatField(max_length=4, default=0.0)
     operador_tur = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
     ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
     descripcion = models.CharField(max_length=50, default='Descripción', null=True)
-    precio = models.IntegerField(null=True)
-    @property
-    def la_valoracion_media(self):
-        valoraciones = Valoracion_usuario.objects.filter(ruta=self)
-        return valoraciones.aggregate(models.Avg('calificacion'))['calificacion__avg'] or 0.0
+    precio = models.FloatField(null=True)
 
 
-class DatosMonumentos(models.Model):
-    monumento = models.CharField(max_length=60, choices=Monumentos.choices, null=True)
-    imagen = models.URLField(null=True)
-    ciudad = models.CharField(max_length=60, choices=provincia.choices, null=True)
-    valoracion_media = models.FloatField(max_length=4, default=0.0, null=True)
-
+# class DatosMonumentos(models.Model):
+#     monumento = models.CharField(max_length=60, choices=Monumentos.choices, null=True)
+#     imagen = models.URLField(null=True)
+#     ciudad = models.CharField(max_length=60, choices=provincia.choices, null=True)
+#     valoracion_media = models.FloatField(max_length=4, default=0.0, null=True)
+#     valoracion_usuario = models.ForeignKey(Valoracion_usuario, on_delete=models.CASCADE, null=True)
+#     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
 
 class Valoracion_usuario(models.Model):
-    CALIFICACIONES = (
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-        (5, '5'),
-    )
-    calificacion = models.IntegerField(choices=CALIFICACIONES, null=True)
+    nota = models.FloatField(null=True)
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, default=None, null=True)
-    monumento = models.ForeignKey(DatosMonumentos, on_delete=models.CASCADE, null=True)
     usuarios = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, null=True)
     comentario = models.CharField(max_length=200, null=True)
 
+class Monumento_pi(models.Model):
+    nombre = models.CharField(max_length=150, choices=Monumentos.choices)
+    imagen = models.CharField(max_length=500)
+    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE, null=True)
+    valoracion_media = models.FloatField(max_length=4, default=0.0, null=True)
+    valoracion_usuario = models.ForeignKey(Valoracion_usuario, on_delete=models.CASCADE, null=True)
 
-
-
+class Monumento_Ruta(models.Model):
+    ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
+    Monumento = models.CharField(choices=Monumentos.choices, max_length=200, null=True)

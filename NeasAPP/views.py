@@ -1,10 +1,14 @@
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import render, redirect
+from django.db.models import Avg
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+from reportlab.pdfgen import canvas
+
 from .decorators import *
-from .forms import FormularioRegistro, FormularioValoracion
+from .forms import FormularioRegistro
 from .forms import FormularioRegistroOPT
 from .models import *
 
@@ -27,40 +31,69 @@ def crear_ruta(request):
         return render(request, 'crear_ruta.html', {"tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, "Provincia": provincia})
     else:
         nueva_ruta = Ruta()
-        nueva_ruta.nombre = request.POST.get('nombre')
-        nueva_ruta.tematica = request.POST.get('tipo_ruta')
-        nueva_ruta.transporte = request.POST.get('tipo_transporte')
-        nueva_ruta.tramo_horario = request.POST.get('tramo_horario')
-        nueva_ruta.hora_inicio = request.POST.get('hora_inicio')
-        nueva_ruta.hora_fin = request.POST.get('hora_fin')
-        nueva_ruta.imagen = request.POST.get('imagen')
-        nueva_ruta.ciudad = request.POST.get('ciudad')
-        nueva_ruta.descripcion = request.POST.get('desc')
+        nueva_ruta.nombre = request.session['nombre']
+        nueva_ruta.tematica = request.session['tipo_ruta']
+        nueva_ruta.transporte = request.session['tipo_transporte']
+        nueva_ruta.tramo_horario = request.session['tramo_horario']
+        nueva_ruta.hora_inicio = request.session['hora_inicio']
+        nueva_ruta.hora_fin = request.session['hora_fin']
+        nueva_ruta.imagen = request.session['imagen']
+        nueva_ruta.ciudad = request.session['ciudad']
+        nueva_ruta.descripcion = request.session['desc']
         nueva_ruta.operador_tur_id = request.user.id
-        nueva_ruta.precio = request.POST.get('precio')
+        nueva_ruta.precio = request.session['precio']
         Ruta.save(nueva_ruta)
-        return render(request, 'inicio.html', {"provincia":provincia})
 
-def get_rutas_and_valoraciones(request):
-    lista_rutas = Ruta.objects.all()
-    rutas_valoradas = Valoracion_usuario.objects.filter(usuarios=request.user).values_list('ruta', flat=True)
-    return lista_rutas, rutas_valoradas
+        for m in request.POST.getlist('monumento'):
+
+            nuevo_monumento_ruta = Monumento_Ruta()
+            nuevo_monumento_ruta.Monumento = m
+            nuevo_monumento_ruta.ruta = nueva_ruta
+            nuevo_monumento_ruta.save()
+
+        return inicio(request)
+
+def modificar_ruta(request,id):
+
+    ruta = Ruta.objects.get(id = id)
+
+    if request.method == 'GET':
+        return render(request, 'modificar_ruta.html',
+                      {"ruta": ruta , "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
+                       "provincia": provincia})
+    else:
+        ruta_act = ruta
+        ruta_act.nombre = request.POST.get('nombre')
+        ruta_act.tematica = request.POST.get('tipo_ruta')
+        ruta_act.transporte = request.POST.get('tipo_transporte')
+        ruta_act.tramo_horario = request.POST.get('tramo_horario')
+        ruta_act.hora_inicio = request.POST.get('hora_inicio')
+        ruta_act.hora_fin = request.POST.get('hora_fin')
+        ruta_act.imagen = request.POST.get('imagen')
+        ruta_act.ciudad = request.POST.get('ciudad')
+        ruta_act.descripcion = request.POST.get('desc')
+        ruta_act.operador_tur_id = request.user.id
+        ruta_act.precio = request.POST.get('precio')
+        Ruta.save(ruta_act)
+        return mostrar_ruta(request)
+
 
 def mostrar_ruta(request):
-    lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
-    form = FormularioValoracion()
-    return render(request, 'mostrar_ruta.html',{"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h,"tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
+    lista_rutas = Ruta.objects.filter(operador_tur=request.user.id)
+    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
 
 def eliminar_ruta(request, id):
     ruta = Ruta.objects.get(id=id)
     Ruta.delete(ruta)
-    return redirect('/neas/ruta')
+    return mostrar_ruta(request)
 
 
 def registrar_usuario(request):
     form = FormularioRegistro()
     if request.method == "GET":
         return render(request, "registrar_usuario.html", {"form": form})
+    #POST
     else:
         user = UsuarioLogin()
         form = FormularioRegistro(request.POST)
@@ -119,6 +152,36 @@ def registrar_operador(request):
         #     return render(request, "registrar_operador.html", {"form": form})
 
 
+def editar_perfil(request):
+
+    user = request.user
+
+    if request.method == 'GET':
+        return render(request, 'editar_perfil.html',
+                      {"usuario": user , "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
+                       "provincia": provincia})
+    else:
+        usuario = user
+        usuario.username = request.POST.get('username')
+        usuario.email = request.POST.get('email')
+        usuario.imagen = request.POST.get('imagen')
+        UsuarioLogin.save(usuario)
+        return inicio(request)
+
+
+def cambiar_contraseña(request):
+
+    usuario = UsuarioLogin.objects.get(username=request.session['usuario'])
+
+    if request.method == 'GET':
+        return render(request, 'cambiar_contraseña.html')
+    else:
+        user = usuario
+        user.password = make_password(request.POST.get("password2"))
+        UsuarioLogin.save(user)
+        return inicio(request)
+
+
 def login_usuario(request):
     form = AuthenticationForm()
     if request.method == "GET":
@@ -133,16 +196,13 @@ def login_usuario(request):
         username=form.data['username'],
         password=form.data['password'],)
 
+    request.session['usuario'] = form.data['username']
+
     #Si hemos encontrado el usuario
     if user is not None:
         #Nos logueamos
         login(request, user)
-        if user.rol == "Operador":
-
-            return render(request, 'pagina_operador.html', {"provincia": provincia})
-
-        else:
-            return render(request, 'inicio.html', {"provincia": provincia})
+        return render(request, 'inicio.html', {"provincia": provincia})
 
     else:
         return render(request, 'error_loginOp.html')
@@ -160,6 +220,8 @@ def login_operador(request):
     user = authenticate(
         username=form.data['username'],
         password=form.data['password'], )
+
+    request.session['usuario'] = form.data['username']
 
     # Si hemos encontrado el usuario
     if user is not None:
@@ -216,14 +278,11 @@ def desloguearse(request):
     return render(request, "logout.html")
     #return redirect('/neas/logout/')
 
-def buscar_ruta(request, ciudad=None):
-    ciudad = ciudad or request.POST.get("provincia")
-    lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
-
-    lista_rutas = lista_rutas.filter(ciudad=ciudad)
+def buscar_ruta(request):
+    ciudad = request.POST.get("provincia")
+    list_rutas = Ruta.objects.filter(ciudad=ciudad)
     request.session['ciudad'] = ciudad
-    form = FormularioValoracion()
-    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
+    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
 
 def filtro_general(request):
     transporte = request.POST.get("tipo_transporte")
@@ -275,33 +334,61 @@ def vista_operador(request):
     # Código de la vista para usuarios con rol de operador
     return render(request, 'pagina_operador.html')
 
+def acceso_denegado(request):
+    return render(request, 'acceso_denegado.html')
 
-def valorar_ruta(request, id):
-    ruta = Ruta.objects.get(id=id)
 
-    if Valoracion_usuario.objects.filter(ruta=ruta, usuarios=request.user).exists():
-        messages.error(request, "Ya has valorado esta ruta")
-        return redirect(request.META.get('HTTP_REFERER', 'default_if_none'))
-
-    if request.method == 'POST':
-        form = FormularioValoracion(request.POST)
-
-        if form.is_valid():
-            valoracion = form.save(commit=False)
-            valoracion.usuarios = request.user
-            valoracion.ruta = ruta
-            valoracion.save()
-
-            valoraciones = Valoracion_usuario.objects.filter(ruta=ruta)
-            suma_valoraciones = sum([val.calificacion for val in valoraciones])
-            media_valoracion = suma_valoraciones / len(valoraciones)
-
-            ruta.valoracion_media = media_valoracion
-            ruta.save()
-            ciudad = request.session.get('ciudad')
-            return redirect('buscar_ruta_ciudad', ciudad=ciudad)
-
+def eleccion_operador(request):
+    # Código de la vista para usuarios con rol de operador
+    if request.POST['menu'] == 'crear':
+        return render(request, 'crear_ruta.html')
     else:
-        form = FormularioValoracion()
+        return redirect(mostrar_ruta)
 
-    return render(request, 'mostrar_ruta.html', {'form': form, 'ruta': ruta})
+
+def eleccion_monumento(request):
+
+    request.session['nombre'] = request.POST.get('nombre')
+    request.session['tipo_ruta'] = request.POST.get('tipo_ruta')
+    request.session['tipo_transporte'] = request.POST.get('tipo_transporte')
+    request.session['tramo_horario'] = request.POST.get('tramo_horario')
+    request.session['hora_inicio'] = request.POST.get('hora_inicio')
+    request.session['hora_fin'] = request.POST.get('hora_fin')
+    request.session['imagen'] = request.POST.get('imagen')
+    request.session['ciudad'] = request.POST.get('ciudad')
+    request.session['desc'] = request.POST.get('desc')
+    request.session['precio'] = request.POST.get('precio')
+
+    return render(request, 'eleccion_monumento.html', {'monumentos': Monumentos})
+
+
+def rutas_mas_valoradas(request):
+    rutas = Ruta.objects.annotate(avg_valoracion=Avg('valoraciones__valor')).order_by('-avg_valoracion')[:5]
+    return render(request, 'rutas_mas_valoradas.html', {'rutas': rutas})
+
+
+def generar_pdf(request):
+    # Obtener los datos de las rutas seleccionadas
+    # routes = ...
+
+    # Crear el objeto HttpResponse con el tipo de contenido PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
+
+    # Crear el objeto PDF utilizando ReportLab
+    p = canvas.Canvas(response)
+
+    # Agregar contenido al PDF
+    p.setFont("Helvetica", 12)
+    p.drawString(100, 700, "Rutas seleccionadas:")
+
+    y = 670
+    for rutas in  lista_rutas:
+        p.drawString(100, y, ruta.nombre)
+        y -= 20
+
+    # Finalizar el PDF
+    p.showPage()
+    p.save()
+
+    return response

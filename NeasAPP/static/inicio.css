@@ -192,43 +192,43 @@ ol, li {
 }
 
 .carousel__slide:nth-child(2) {
-  background-image: url('img/p2.jpg');
+  background-image: url('img/1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .carousel__slide:nth-child(3) {
-  background-image: url('img/p3.jpeg');
+  background-image: url('img/2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .carousel__slide:nth-child(4) {
-  background-image: url('img/p3.jpg');
+  background-image: url('img/3.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .carousel__slide:nth-child(5) {
-  background-image: url('img/seville.jpeg');
+  background-image: url('img/4.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .carousel__slide:nth-child(6) {
-  background-image: url('img/fotobuena.jpg');
+  background-image: url('img/5.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .carousel__slide:nth-child(7) {
-  background-image: url('img/fotobuena2.jpg');
+  background-image: url('img/6.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .carousel__slide:nth-child(8) {
-  background-image: url('img/fotobuena3.jpg');
+  background-image: url('img/7.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -331,6 +331,7 @@ ol, li {
     left: 50%;
     transform: translateX(-50%);
     width: 60%;
+    transition: margin-left .5s;
 }
 
 footer{
@@ -342,5 +343,7 @@ footer{
 .carrusel{
 
     margin-bottom: -306px;
+    transition: margin-left .5s;
 
 }
+
