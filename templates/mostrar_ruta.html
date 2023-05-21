@@ -91,6 +91,12 @@
                             <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
                                 <p class="card-title">{{ r.ciudad }}</p>
                                 <p class="card-title">{{ r.precio }}€ de precio medio.</p>
+                                <a href="{% url 'generar_pdf' %}">Generar PDF</a>
+
+{#                                VALORAR RUTA NO ESTÁ FUNCIONANDO. REVISAR.#}
+{#                                <a href="{% url 'valorar_ruta' %}">Valorar Ruta</a>#}
+
+
                             </div>
 
                         </a>
