@@ -1,27 +1,16 @@
 from django.contrib.auth.hashers import make_password
-from django.http import HttpResponseRedirect
 from django.db.models import Avg
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django import forms
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, get_object_or_404
-from .models import Ruta, ComentariosUsuarios
-from .forms import UserComment
-from django.http import HttpResponse
-
 from reportlab.pdfgen import canvas
 
 from .decorators import *
-from .forms import FormularioRegistro
+from .forms import FormularioRegistro, UserComment
 from .forms import FormularioRegistroOPT
-from .forms import UserComment
 from .models import *
-from django.urls import reverse
-from django.shortcuts import redirect
-
 
 # Create your views here.
 def inicio2(request):
@@ -109,7 +98,7 @@ def registrar_usuario(request):
         user = UsuarioLogin()
         form = FormularioRegistro(request.POST)
         user.email = form.data["email"]
-        user.username = form.clean_username()
+        user.username = form.data["username"]
         user.password = make_password(request.POST.get("password2"))
         user.rol = Roles.CLIENTE
         user.save()
@@ -410,7 +399,7 @@ def rutas_mas_valoradas(request):
 def generar_pdf(request):
     # Obtener los datos de las rutas seleccionadas
     # routes = ...
-
+    lista_rutas = Ruta.objects.get.all()
     # Crear el objeto HttpResponse con el tipo de contenido PDF
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
@@ -424,7 +413,7 @@ def generar_pdf(request):
 
     y = 670
     for rutas in  lista_rutas:
-        p.drawString(100, y, ruta.nombre)
+        p.drawString(100, y, rutas.nombre)
         y -= 20
 
     # Finalizar el PDF
