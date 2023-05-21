@@ -69,6 +69,7 @@ footer {
 .card-title {
 
     margin: 0 !important;
+    color: #858585;
 
 }
 
@@ -150,5 +151,23 @@ h4, h5{
 .card-body {
 
     padding: 4% !important;
+    background-color: #acc8d7;
 
 }
+
+/*.card {*/
+/*  width: 200px;*/
+/*  height: 150px;*/
+/*  border-radius: 10px;*/
+/*  margin-bottom: 10px;*/
+/*  background-color: blue;*/
+/*  color: white;*/
+/*}*/
+
+/*.card-content {*/
+/*  padding: 10px;*/
+/*}*/
+
+/*h2 {*/
+/*  margin-top: 0;*/
+/*}*/

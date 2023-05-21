@@ -1,5 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from django.http import HttpResponseRedirect
+from django.db.models import Avg
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django import forms
@@ -9,6 +11,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Ruta, ComentariosUsuarios
 from .forms import UserComment
 from django.http import HttpResponse
+
+from reportlab.pdfgen import canvas
 
 from .decorators import *
 from .forms import FormularioRegistro
@@ -397,3 +401,34 @@ def DetallesRutas(request, id):
 
 
         return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form , 'ruta': ruta})
+
+def rutas_mas_valoradas(request):
+    rutas = Ruta.objects.annotate(avg_valoracion=Avg('valoraciones__valor')).order_by('-avg_valoracion')[:5]
+    return render(request, 'rutas_mas_valoradas.html', {'rutas': rutas})
+
+
+def generar_pdf(request):
+    # Obtener los datos de las rutas seleccionadas
+    # routes = ...
+
+    # Crear el objeto HttpResponse con el tipo de contenido PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
+
+    # Crear el objeto PDF utilizando ReportLab
+    p = canvas.Canvas(response)
+
+    # Agregar contenido al PDF
+    p.setFont("Helvetica", 12)
+    p.drawString(100, 700, "Rutas seleccionadas:")
+
+    y = 670
+    for rutas in  lista_rutas:
+        p.drawString(100, y, ruta.nombre)
+        y -= 20
+
+    # Finalizar el PDF
+    p.showPage()
+    p.save()
+
+    return response
