@@ -1,2 +1,4 @@
 Django == 4.2
 django-bootstrap4 == 22.3
+
+PyPDF2 == 1.26.0

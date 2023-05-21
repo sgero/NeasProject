@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from reportlab.pdfgen import canvas
-
+from io import BytesIO
 from .decorators import *
 from .forms import FormularioRegistro
 from .forms import FormularioRegistroOPT
@@ -367,29 +367,159 @@ def rutas_mas_valoradas(request):
     return render(request, 'rutas_mas_valoradas.html', {'rutas': rutas})
 
 
+# def generar_pdf(request):
+#     rutas = request.POST.getlist('rutas')
+#     # Obtener los datos de las rutas seleccionadas
+#     # routes = ...
+#
+#     # Crear el objeto HttpResponse con el tipo de contenido PDF
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
+#
+#     # Crear el objeto PDF utilizando ReportLab
+#     p = canvas.Canvas(response)
+#
+#     # Agregar contenido al PDF
+#     p.setFont("Helvetica", 12)
+#     p.drawString(100, 700, "Rutas seleccionadas:")
+#
+#     y = 670
+#     for r in rutas:
+#         p.drawString(100, y, r.nombre)
+#         y -= 20
+#
+#     # Finalizar el PDF
+#     p.showPage()
+#     p.save()
+#
+#     return response
+
+
+
+
+# from io import BytesIO
+# from reportlab.pdfgen import canvas
+#
+# def generar_pdf(request):
+#     rutas = request.POST.getlist('rutas')
+#     # Obtener los datos de las rutas seleccionadas
+#     # Aquí asumo que tienes un modelo llamado 'Ruta' con un campo 'nombre'
+#     routes = Ruta.objects.filter(id__in=rutas)
+#
+#     # Crear el objeto BytesIO para almacenar el PDF generado
+#     buffer = BytesIO()
+#
+#     # Crear el objeto PDF utilizando ReportLab
+#     p = canvas.Canvas(buffer)
+#
+#     # Agregar contenido al PDF
+#     p.setFont("Helvetica", 12)
+#     p.drawString(100, 700, "Rutas seleccionadas:")
+#
+#     y = 670
+#     for ruta in routes:
+#         p.drawString(100, y, ruta.nombre)
+#         y -= 20
+#
+#     # Finalizar el PDF
+#     p.showPage()
+#     p.save()
+#
+#     # Establecer el puntero del buffer al inicio del mismo
+#     buffer.seek(0)
+#
+#     # Crear el objeto HttpResponse con el tipo de contenido PDF
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
+#
+#     # Copiar el contenido del buffer al objeto de respuesta
+#     response.write(buffer.getvalue())
+#
+#     return response
+
+
+
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.utils import ImageReader
+from reportlab.pdfgen import canvas
+from django.template.loader import get_template
+from django.http import HttpResponse
+from xhtml2pdf import pisa
+
 def generar_pdf(request):
     rutas = request.POST.getlist('rutas')
-    # Obtener los datos de las rutas seleccionadas
-    # routes = ...
 
-    # Crear el objeto HttpResponse con el tipo de contenido PDF
+    # Obtener la plantilla HTML para el PDF
+    template = get_template('ruta_pdf.html')
+
+    # Contexto de datos para la plantilla
+    context = {
+        'rutas': rutas,
+        # Otros datos de contexto necesarios para la plantilla
+    }
+
+    # Renderizar la plantilla con el contexto
+    html = template.render(context)
+
+    # Crear un objeto HttpResponse con el tipo de contenido PDF
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
 
+
+
+
+    # Obtener los datos de las rutas seleccionadas
+    # Asegúrate de que el modelo 'Ruta' contenga los campos 'nombre', 'tipo', 'imagen', 'precio' y 'ciudad'
+    routes = Ruta.objects.filter(id__in=rutas)
+
+    # Crear el objeto BytesIO para almacenar el PDF generado
+    buffer = BytesIO()
+
     # Crear el objeto PDF utilizando ReportLab
-    p = canvas.Canvas(response)
+    p = canvas.Canvas(buffer, pagesize=letter)
 
     # Agregar contenido al PDF
     p.setFont("Helvetica", 12)
-    p.drawString(100, 700, "Rutas seleccionadas:")
+    p.drawString(100, 700, "NEAS > Rutas seleccionadas:")
 
     y = 670
-    for r in rutas:
-        p.drawString(100, y, r.nombre)
-        y -= 20
+    for ruta in routes:
+        # Mostrar el nombre de la ruta
+        p.drawString(100, y, "Nombre: " + ruta.nombre)
+
+        # Mostrar la tematica de la ruta
+        p.drawString(100, y - 20, "Temática: " + ruta.tematica)
+
+        # Mostrar el precio de la ruta
+        p.drawString(100, y - 40, "Precio: " + str(ruta.precio))
+
+        # Mostrar la ciudad de la ruta
+        p.drawString(100, y - 60, "Ciudad: " + ruta.ciudad)
+
+        # Mostrar la imagen de la ruta
+        ruta_imagen = ImageReader(ruta.imagen.path)  # Asegúrate de que 'imagen' sea el campo correcto en tu modelo
+        p.drawImage(ruta_imagen, 300, y - 80, width=100, height=100)
+
+        y -= 140
 
     # Finalizar el PDF
     p.showPage()
     p.save()
 
+    # Establecer el puntero del buffer al inicio del mismo
+    buffer.seek(0)
+
+    # Crear el objeto HttpResponse con el tipo de contenido PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
+
+    # Copiar el contenido del buffer al objeto de respuesta
+    response.write(buffer.getvalue())
+
+    # Generar el PDF a partir del contenido HTML
+    pisa.CreatePDF(html, dest=response, encoding='utf-8')
+
     return response
+
+
