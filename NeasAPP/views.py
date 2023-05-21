@@ -11,9 +11,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Ruta, ComentariosUsuarios
 from .forms import UserComment
 from django.http import HttpResponse
-
 from reportlab.pdfgen import canvas
-
 from .decorators import *
 from .forms import FormularioRegistro, FormularioValoracion
 from .forms import FormularioRegistroOPT
@@ -28,7 +26,8 @@ def inicio2(request):
     return render(request, 'inicio2.html', {"provincia": provincia})
 
 def inicio(request):
-    return render(request, 'inicio.html', {"provincia": provincia})
+    rutas_mas_valoradas = Ruta.objects.order_by('-valoracion_media')[:5]
+    return render(request, 'inicio.html', {"provincia": provincia, "rutas_mas_valoradas":rutas_mas_valoradas})
 
 def forgot(request):
     return render(request, 'forgot.html')
@@ -155,7 +154,7 @@ def registrar_operador(request):
         usuarioOP = UsuarioLogin()
         datosOP = DatosOperador()
         usuarioOP.username = form.data["username"]
-        usuarioOP.password  =  make_password(request.POST.get("password2"))
+        usuarioOP.password = make_password(request.POST.get("password2"))
         usuarioOP.rol = Roles.OPERADOR
         usuarioOP.email = form.data["email"]
         datosOP.cif = form.data["cif"]
@@ -397,7 +396,7 @@ def eleccion_monumento(request):
 
 
 def rutas_mas_valoradas(request):
-    rutas = Ruta.objects.annotate(avg_valoracion=Avg('valoraciones__valor')).order_by('-avg_valoracion')[:5]
+    rutas = Ruta.objects.order_by('-valoracion_media')[:5]
     return render(request, 'rutas_mas_valoradas.html', {'rutas': rutas})
 
 
@@ -417,7 +416,7 @@ def generar_pdf(request):
     p.drawString(100, 700, "Rutas seleccionadas:")
 
     y = 670
-    for rutas in  lista_rutas:
+    for ruta in lista_rutas:
         p.drawString(100, y, ruta.nombre)
         y -= 20
 
@@ -482,7 +481,5 @@ def DetallesRutas(request, id):
 
         comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
         form = UserComment()
-
-
 
         return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form , 'ruta': ruta})

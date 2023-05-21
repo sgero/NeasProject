@@ -11,7 +11,7 @@ urlpatterns = [
     path('ruta/modificar/<int:id>', modificar_ruta, name='modificar_ruta'),
     path('ruta/<int:ruta_id>/', mostrar_ruta, name='mostrar_ruta'),
     path('ruta/', mostrar_ruta_op, name='mostrar_ruta_op'),
-    path('ruta/<int:id>', mostrar_ruta_especifica, name='mostrar_ruta_especifica'),
+    #path('ruta/<int:id>', mostrar_ruta_especifica, name='mostrar_ruta_especifica'),
     path('login/usuario', login_usuario, name='login_usuario'),
     #path('login/operador', login_operador, name='login_operador'),
     path('registrar/usuario/', registrar_usuario, name='registrar_usuario'),
@@ -34,7 +34,6 @@ urlpatterns = [
     path('ruta/valorar/<int:id>', valorar_ruta, name='valorar_ruta'),
     path('ruta/<int:ruta_id>/valorar/', valorar_ruta, name='valorar_ruta2'),
     path('ruta/detalles/<int:id>', DetallesRutas, name='detalles_ruta'),
-
 
     # path('paginaOperador/', vista_operador, name='vista_operador')
 

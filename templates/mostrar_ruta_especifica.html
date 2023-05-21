@@ -30,47 +30,80 @@
 
                 <div class="padre">
 
-                            <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;">
 
-                                <img class="card-img-top imgruta" src="{{ ruta.imagen }}" alt="Card image cap">
+                        <a href="/neas/ruta/detalles/{{ ruta.id }}">
 
-                                <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
-                                    <p class="card-text">{{ ruta.tematica }}</p>
-                                    <p class="card-text">•</p>
-                                    <p class="card-text">{{ ruta.transporte }}</p>
-                                </div >
+                            <img class="card-img-top imgruta" src="{{ ruta.imagen }}" alt="Card image cap">
 
-                                <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
-                                    <h5>{{ ruta.nombre }}</h5>
-                                    <h4>-</h4>
-                                    <h5>{{ ruta.valoracion_media }}</h5>
+                            <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
+                                <p class="card-text">{{ ruta.tematica }}</p>
+                                <p class="card-text">•</p>
+                                <p class="card-text">{{ ruta.transporte }}</p>
+                            </div >
+
+                            <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
+                                <h5>{{ ruta.nombre }}</h5>
+                                <h4>-</h4>
+                                <h5>{{ ruta.valoracion_media }}</h5>
+                            </div>
+
+                            <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
+                                <p class="card-title">{{ ruta.ciudad }}</p>
+                                <p class="card-title">{{ ruta.precio }}€ de precio medio.</p>
+                            </div>
+
+                        </a>
+
+                        <div class="card-body" style="display: flex; justify-content: space-around">
+
+                            {% if ruta.id not in rutas_valoradas and user.rol == "Cliente" %}
+
+                                <form action="{% url 'valorar_ruta' ruta.id %}" method="post">
+
+                                    {% csrf_token %}
+
+                                    {{ form.as_p }}
+
+                                    <button type="submit">Valorar</button>
+
+                                </form>
+
+                            {% endif %}
+
+                            {% if r.operador_tur.id is user.id %}
+
+                                <div class="card-body" style="display: flex; justify-content: space-around;align-items: center">
+
+                                    <a href="/neas/ruta/eliminar/{{ ruta.id }}" class="card-link"><img class="imgeliminar" src="{% static "img/eliminar_ruta.png" %}"></a>
+
+                                    <a href="/neas/ruta/modificar/{{ ruta.id }}" class="card-link"><img class="imgupdate" src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
+
                                 </div>
 
-                                <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
-                                    <p class="card-title">{{ ruta.ciudad }}</p>
-                                    <p class="card-title">{{ ruta.precio }}€ de precio medio.</p>
-                                </div>
-                            </div>
+                            {% endif %}
 
+                        </div>
 
+                    </div>
 
-                        <form method="post" action="{% url 'detalles_ruta' id %}" id="myForm">
+                    <form method="post" action="{% url 'detalles_ruta' id %}" id="myForm">
 
-                            {% csrf_token %}
+                        {% csrf_token %}
 
-                            <div class="contenedor-input">
+                        <div class="contenedor-input">
 
-                                <label class="credenciales" for="comentario">Comentario: <span class="req">*</span></label>
-                                <input id="comentario" name="comentario" type="text" required/>
+                            <label class="credenciales" for="comentario">Comentario: <span class="req">*</span></label>
+                            <input id="comentario" name="comentario" type="text" required/>
 
-                            </div>
+                        </div>
 
-                             <div class="contenedor-input">
+                         <div class="contenedor-input">
 
-                                <input type="submit" class="button button-block" value="Comentar">
+                            <input type="submit" class="button button-block" value="Comentar">
 
-                            </div>
-                        </form>
+                        </div>
+                    </form>
 
                     <div class="comentarios">
                          {% if comentarios.count > 0 %}

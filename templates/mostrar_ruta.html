@@ -70,60 +70,48 @@
 
             {% for r in rutas %}
 
-                <a href="{% url 'mostrar_ruta_especifica' %}"></a>
+                    <div class="card" style="width: 18rem;">
 
-                <div class="card" style="width: 18rem;">
+                        <a href="/neas/ruta/detalles/{{ r.id }}">
 
-                    <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
+                            <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
 
-                    <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
-                        <p class="card-text">{{ r.tematica }}</p>
-                        <p class="card-text">•</p>
-                        <p class="card-text">{{ r.transporte }}</p>
-                    </div >
+                            <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
+                                <p class="card-text">{{ r.tematica }}</p>
+                                <p class="card-text">•</p>
+                                <p class="card-text">{{ r.transporte }}</p>
+                            </div >
 
-                    <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
-                        <h5>{{ r.nombre }}</h5>
-                        <h4>-</h4>
-                        <h5>{{ r.valoracion_media }}</h5>
-                    </div>
+                            <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
+                                <h5>{{ r.nombre }}</h5>
+                                <h4>-</h4>
+                                <h5>{{ r.valoracion_media }}</h5>
+                            </div>
 
-                    <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
-                        <p class="card-title">{{ r.ciudad }}</p>
-                        <p class="card-title">{{ r.precio }}€ de precio medio.</p>
-                    </div>
+                            <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
+                                <p class="card-title">{{ r.ciudad }}</p>
+                                <p class="card-title">{{ r.precio }}€ de precio medio.</p>
+                            </div>
+
+                        </a>
 
                         <div class="card-body" style="display: flex; justify-content: space-around">
-
-                            {% if r.id not in rutas_valoradas %}
-
-                                <form action="{% url 'valorar_ruta' id=r.id %}" method="post">
-
-                                    {% csrf_token %}
-
-                                    {{ form.as_p }}
-
-                                    <button type="submit">Valorar</button>
-
-                                </form>
-
-                            {% endif %}
 
                             {% if r.operador_tur.id is user.id %}
 
-                        <div class="card-body" style="display: flex; justify-content: space-around">
+                                <div class="card-body" style="display: flex; justify-content: space-around;align-items: center">
 
-                            <a href="#" class="card-link" style="align-items:center; display:flex">Valorar Ruta</a>
+                                    <a href="/neas/ruta/eliminar/{{ r.id }}" class="card-link"><img class="imgeliminar" src="{% static "img/eliminar_ruta.png" %}"></a>
 
-                            <a href="/neas/ruta/eliminar/{{ r.id }}" class="card-link"><img class="imgeliminar" src="{% static "img/eliminar_ruta.png" %}"></a>
+                                    <a href="/neas/ruta/modificar/{{ r.id }}" class="card-link"><img class="imgupdate" src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
 
-                            <a href="/neas/ruta/modificar/{{ r.id }}" class="card-link"><img class="imgupdate" src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
+                                </div>
 
-                            <a href="/neas/ruta/detalles/{{ r.id }}"  class="card-link" style="align-items:center; display:flex">Ver detalles</a>
+                            {% endif %}
+
                         </div>
 
-                    {% endif %}
-                </div>
+                    </div>
 
             {% endfor %}
 
