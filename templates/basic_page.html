@@ -35,8 +35,9 @@
 
             <div id="logo">
 
-                <a class="logoneas" href="/neas/"><img src="{% static "img/logoNEAS1.png" %}" width="130" height="100"
-                                                       id="foto"></a>
+                <a class="logoneas" href="/neas/">
+                    <img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto">
+                </a>
 
 
                 {#                {% if user.is_authenticated and user.rol == "Operador" %}#}
@@ -47,7 +48,7 @@
                 {##}
                 {#                {% endif %}#}
 
-                {% if user.is_authenticated and user.rol == "Operador" %}
+                {% if user.is_authenticated %}
                     <nav class="sidebar close">
                         <header>
                             <div class="image-text">
@@ -67,9 +68,13 @@
                             <i class="bx bx-chevron-left toggle"> </i>
 
                         </header>
+
                         <div class="menu-bar">
+
                             <div class="menu">
+
                                 <li class="search-box">
+
                                     <i class='bx bx-search-alt-2 icon'></i>
                                     <input type="text" placeholder="Buscar...">
 
@@ -81,8 +86,9 @@
                                         </a>
 
                                     </li>
+                                    {% if user.rol == "Operador" %}
                                     <li class="nav-link">
-                                        <a href="{% url 'mostrar_ruta' %}"><i class='bx bx-git-repo-forked'></i>
+                                        <a href="{% url 'mostrar_ruta_op' %}"><i class='bx bx-git-repo-forked'></i>
                                             <span class="text nav-text">Ver mis Rutas </span>
                                         </a>
 
@@ -92,6 +98,7 @@
                                             <span class="text nav-text">Crear Rutas </span>
                                         </a>
                                     </li>
+                                    {% endif %}
                                 </ul>
 
 
@@ -103,6 +110,7 @@
                                     </li>
 
                                     <li class="mode">
+
                                         <div class="moon-sun">
                                             <i class='bx bx-moon icon moon'></i>
                                             <i class='bx bx-sun icon sun'></i>
@@ -119,10 +127,10 @@
 
                             </div>
 
-
                         </div>
 
                     </nav>
+
                 {% endif %}
 
             </div>

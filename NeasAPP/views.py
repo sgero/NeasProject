@@ -1,23 +1,33 @@
 from django.contrib.auth.hashers import make_password
 from django.db.models import Avg
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django import forms
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render, get_object_or_404
+from .models import Ruta, ComentariosUsuarios
+from .forms import UserComment
+from django.http import HttpResponse
 from reportlab.pdfgen import canvas
-
 from .decorators import *
-from .forms import FormularioRegistro
+from .forms import FormularioRegistro, FormularioValoracion
 from .forms import FormularioRegistroOPT
+from .forms import UserComment
 from .models import *
+from django.urls import reverse
+from django.shortcuts import redirect
+
 
 # Create your views here.
 def inicio2(request):
     return render(request, 'inicio2.html', {"provincia": provincia})
 
 def inicio(request):
-    return render(request, 'inicio.html', {"provincia": provincia})
+    rutas_mas_valoradas = Ruta.objects.order_by('-valoracion_media')[:5]
+    return render(request, 'inicio.html', {"provincia": provincia, "rutas_mas_valoradas":rutas_mas_valoradas})
 
 def forgot(request):
     return render(request, 'forgot.html')
@@ -77,8 +87,18 @@ def modificar_ruta(request,id):
         Ruta.save(ruta_act)
         return mostrar_ruta(request)
 
+def get_rutas_and_valoraciones(request):
+    lista_rutas = Ruta.objects.all()
+    rutas_valoradas = Valoracion_usuario.objects.filter(usuarios=request.user).values_list('ruta', flat=True)
+    return lista_rutas, rutas_valoradas
 
 def mostrar_ruta(request):
+    lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
+    form = FormularioValoracion()
+    return render(request, 'mostrar_ruta.html',{"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h,"tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
+
+
+def mostrar_ruta_op(request):
     lista_rutas = Ruta.objects.filter(operador_tur=request.user.id)
     return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
 
@@ -134,7 +154,7 @@ def registrar_operador(request):
         usuarioOP = UsuarioLogin()
         datosOP = DatosOperador()
         usuarioOP.username = form.data["username"]
-        usuarioOP.password  =  make_password(request.POST.get("password2"))
+        usuarioOP.password = make_password(request.POST.get("password2"))
         usuarioOP.rol = Roles.OPERADOR
         usuarioOP.email = form.data["email"]
         datosOP.cif = form.data["cif"]
@@ -278,11 +298,24 @@ def desloguearse(request):
     return render(request, "logout.html")
     #return redirect('/neas/logout/')
 
-def buscar_ruta(request):
+def buscar_ruta(request, ciudad=None):
+    ciudad = ciudad or request.POST.get("provincia")
+    lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
+
+    lista_rutas = lista_rutas.filter(ciudad=ciudad)
+    request.session['ciudad'] = ciudad
+    form = FormularioValoracion()
+    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
+
+
+def buscar(request):
     ciudad = request.POST.get("provincia")
+    list_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
     list_rutas = Ruta.objects.filter(ciudad=ciudad)
     request.session['ciudad'] = ciudad
-    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+    form = FormularioValoracion()
+    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form':form, 'rutas_valoradas':rutas_valoradas})
+
 
 def filtro_general(request):
     transporte = request.POST.get("tipo_transporte")
@@ -363,7 +396,7 @@ def eleccion_monumento(request):
 
 
 def rutas_mas_valoradas(request):
-    rutas = Ruta.objects.annotate(avg_valoracion=Avg('valoraciones__valor')).order_by('-avg_valoracion')[:5]
+    rutas = Ruta.objects.order_by('-valoracion_media')[:5]
     return render(request, 'rutas_mas_valoradas.html', {'rutas': rutas})
 
 
@@ -383,7 +416,7 @@ def generar_pdf(request):
     p.drawString(100, 700, "Rutas seleccionadas:")
 
     y = 670
-    for rutas in  lista_rutas:
+    for ruta in lista_rutas:
         p.drawString(100, y, ruta.nombre)
         y -= 20
 
@@ -392,3 +425,61 @@ def generar_pdf(request):
     p.save()
 
     return response
+
+def valorar_ruta(request, id):
+    ruta = Ruta.objects.get(id=id)
+
+    if Valoracion_usuario.objects.filter(ruta=ruta, usuarios=request.user).exists():
+        messages.error(request, "Ya has valorado esta ruta")
+        return redirect(request.META.get('HTTP_REFERER', 'default_if_none'))
+
+    if request.method == 'POST':
+        form = FormularioValoracion(request.POST)
+
+        if form.is_valid():
+            valoracion = form.save(commit=False)
+            valoracion.usuarios = request.user
+            valoracion.ruta = ruta
+            valoracion.save()
+
+            valoraciones = Valoracion_usuario.objects.filter(ruta=ruta)
+            suma_valoraciones = sum([val.calificacion for val in valoraciones])
+            media_valoracion = suma_valoraciones / len(valoraciones)
+
+            ruta.valoracion_media = media_valoracion
+            ruta.save()
+            ciudad = request.session.get('ciudad')
+            return redirect('buscar_ruta_ciudad', ciudad=ciudad)
+
+    else:
+        form = FormularioValoracion()
+
+    return render(request, 'mostrar_ruta.html', {'form': form, 'ruta': ruta})
+
+def DetallesRutas(request, id):
+    ruta = get_object_or_404(Ruta, id=id)
+    comentario = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+
+    if request.method == 'POST':
+        form = UserComment(request.POST, request.FILES)
+
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.ruta = ruta
+            comentario.autor_comentario = request.user
+            comentario.User = request.user
+            comentario.save()
+            comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+            form = UserComment()
+
+            return redirect('detalles_ruta', id=id)
+
+        else:
+            form = UserComment()
+
+    else:
+
+        comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+        form = UserComment()
+
+        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form , 'ruta': ruta})

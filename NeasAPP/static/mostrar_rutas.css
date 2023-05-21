@@ -1,4 +1,4 @@
-.carta {
+.card {
     position: relative;
     display: -ms-flexbox;
     display: flex;
@@ -11,6 +11,13 @@
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.25rem;
     width: 40%;
+    transition: 0.5s ease 0s !important;
+}
+
+.card:hover{
+
+    transform: scale(1.03);
+
 }
 
 .hola {
@@ -91,7 +98,7 @@ form {
     align-items: center;
     width: 100%;
     gap: 10%;
-    padding: 20px;
+    padding: 10px;
 
 }
 
@@ -171,3 +178,18 @@ h4, h5{
 /*h2 {*/
 /*  margin-top: 0;*/
 /*}*/
+
+a:hover {
+
+    text-decoration: none !important;
+    color: #1B2D3B !important;
+
+}
+
+a {
+
+    text-decoration: none !important;
+    color: #1B2D3B !important;
+    display: block !important;
+
+}
