@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from reportlab.pdfgen import canvas
 
 from .decorators import *
-from .forms import FormularioRegistro
+from .forms import FormularioRegistro, FormularioValoracion
 from .forms import FormularioRegistroOPT
 from .models import *
 
