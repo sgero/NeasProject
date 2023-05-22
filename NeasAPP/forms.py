@@ -1,7 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from .models import UsuarioLogin, Valoracion_usuario
+from .widgets import StarRatingWidget
 
-from .models import UsuarioLogin
+from .models import UsuarioLogin , ComentariosUsuarios
+
 
 
 class FormularioRegistro(UserCreationForm):
@@ -59,3 +62,21 @@ class FormularioRegistroOPT(UserCreationForm):
     class Meta:
         model = UsuarioLogin
         fields = ('email', 'username', 'password1', 'password2', 'cif', 'telf', 'a_fund','website', 'logo', 'forgot', 'info')
+
+
+class UserComment(forms.ModelForm):
+
+        comentario = forms.CharField(max_length=200 , required=True , help_text="Añade aquí tu comentario")
+
+        class Meta:
+            model = ComentariosUsuarios
+            fields=['comentario']
+
+
+
+class FormularioValoracion(forms.ModelForm):
+
+    calificacion = forms.IntegerField(widget=StarRatingWidget(), label='')
+    class Meta:
+        model = Valoracion_usuario
+        fields = ['calificacion']

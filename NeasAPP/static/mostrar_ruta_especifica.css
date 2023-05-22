@@ -1,3 +1,127 @@
+/* Estilos para la sección de comentarios */
+.comentarios {
+  margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.social-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.imagencomentario {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.social {
+  margin: 0;
+
+}
+
+.social p {
+  margin: 0;
+  color: black;
+  margin-left: 10px;
+}
+
+/* Estilos para el formulario de comentarios */
+.contenedor-formularios {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.contenedor-input {
+  margin-bottom: 20px;
+}
+
+.credenciales {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.req {
+  color: red;
+}
+
+#comentario {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #3e8e41;
+}
+
+/* Estilos para la tarjeta de la ruta */
+.card {
+  margin-bottom: 50px;
+
+}
+
+.imgruta {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-text {
+  margin: 0;
+}
+
+.card-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.contenedor-tabs {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.padre{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .card {
     position: relative;
     display: -ms-flexbox;

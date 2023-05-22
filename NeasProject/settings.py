@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'NeasAPP',
-    'bootstrap4'
+    'bootstrap4',
+    'star_ratings',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
