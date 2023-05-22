@@ -581,3 +581,9 @@ h6 {
 	display: flex;
 
 }
+
+.card-body {
+
+	min-height: auto !important;
+
+}

@@ -628,7 +628,7 @@ def DetallesRutas(request, id):
             return redirect('detalles_ruta', id=id)
 
         else:
-            form = FormularioValoracion()
+            form2 = FormularioValoracion()
 
     else:
 
