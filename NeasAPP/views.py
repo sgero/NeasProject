@@ -119,10 +119,15 @@ def registrar_usuario(request):
         form = FormularioRegistro(request.POST)
         user.email = form.data["email"]
         user.username = form.clean_username()
-        user.password = make_password(request.POST.get("password2"))
+        password = request.POST.get("password2")
+        user.password = make_password(password)
         user.rol = Roles.CLIENTE
         user.save()
-        return render(request, 'inicio.html')
+        user = authenticate(request, username=form.data["username"], password=password)
+        if user is not None:
+            login(request, user)
+
+        return redirect('inicio')
 
 #Registro Operador ANTIGUO (Handmade)
 # def registrar_operador(request):
