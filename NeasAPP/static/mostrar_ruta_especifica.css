@@ -1,10 +1,12 @@
 /* Estilos para la sección de comentarios */
 .comentarios {
-  margin-top: 50px;
+  margin-top: 40px;
     display: flex;
     flex-direction: column;
 }
-
+.hijo2{
+    justify-content: center;
+}
 .social-box {
   display: flex;
   align-items: center;
@@ -29,7 +31,6 @@
   margin-left: 10px;
 }
 
-/* Estilos para el formulario de comentarios */
 .contenedor-formularios {
   display: flex;
   flex-direction: column;
@@ -38,7 +39,8 @@
 }
 
 .contenedor-input {
-  margin-bottom: 20px;
+    margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 .credenciales {
@@ -126,8 +128,8 @@ h2 {
     position: relative;
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
+    -ms-flex-direction: row;
+    flex-direction: row;
     min-width: 0;
     word-wrap: break-word;
     background-color: beige;
@@ -214,6 +216,9 @@ footer {
 
 }
 
+.hijo1{
+    margin: 50px;
+}
 form {
 
     display: flex;
@@ -230,6 +235,11 @@ form {
 
     margin: 0 !important;
 
+}
+
+.padre2{
+    display: flex;
+    flex-direction: row;
 }
 
 select {
