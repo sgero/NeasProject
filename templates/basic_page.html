@@ -58,7 +58,8 @@
                         <header>
                             <div class="image-text">
                 <span class="image">
-                    <img src="{{ user.imagen }}" alt="user-image" class="user-image">
+                    <img src="{% if user.imagen == 'NeasAPP/static/img/userfoto.png' %} {% static 'img/userfoto.png' %} {% else %} {{ user.imagen }} {% endif %}" alt="user-image" class="user-image">
+
                     <h3 class="namet">{{ user.get_username }}</h3>
                 </span>
 

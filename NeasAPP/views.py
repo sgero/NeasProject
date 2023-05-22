@@ -583,8 +583,7 @@ def valorar_ruta(request, id):
             media_valoracion = suma_valoraciones / len(valoraciones)
             ruta.valoracion_media = media_valoracion
             ruta.save()
-            ciudad = request.session.get('ciudad')
-            return redirect('buscar_ruta_ciudad', ciudad=ciudad)
+            return redirect('detalles_ruta', id=id)
 
     else:
         form = FormularioValoracion()
@@ -594,9 +593,11 @@ def valorar_ruta(request, id):
 def DetallesRutas(request, id):
     ruta = get_object_or_404(Ruta, id=id)
     comentario = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+    id_user = Valoracion_usuario.objects.filter(usuarios_id=request.user.id, ruta_id=id).values_list('usuarios_id')
 
     if request.method == 'POST':
         form = UserComment(request.POST, request.FILES)
+        form2 = FormularioValoracion(request.POST, request.FILES)
 
         if form.is_valid():
             comentario = form.save(commit=False)
@@ -612,10 +613,32 @@ def DetallesRutas(request, id):
         else:
             form = UserComment()
 
+        if form2.is_valid():
+            valoracion = form.save(commit=False)
+            valoracion.usuarios = request.user
+            valoracion.ruta = ruta
+            valoracion.save()
+
+            valoraciones = Valoracion_usuario.objects.filter(ruta=ruta)
+            suma_valoraciones = sum([val.calificacion for val in valoraciones])
+            media_valoracion = suma_valoraciones / len(valoraciones)
+
+            ruta.valoracion_media = media_valoracion
+            ruta.save()
+            return redirect('detalles_ruta', id=id)
+
+        else:
+            form2 = FormularioValoracion()
+
     else:
 
         comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('-fecha_creacion')
         form = UserComment()
         form2 = FormularioValoracion()
 
-        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form,'form2': form2, 'ruta': ruta})
+        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form,'form2': form2, 'ruta': ruta, 'id_user': id_user})
+
+
+def mostrar_todas_rutas(request):
+    rutas = Ruta.objects.all()
+    return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
