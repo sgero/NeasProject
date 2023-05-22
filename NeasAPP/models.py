@@ -167,7 +167,7 @@ class UsuarioLogin(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
     rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True, unique=None)
-    imagen = models.CharField(max_length=1000, null=True, default='NeasAPP/static/img/userfoto.png')
+    imagen = models.CharField(max_length=1000, null=True, default='https://cartel.com.co/wp-content/uploads/2020/09/NEAS-DONT-CRY.jpg')
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username, email, password']
 

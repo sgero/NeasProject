@@ -120,10 +120,15 @@ def registrar_usuario(request):
         form = FormularioRegistro(request.POST)
         user.email = form.data["email"]
         user.username = form.clean_username()
-        user.password = make_password(request.POST.get("password2"))
+        password = request.POST.get("password2")
+        user.password = make_password(password)
         user.rol = Roles.CLIENTE
         user.save()
-        return render(request, 'inicio.html')
+        user = authenticate(request, username=form.data["username"], password=password)
+        if user is not None:
+            login(request, user)
+
+        return redirect('inicio')
 
 #Registro Operador ANTIGUO (Handmade)
 # def registrar_operador(request):
@@ -168,9 +173,11 @@ def registrar_operador(request):
         datosOP.usuario = usuarioOP
         datosOP.save()
 
-        return render(request, 'inicio.html')
-        # else:
-        #     return render(request, "registrar_operador.html", {"form": form})
+        user = authenticate(request, username=form.data["username"], password=request.POST.get("password2"))
+        if user is not None:
+            login(request, user)
+
+        return redirect('inicio')
 
 
 def editar_perfil(request):
@@ -210,9 +217,6 @@ def login_usuario(request):
     elif request.method == "POST":
             form = AuthenticationForm(None, data=request.POST)
 
-    #Verificar que el formulario es valido
-    # if form.is_valid():
-        #Intentar loguear
     user = authenticate(
         username=form.data['username'],
         password=form.data['password'],)
@@ -223,8 +227,7 @@ def login_usuario(request):
     if user is not None:
         #Nos logueamos
         login(request, user)
-        return render(request, 'inicio.html', {"provincia": provincia})
-
+        return redirect('/neas')
     else:
         return render(request, 'error_loginOp.html')
 
@@ -248,7 +251,7 @@ def login_operador(request):
     if user is not None:
         # Nos logueamos
         login(request, user)
-        return render(request, 'inicio.html', {"provincia": provincia})
+        return redirect('/neas')
 
     else:
         return render(request, 'error_loginOp.html')
@@ -571,11 +574,9 @@ def valorar_ruta(request, id):
             valoracion.usuarios = request.user
             valoracion.ruta = ruta
             valoracion.save()
-
             valoraciones = Valoracion_usuario.objects.filter(ruta=ruta)
             suma_valoraciones = sum([val.calificacion for val in valoraciones])
             media_valoracion = suma_valoraciones / len(valoraciones)
-
             ruta.valoracion_media = media_valoracion
             ruta.save()
             ciudad = request.session.get('ciudad')
