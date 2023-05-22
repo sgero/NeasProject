@@ -23,6 +23,13 @@ from django.shortcuts import redirect
 
 
 # Create your views here.
+def sitemap(request):
+    return render(request, 'sitemap.xml')
+
+def mostrar_todas_rutas(request):
+    rutas = Ruta.objects.all()
+    return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
 def inicio2(request):
     return render(request, 'inicio2.html', {"provincia": provincia})
 

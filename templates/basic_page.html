@@ -234,7 +234,8 @@
                     <h6>About</h6>
 
                     <p class="copyright-text">
-                    <p class="text-justify">Copyright &copy; 2023 All Rights Reserved by NEAS.com <i>RED SOCIAL DE TURISMO. </i></p>
+                    <p class="text-justify">Copyright &copy; 2023 All Rights Reserved by NEAS.com
+                    <i>RED SOCIAL DE TURISMO. </i></p>
                     <a href="#"></a>
                     </p>
                 </div>
@@ -242,10 +243,10 @@
                 <div class="col-xs-6 col-md-3">
                     <h6>Categories</h6>
                     <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/category/c-language/">INICIO</a></li>
-                        <li><a href="http://scanfcode.com/category/front-end-development/">Mostrar Rutas</a></li>
-                        <li><a href="http://scanfcode.com/category/back-end-development/">Rutas Valoradas</a></li>
-                        <li><a href="http://scanfcode.com/category/java-programming-language/">Comentarios</a></li>
+                        <li><a href="{% url 'inicio' %}">Neas</a></li>
+                        <li><a href="{% url 'mostrar_todas_rutas' %}">Mostrar Rutas</a></li>
+                        <li><a href="{% url 'rutas_mas_valoradas' %}">Rutas Valoradas</a></li>
+                        <li><a href="#">Comentarios</a></li>
 
                     </ul>
                 </div>
@@ -253,11 +254,11 @@
                 <div class="col-xs-6 col-md-3">
                     <h6>Quick Links</h6>
                     <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/about/">About Us</a></li>
-                        <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
-                        <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
-                        <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
-                        <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
+                        <li><a href="{% url 'sobre_nosotros' %}">About Us</a></li>
+                        <li><a href="{% url 'centroAyuda' %}">Contact Us</a></li>
+                        <li><a href="{% url 'centroAyuda' %}">Contribute</a></li>
+                        <li><a href="{% url 'centroAyuda' %}">Privacy Policy</a></li>
+                        <li><a href="{% url 'sitemap' %}">Sitemap</a></li>
                     </ul>
                 </div>
             </div>
