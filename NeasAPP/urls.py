@@ -11,9 +11,9 @@ urlpatterns = [
     path('ruta/modificar/<int:id>', modificar_ruta, name='modificar_ruta'),
     path('ruta/<int:ruta_id>/', mostrar_ruta, name='mostrar_ruta'),
     path('ruta/', mostrar_ruta_op, name='mostrar_ruta_op'),
-    #path('ruta/<int:id>', mostrar_ruta_especifica, name='mostrar_ruta_especifica'),
+    # path('ruta/<int:id>', mostrar_ruta_especifica, name='mostrar_ruta_especifica'),
     path('login/usuario', login_usuario, name='login_usuario'),
-    #path('login/operador', login_operador, name='login_operador'),
+    # path('login/operador', login_operador, name='login_operador'),
     path('registrar/usuario/', registrar_usuario, name='registrar_usuario'),
     path('registrar/operador/', registrar_operador, name='registrar_operador'),
     path('cambiar/contraseña/', cambiar_contraseña, name='cambiar_contraseña'),
@@ -36,5 +36,6 @@ urlpatterns = [
     path('ruta/detalles/<int:id>', DetallesRutas, name='detalles_ruta'),
 
     # path('paginaOperador/', vista_operador, name='vista_operador')
-
+    path('sitemap/', sitemap, name='sitemap'),
+    path('rutas/', mostrar_todas_rutas, name='mostrar_todas_rutas'),
 ]

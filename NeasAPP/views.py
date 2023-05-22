@@ -23,6 +23,13 @@ from django.shortcuts import redirect
 
 
 # Create your views here.
+def sitemap(request):
+    return render(request, 'sitemap.xml')
+
+def mostrar_todas_rutas(request):
+    rutas = Ruta.objects.all()
+    return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
 def inicio2(request):
     return render(request, 'inicio2.html', {"provincia": provincia})
 
@@ -120,10 +127,15 @@ def registrar_usuario(request):
         form = FormularioRegistro(request.POST)
         user.email = form.data["email"]
         user.username = form.clean_username()
-        user.password = make_password(request.POST.get("password2"))
+        password = request.POST.get("password2")
+        user.password = make_password(password)
         user.rol = Roles.CLIENTE
         user.save()
-        return render(request, 'inicio.html')
+        user = authenticate(request, username=form.data["username"], password=password)
+        if user is not None:
+            login(request, user)
+
+        return redirect('inicio')
 
 #Registro Operador ANTIGUO (Handmade)
 # def registrar_operador(request):
@@ -168,9 +180,11 @@ def registrar_operador(request):
         datosOP.usuario = usuarioOP
         datosOP.save()
 
-        return render(request, 'inicio.html')
-        # else:
-        #     return render(request, "registrar_operador.html", {"form": form})
+        user = authenticate(request, username=form.data["username"], password=request.POST.get("password2"))
+        if user is not None:
+            login(request, user)
+
+        return redirect('inicio')
 
 
 def editar_perfil(request):
@@ -210,9 +224,6 @@ def login_usuario(request):
     elif request.method == "POST":
             form = AuthenticationForm(None, data=request.POST)
 
-    #Verificar que el formulario es valido
-    # if form.is_valid():
-        #Intentar loguear
     user = authenticate(
         username=form.data['username'],
         password=form.data['password'],)
@@ -223,8 +234,7 @@ def login_usuario(request):
     if user is not None:
         #Nos logueamos
         login(request, user)
-        return render(request, 'inicio.html', {"provincia": provincia})
-
+        return redirect('/neas')
     else:
         return render(request, 'error_loginOp.html')
 
@@ -248,7 +258,7 @@ def login_operador(request):
     if user is not None:
         # Nos logueamos
         login(request, user)
-        return render(request, 'inicio.html', {"provincia": provincia})
+        return redirect('/neas')
 
     else:
         return render(request, 'error_loginOp.html')
@@ -500,9 +510,6 @@ def generar_pdf(request):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
 
-
-
-
     # Obtener los datos de las rutas seleccionadas
     # Asegúrate de que el modelo 'Ruta' contenga los campos 'nombre', 'tipo', 'imagen', 'precio' y 'ciudad'
     routes = Ruta.objects.filter(id__in=rutas)
@@ -571,11 +578,9 @@ def valorar_ruta(request, id):
             valoracion.usuarios = request.user
             valoracion.ruta = ruta
             valoracion.save()
-
             valoraciones = Valoracion_usuario.objects.filter(ruta=ruta)
             suma_valoraciones = sum([val.calificacion for val in valoraciones])
             media_valoracion = suma_valoraciones / len(valoraciones)
-
             ruta.valoracion_media = media_valoracion
             ruta.save()
             ciudad = request.session.get('ciudad')
@@ -609,7 +614,8 @@ def DetallesRutas(request, id):
 
     else:
 
-        comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+        comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('-fecha_creacion')
         form = UserComment()
+        form2 = FormularioValoracion()
 
-        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta})
+        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form,'form2': form2, 'ruta': ruta})
