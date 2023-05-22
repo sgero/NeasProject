@@ -16,20 +16,13 @@
 
 {% block content1 %}
 
-    <ul class="contenedor-tabs">
+        <div class="contenedor-formularios">
 
+            <div class="padre">
 
-    </ul>
+                <div class="parteizquierda">
 
-
-    <div class="contenedor-formularios">
-
-
-        <div class="padre">
-            <div class="padre2">
-                <div class="hijo1">
-
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;height: 200px">
 
                         <a href="/neas/ruta/detalles/{{ ruta.id }}">
 
@@ -39,112 +32,116 @@
                                 <p class="card-text">{{ ruta.tematica }}</p>
                                 <p class="card-text">•</p>
                                 <p class="card-text">{{ ruta.transporte }}</p>
-                            </div>
+                            </div >
 
-                            <div class="card-body"
-                                 style="display: flex;justify-content:space-between;align-items: center">
+                            <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
                                 <h5>{{ ruta.nombre }}</h5>
                                 <h4>-</h4>
                                 <h5>{{ ruta.valoracion_media }}</h5>
                             </div>
 
-                            <div class="card-body"
-                                 style="display: flex;justify-content:space-between;flex-direction: column">
+                            <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
                                 <p class="card-title">{{ ruta.ciudad }}</p>
                                 <p class="card-title">{{ ruta.precio }}€ de precio medio.</p>
                             </div>
 
                         </a>
 
-                        <div class="card-body" style="display: flex; justify-content: space-around">
+                        {% if r.operador_tur.id is user.id %}
 
+                            <div class="card-body" style="display: flex; justify-content: space-around">
 
+                                    <div class="card-body" style="display: flex; justify-content: space-around;align-items: center">
 
-                                <form action="{% url 'valorar_ruta' ruta.id %}" method="post">
+                                        <a href="/neas/ruta/eliminar/{{ ruta.id }}" class="card-link"><img class="imgeliminar" src="{% static "img/eliminar_ruta.png" %}"></a>
 
-                                    {% csrf_token %}
+                                        <a href="/neas/ruta/modificar/{{ ruta.id }}" class="card-link"><img class="imgupdate" src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
 
-                                    {{ form2.as_p }}
+                                    </div>
 
-                                    <button type="submit">Valorar</button>
+                            </div>
 
-                                </form>
-
-
-                            {% if r.operador_tur.id is user.id %}
-
-                                <div class="card-body"
-                                     style="display: flex; justify-content: space-around;align-items: center">
-
-                                    <a href="/neas/ruta/eliminar/{{ ruta.id }}" class="card-link"><img
-                                            class="imgeliminar"
-                                            src="{% static "img/eliminar_ruta.png" %}"></a>
-
-                                    <a href="/neas/ruta/modificar/{{ ruta.id }}" class="card-link"><img
-                                            class="imgupdate"
-                                            src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
-
-                                </div>
-
-                            {% endif %}
-
-                        </div>
+                        {% endif %}
 
                     </div>
+
                 </div>
-                <div class="hijo2">
 
-                    <form method="post" action="{% url 'detalles_ruta' id %}" id="myForm">
+                <div class="partederecha">
 
-                        {% csrf_token %}
+                    {% if user.id not in id_user %}
 
-                        <div class="contenedor-input">
+                        <form method="post" action="{% url 'detalles_ruta' id %}" id="myForm">
 
-                            <label class="credenciales" for="comentario">Comentario: <span class="req">*</span></label>
-                            <input id="comentario" name="comentario" type="text" required/>
+                            {% csrf_token %}
 
-                        </div>
+                            <div class="contenedor-input">
 
-                        <div class="contenedor-input">
+                                <label class="credenciales" for="comentario">Comentario: <span class="req">*</span></label>
+                                <input id="comentario" name="comentario" type="text" required/>
 
-                            <input type="submit" class="button button-block" value="Comentar">
+                            </div>
 
-                        </div>
-                    </form>
+                             <div class="contenedor-input">
 
-                    <div class="comentarios">
+                                <input type="submit" class="button button-block" value="Valorar">
+
+                            </div>
+
+                        </form>
+
+                    {% endif %}
+
+                    <div class="comments-container">
+
+                        <h1>Comentarios</h1>
+
                         {% if comentarios.count > 0 %}
 
                             {% for c in comentarios %}
 
+                                <ul id="comments-list" class="comments-list">
 
-                                <div class="social-box">
-                                    <img class="imagencomentario" alt="" src="{{ c.autor_comentario.imagen }}">
-                                    <p class="social">{{ c.autor_comentario.username }}</p>
-                                    <div class="social"><p> {{ c.comentario }}</p></div>
-                                    <div class="social"><p>{{ c.fecha_creacion }}</p></div>
-                                </div>
+                                    <li>
+
+                                        <div class="comment-main-level">
+
+                                            <div class="comment-avatar"><img
+                                                    src="{% if c.autor_comentario.imagen == 'NeasAPP/static/img/userfoto.png' %} {% static 'img/userfoto.png' %} {% else %} {{ c.autor_comentario.imagen }} {% endif %}"
+                                                    alt="">
+                                            </div>
+
+                                            <div class="comment-box">
+
+                                                <div class="comment-head">
+                                                    <h6 class="comment-name by-author">{{ c.autor_comentario.username }}</h6>
+                                                    <span>{{ c.fecha_creacion.date }}</span>
+                                                    <i class="fa fa-reply"></i>
+                                                    <i class="fa fa-heart"></i>
+                                                </div>
+                                                <div class="comment-content">
+                                                    {{ c.comentario }}
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+
+                                </ul>
 
                             {% endfor %}
+
                         {% endif %}
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {% endblock %}
 
