@@ -612,4 +612,4 @@ def DetallesRutas(request, id):
         comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
         form = UserComment()
 
-        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form , 'ruta': ruta})
+        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta})
