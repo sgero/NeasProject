@@ -6,5 +6,5 @@ class StarRatingWidget(Widget):
         html = ''
         for i in range(1, 6):
             checked = '' if value != i else 'checked'
-            html += f'<input type="radio" name="{name}" value="{i}" {checked}/><i class="fa fa-star"></i>'
+            html += f'{i}<input type="radio" name="{name}" value="{i}" {checked}/><i class="fa fa-star"></i>'
         return format_html(html)
