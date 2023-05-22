@@ -503,9 +503,6 @@ def generar_pdf(request):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
 
-
-
-
     # Obtener los datos de las rutas seleccionadas
     # Asegúrate de que el modelo 'Ruta' contenga los campos 'nombre', 'tipo', 'imagen', 'precio' y 'ciudad'
     routes = Ruta.objects.filter(id__in=rutas)

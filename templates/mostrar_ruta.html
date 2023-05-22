@@ -19,7 +19,7 @@
 
         <form method="post" action="/neas/buscar/personalizada/">
 
-            {% csrf_token %}
+        {% csrf_token %}
 
             <div class="">
 
@@ -44,6 +44,7 @@
                 </select>
 
             </div>
+
             <div class="">
 
                 <label for="tipo_transporte" class="form-label">Tipo de Transporte:</label>
@@ -69,69 +70,52 @@
 
             {% for r in rutas %}
 
-                <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;">
 
-                    <a href="/neas/ruta/detalles/{{ r.id }}">
+                        <a href="/neas/ruta/detalles/{{ r.id }}">
 
-                        <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
+                            <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
 
-                        <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
-                            <p class="card-text">{{ r.tematica }}</p>
-                            <p class="card-text">•</p>
-                            <p class="card-text">{{ r.transporte }}</p>
-                        </div>
+                            <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
+                                <p class="card-text">{{ r.tematica }}</p>
+                                <p class="card-text">•</p>
+                                <p class="card-text">{{ r.transporte }}</p>
+                            </div >
 
-                        <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
-                            <h5>{{ r.nombre }}</h5>
-                            <h4>-</h4>
-                            <h5>{{ r.valoracion_media }}</h5>
-                        </div>
+                            <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
+                                <h5>{{ r.nombre }}</h5>
+                                <h4>-</h4>
+                                <h5>{{ r.valoracion_media }}</h5>
+                            </div>
 
                             <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
                                 <p class="card-title">{{ r.ciudad }}</p>
                                 <p class="card-title">{{ r.precio }}€ de precio medio.</p>
                                 <a href="{% url 'generar_pdf' %}">Generar PDF</a>
-                                <a href="{% url 'valorar_ruta' %}">Valorar Ruta</a>
+{#                                <a href="{% url 'valorar_ruta' r.id %}">Valorar Ruta</a>#}
 
 
                             </div>
 
-                    </a>
+                        </a>
 
-                    <div class="card-body" style="display: flex; justify-content: space-around">
+                        <div class="card-body" style="display: flex; justify-content: space-around">
 
-                        {% if r.id not in rutas_valoradas and user.rol == "Cliente" %}
+                            {% if r.operador_tur.id is user.id %}
 
-                            <form action="{% url 'valorar_ruta' r.id %}" method="post">
+                                <div class="card-body" style="display: flex; justify-content: space-around;align-items: center">
 
-                                {% csrf_token %}
+                                    <a href="/neas/ruta/eliminar/{{ r.id }}" class="card-link"><img class="imgeliminar" src="{% static "img/eliminar_ruta.png" %}"></a>
 
-                                {{ form.as_p }}
+                                    <a href="/neas/ruta/modificar/{{ r.id }}" class="card-link"><img class="imgupdate" src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
 
-                                <button type="submit">Valorar</button>
+                                </div>
 
-                            </form>
+                            {% endif %}
 
-                        {% endif %}
-
-                        {% if r.operador_tur.id is user.id %}
-
-                            <div class="card-body"
-                                 style="display: flex; justify-content: space-around;align-items: center">
-
-                                <a href="/neas/ruta/eliminar/{{ r.id }}" class="card-link"><img class="imgeliminar"
-                                                                                                src="{% static "img/eliminar_ruta.png" %}"></a>
-
-                                <a href="/neas/ruta/modificar/{{ r.id }}" class="card-link"><img class="imgupdate"
-                                                                                                 src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
-
-                            </div>
-
-                        {% endif %}
+                        </div>
 
                     </div>
-
-                </div>
 
             {% endfor %}
 
@@ -141,26 +125,25 @@
 
         <div class="padre">
 
-            <div class="carta mb-3">
+                <div class="carta mb-3">
 
-                <div class="hola g-0" style="align-items: center;display: flex;flex-direction: column">
+                    <div class="hola g-0" style="align-items: center;display: flex;flex-direction: column">
 
-                    <div>
+                        <div>
 
-                        <img src="{% static "img/icons8-error-globe-64.png" %}" class="img-fluid rounded-start imgruta2"
-                             alt="fotoError">
+                            <img src="{% static "img/icons8-error-globe-64.png" %}" class="img-fluid rounded-start imgruta2"  alt="fotoError">
 
-                    </div>
+                        </div>
 
-                    <div class="hola col-md-8" style="text-align: center">
+                        <div class="hola col-md-8" style="text-align: center">
 
-                        <h1>LO SENTIMOS, NO HEMOS ENCONTRADO LO QUE BUSCABAS</h1>
+                            <h1>LO SENTIMOS, NO HEMOS ENCONTRADO LO QUE BUSCABAS</h1>
+
+                        </div>
 
                     </div>
 
                 </div>
-
-            </div>
 
         </div>
 
