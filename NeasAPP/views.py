@@ -126,7 +126,7 @@ def registrar_usuario(request):
         user = UsuarioLogin()
         form = FormularioRegistro(request.POST)
         user.email = form.data["email"]
-        user.username = form.clean_username()
+        user.username = form.data["username"]
         password = request.POST.get("password2")
         user.password = make_password(password)
         user.rol = Roles.CLIENTE
@@ -648,3 +648,20 @@ def eliminar_comentario(request, id):
     comentario = ComentariosUsuarios.objects.get(id=id)
     ComentariosUsuarios.delete(comentario)
     return DetallesRutas(request, request.session['id_ruta'])
+
+def dar_like_comentario(request, comentario_id):
+
+    comentario = get_object_or_404(ComentariosUsuarios, id=comentario_id)
+    usuario = request.user
+    existe_like = Like.objects.filter(usuario=usuario, comentario=comentario).exists()
+    if existe_like:
+
+        like = Like.objects.filter(usuario=usuario, comentario=comentario).first()
+        like.delete()
+        comentario.likes_contador -= 1
+        comentario.save()
+    else:
+        like = Like.objects.create(usuario=usuario, comentario=comentario)
+        comentario.likes_contador += 1
+        comentario.save()
+    return redirect(request.META.get('HTTP_REFERER'))

@@ -36,7 +36,7 @@ urlpatterns = [
     path('ruta/<int:ruta_id>/valorar/', valorar_ruta, name='valorar_ruta2'),
     path('ruta/detalles/<int:id>', DetallesRutas, name='detalles_ruta'),
     path('rutas/', mostrar_todas_rutas, name='mostrar_todas_rutas'),
-
+    path('ruta/detalles/like/<int:comentario_id>', dar_like_comentario, name='like_comentario'),
     # path('paginaOperador/', vista_operador, name='vista_operador')
     path('sitemap/', sitemap, name='sitemap'),
     path('rutas/', mostrar_todas_rutas, name='mostrar_todas_rutas'),

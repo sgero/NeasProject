@@ -117,8 +117,19 @@
                                                     <h6 class="comment-name by-author">{{ c.autor_comentario.username }}</h6>
                                                     <span>{{ c.fecha_creacion.date }}</span>
                                                     <i class="fa fa-reply"></i>
-                                                    <i class="fa fa-heart"></i>
+
+                                                    {% if user.is_authenticated %}
+                                                        {% if user in c.likes_contador.all %}
+                                                            <a href="{% url 'like_comentario' c.id %}" class="btn btn-danger btn-sm">Quitar like</a>
+                                                        {% else %}
+                                                            <a class="fa fa-heart" href="{% url 'like_comentario' c.id %}" class="btn btn-primary btn-sm"></a>
+                                                            <p>LIKES:</p>
+                                                            <h5 class="likes-contador-{{ c.id }}">{{ c.likes_contador }}</h5>
+                                                        {% endif %}
+                                                    {% endif %}
+
                                                 </div>
+
                                                 <div class="comment-content">
                                                     {{ c.comentario }}
                                                     {% if c.autor_comentario == user %}
