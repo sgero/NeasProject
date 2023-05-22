@@ -1,3 +1,4 @@
+from decimal import Decimal
 from datetime import datetime, timezone
 from django.utils.timezone import now
 from django.db import models
@@ -166,7 +167,7 @@ class UsuarioLogin(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=50, unique=True)
     rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.CLIENTE, null=True, unique=None)
-    imagen = models.CharField(max_length=1000, null=True, default='NeasAPP/static/img/userfoto.png')
+    imagen = models.CharField(max_length=1000, null=True, default='https://cartel.com.co/wp-content/uploads/2020/09/NEAS-DONT-CRY.jpg')
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username, email, password']
 
@@ -234,8 +235,6 @@ class Ciudad(models.Model):
         return self.nombre
 
 
-
-
 class Ruta(models.Model):
     nombre = models.CharField(max_length=500, default=None)
     hora_inicio = models.TimeField(default=None)
@@ -249,6 +248,11 @@ class Ruta(models.Model):
     ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
     descripcion = models.CharField(max_length=50, default='Descripción', null=True)
     precio = models.FloatField(null=True)
+
+    @property
+    def la_valoracion_media(self):
+        valoraciones = Valoracion_usuario.objects.filter(ruta=self)
+        return valoraciones.aggregate(models.Avg('calificacion'))['calificacion__avg'] or 0.0
 
 class ComentariosUsuarios(models.Model):
 
@@ -279,8 +283,16 @@ class Like(models.Model):
 #     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
 
 class Valoracion_usuario(models.Model):
-    nota = models.FloatField(null=True)
+    CALIFICACIONES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    calificacion = models.IntegerField(choices=CALIFICACIONES, null=True)
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, default=None, null=True)
+    monumento = models.CharField(choices=Monumentos.choices, max_length=200, null=True)
     usuarios = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, null=True)
     comentario = models.CharField(max_length=200, null=True)
 

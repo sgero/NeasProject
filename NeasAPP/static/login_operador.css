@@ -1,5 +1,5 @@
 footer {
-    position: relative !important;
+    position: relative ;
 }
 
 * {
@@ -25,7 +25,7 @@ a:hover {
 }
 
 .contenedor-formularios {
-  background: #D9EAD3;
+  background: #d3e2ea;
   padding: 40px;
   max-width: 500px;
   margin: 40px auto;
