@@ -119,7 +119,10 @@ h2 {
 
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  margin: 0 2%;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .card {
@@ -159,16 +162,8 @@ h2 {
 
 }
 
-.padre {
-    display: flex;
-    justify-content: space-around;
-    margin: 0 2%;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
 footer {
-    position: relative !important;
+    position: absolute !important;
 }
 
 .imgruta {
@@ -311,7 +306,7 @@ a:hover {
 
 }
 
-a {
+.card > a {
 
     text-decoration: none !important;
     color: #1B2D3B !important;
@@ -561,5 +556,18 @@ body {
 h6 {
 
     display: flex;
+
+}
+
+.partederecha {
+
+	display: flex;
+	flex-direction: column;
+
+}
+
+.parteizquierda {
+
+	display: flex;
 
 }

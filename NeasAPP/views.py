@@ -632,3 +632,8 @@ def DetallesRutas(request, id):
         form2 = FormularioValoracion()
 
         return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form,'form2': form2, 'ruta': ruta, 'id_user': id_user})
+
+
+def mostrar_todas_rutas(request):
+    rutas = Ruta.objects.all()
+    return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
