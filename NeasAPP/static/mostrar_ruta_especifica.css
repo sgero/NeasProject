@@ -165,7 +165,7 @@ h2 {
 }
 
 footer {
-    position: absolute !important;
+    position: relative !important;
 }
 
 .imgruta {
@@ -445,6 +445,13 @@ body {
 /**
  * Caja del Comentario
  ---------------------------*/
+.comment-content{
+
+	display: flex;
+	justify-content: space-between;
+
+}
+
 .comments-list .comment-box {
 	width: 680px;
 	float: right;

@@ -594,6 +594,7 @@ def DetallesRutas(request, id):
     ruta = get_object_or_404(Ruta, id=id)
     comentario = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
     id_user = Valoracion_usuario.objects.filter(usuarios_id=request.user.id, ruta_id=id).values_list('usuarios_id')
+    request.session['id_ruta'] = id
 
     if request.method == 'POST':
         form = UserComment(request.POST, request.FILES)
@@ -642,3 +643,8 @@ def DetallesRutas(request, id):
 def mostrar_todas_rutas(request):
     rutas = Ruta.objects.all()
     return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
+def eliminar_comentario(request, id):
+    comentario = ComentariosUsuarios.objects.get(id=id)
+    ComentariosUsuarios.delete(comentario)
+    return DetallesRutas(request, request.session['id_ruta'])

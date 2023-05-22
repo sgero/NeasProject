@@ -121,6 +121,11 @@
                                                 </div>
                                                 <div class="comment-content">
                                                     {{ c.comentario }}
+                                                    {% if c.autor_comentario == user %}
+
+                                                    <a href="{% url 'eliminar_comentario' id=c.id %}" class="card-link"><img class="imgeliminar" src="{% static "img/eliminar_ruta.png" %}"></a>
+
+                                                    {% endif %}
                                                 </div>
 
                                             </div>
