@@ -15,221 +15,63 @@
 
 {% block content1 %}
 
+        <div class="inicio" id="inicio">
 
+            <h1>RUTAS MAS VALORADAS</h1>
 
-        <div class="carrusel">
+            {% for r in rutas_mas_valoradas %}
 
-            <div class="inicio">
+                    <div class="card" style="width: 18rem;">
 
-                <form method="post" action="/neas/buscar/">
+                        <a href="/neas/ruta/detalles/{{ r.id }}">
 
-                    {% csrf_token %}
+                            <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
 
-                    <label for="provincia" class="form-label"></label>
+                            <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
+                                <p class="card-text">{{ r.tematica }}</p>
+                                <p class="card-text">•</p>
+                                <p class="card-text">{{ r.transporte }}</p>
+                            </div >
 
-                    <select class="h4" id="provincia" name="provincia">
+                            <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
+                                <h5>{{ r.nombre }}</h5>
+                                <h4>-</h4>
+                                <h5>{{ r.valoracion_media }}</h5>
+                            </div>
 
-                        <option value="" disabled selected hidden>Elige tu ciudad:</option>
+                            <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
+                                <p class="card-title">{{ r.ciudad }}</p>
+                                <p class="card-title">{{ r.precio }}€ de precio medio.</p>
+                            </div>
 
-                        {% for p in provincia %}
+                        </a>
 
-                            <option value="{{ p }}"> {{ p }}</option>
+                    </div>
 
-                        {% endfor %}
+            {% endfor %}
 
-                    </select>
 
-                    <input class="boton" type="submit" value="Buscar rutas"/>
+            <form method="post" action="{% url 'buscar' %}">
 
-                </form>
+                {% csrf_token %}
 
-            </div>
+                <label for="provincia" class="form-label"></label>
 
-            <section class="carousel" aria-label="Gallery">
+                <select class="h4" id="provincia" name="provincia">
 
-                <ol class="carousel__viewport">
+                    <option value="" disabled selected hidden>Elige tu ciudad:</option>
 
-                    <li id="carousel__slide1"
-                        tabindex="0"
-                        class="carousel__slide">
+                    {% for p in provincia %}
 
-                        <div class="carousel__snapper">
+                        <option value="{{ p }}"> {{ p }}</option>
 
-                            <a href="#carousel__slide4"
-                               class="carousel__prev">Go to last slide</a>
+                    {% endfor %}
 
-                            <a href="#carousel__slide2"
-                               class="carousel__next">Go to next slide</a>
+                </select>
 
-                        </div>
+                <input class="boton" type="submit" value="Buscar rutas"/>
 
-                    </li>
-
-                    <li id="carousel__slide2"
-                        tabindex="0"
-                        class="carousel__slide">
-
-                        <div class="carousel__snapper"></div>
-
-                        <a href="#carousel__slide1"
-                           class="carousel__prev">Go to previous slide</a>
-
-                        <a href="#carousel__slide3"
-                           class="carousel__next">Go to next slide</a>
-
-                    </li>
-
-                    <li id="carousel__slide3"
-                        tabindex="0"
-                        class="carousel__slide">
-
-                        <div class="carousel__snapper"></div>
-
-                        <a href="#carousel__slide2"
-                           class="carousel__prev">Go to previous slide</a>
-
-                        <a href="#carousel__slide4"
-                           class="carousel__next">Go to next slide</a>
-
-                    </li>
-
-                    <li id="carousel__slide4"
-                        tabindex="0"
-                        class="carousel__slide">
-
-                        <div class="carousel__snapper"></div>
-
-                        <a href="#carousel__slide3"
-                           class="carousel__prev">Go to previous slide</a>
-
-                        <a href="#carousel__slide1"
-                           class="carousel__next">Go to first slide</a>
-
-                    </li>
-
-                    <li id="carousel__slide5"
-                        tabindex="0"
-                        class="carousel__slide">
-
-                        <div class="carousel__snapper"></div>
-
-                        <a href="#carousel__slide3"
-                           class="carousel__prev">Go to previous slide</a>
-
-                        <a href="#carousel__slide1"
-                           class="carousel__next">Go to first slide</a>
-
-                    </li>
-
-                    <li id="carousel__slide6"
-                        tabindex="0"
-                        class="carousel__slide">
-
-                        <div class="carousel__snapper"></div>
-
-                        <a href="#carousel__slide3"
-                           class="carousel__prev">Go to previous slide</a>
-
-                        <a href="#carousel__slide1"
-                           class="carousel__next">Go to first slide</a>
-
-                    </li>
-
-                    <li id="carousel__slide7"
-                        tabindex="0"
-                        class="carousel__slide">
-
-                        <div class="carousel__snapper"></div>
-
-                        <a href="#carousel__slide3"
-                           class="carousel__prev">Go to previous slide</a>
-
-                        <a href="#carousel__slide1"
-                           class="carousel__next">Go to first slide</a>
-
-                    </li>
-
-                    <li id="carousel__slide8"
-                        tabindex="0"
-                        class="carousel__slide">
-
-                        <div class="carousel__snapper"></div>
-
-                        <a href="#carousel__slide3"
-                           class="carousel__prev">Go to previous slide</a>
-
-                        <a href="#carousel__slide1"
-                           class="carousel__next">Go to first slide</a>
-
-                    </li>
-
-                </ol>
-
-                <aside class="carousel__navigation">
-
-                    <ol class="carousel__navigation-list">
-
-                        <li class="carousel__navigation-item">
-
-                            <a href="#carousel__slide1"
-                               class="carousel__navigation-button">Go to slide 1</a>
-
-                        </li>
-
-                        <li class="carousel__navigation-item">
-
-                            <a href="#carousel__slide2"
-                               class="carousel__navigation-button">Go to slide 2</a>
-
-                        </li>
-
-                        <li class="carousel__navigation-item">
-
-                            <a href="#carousel__slide3"
-                               class="carousel__navigation-button">Go to slide 3</a>
-
-                        </li>
-
-                        <li class="carousel__navigation-item">
-
-                            <a href="#carousel__slide4"
-                               class="carousel__navigation-button">Go to slide 4</a>
-
-                        </li>
-
-                        <li class="carousel__navigation-item">
-
-                            <a href="#carousel__slide5"
-                               class="carousel__navigation-button">Go to slide 5</a>
-
-                        </li>
-
-                        <li class="carousel__navigation-item">
-
-                            <a href="#carousel__slide6"
-                               class="carousel__navigation-button">Go to slide 6</a>
-
-                        </li>
-
-                        <li class="carousel__navigation-item">
-
-                            <a href="#carousel__slide7"
-                               class="carousel__navigation-button">Go to slide 7</a>
-
-                        </li>
-
-                        <li class="carousel__navigation-item">
-
-                            <a href="#carousel__slide8"
-                               class="carousel__navigation-button">Go to slide 8</a>
-
-                        </li>
-
-                    </ol>
-
-                </aside>
-
-            </section>
+            </form>
 
         </div>
 

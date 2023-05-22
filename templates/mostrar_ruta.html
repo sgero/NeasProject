@@ -70,41 +70,54 @@
 
             {% for r in rutas %}
 
-                <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;">
 
-                    <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
+                        <a href="/neas/ruta/detalles/{{ r.id }}">
 
-                    <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
-                        <p class="card-text">{{ r.tematica }}</p>
-                        <p class="card-text">•</p>
-                        <p class="card-text">{{ r.transporte }}</p>
-                    </div >
+                            <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
 
-                    <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
-                        <h5>{{ r.nombre }}</h5>
-                        <h4>-</h4>
-                        <h5>{{ r.valoracion_media }}</h5>
-                    </div>
+                            <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
+                                <p class="card-text">{{ r.tematica }}</p>
+                                <p class="card-text">•</p>
+                                <p class="card-text">{{ r.transporte }}</p>
+                            </div >
 
-                    <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
-                        <p class="card-title">{{ r.ciudad }}</p>
-                        <p class="card-title">{{ r.precio }}€ de precio medio.</p>
-                    </div>
+                            <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
+                                <h5>{{ r.nombre }}</h5>
+                                <h4>-</h4>
+                                <h5>{{ r.valoracion_media }}</h5>
+                            </div>
 
-                    {% if r.operador_tur.id is user.id %}
+                            <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
+                                <p class="card-title">{{ r.ciudad }}</p>
+                                <p class="card-title">{{ r.precio }}€ de precio medio.</p>
+                                <a href="{% url 'generar_pdf' %}">Generar PDF</a>
+
+{#                                VALORAR RUTA NO ESTÁ FUNCIONANDO. REVISAR.#}
+{#                                <a href="{% url 'valorar_ruta' %}">Valorar Ruta</a>#}
+
+
+                            </div>
+
+                        </a>
 
                         <div class="card-body" style="display: flex; justify-content: space-around">
 
-                            <a href="#" class="card-link" style="align-items:center; display:flex">Valorar Ruta</a>
+                            {% if r.operador_tur.id is user.id %}
 
-                            <a href="/neas/ruta/eliminar/{{ r.id }}" class="card-link"><img class="imgeliminar" src="{% static "img/eliminar_ruta.png" %}"></a>
+                                <div class="card-body" style="display: flex; justify-content: space-around;align-items: center">
 
-                            <a href="/neas/ruta/modificar/{{ r.id }}" class="card-link"><img class="imgupdate" src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
+                                    <a href="/neas/ruta/eliminar/{{ r.id }}" class="card-link"><img class="imgeliminar" src="{% static "img/eliminar_ruta.png" %}"></a>
+
+                                    <a href="/neas/ruta/modificar/{{ r.id }}" class="card-link"><img class="imgupdate" src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
+
+                                </div>
+
+                            {% endif %}
 
                         </div>
 
-                    {% endif %}
-                </div>
+                    </div>
 
             {% endfor %}
 
