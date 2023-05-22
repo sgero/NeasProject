@@ -2,6 +2,7 @@
 {% extends "basic_page.html" %}
 {% load static %}
 
+
 {% block title %}
 
     Comenta la Ruta | NEAS
@@ -70,24 +71,26 @@
                                 <input type="submit" class="button button-block" value="Comentar">
 
                             </div>
-                        </form>
-
-                    <div class="comentarios">
-                         {% if comentarios.count > 0 %}
-
-                            {% for c in comentarios %}
+                        </form><div class="comentarios">
 
 
-                                    <div class="social-box">
-                                      <img class="imagencomentario" alt="" src="{{ c.autor_comentario.imagen }}">
-                                      <p class="social">{{ c.autor_comentario.username }}</p>
-                                      <div class="social"> <p> {{ c.comentario }}</p></div>
-                                       <div class="social"><p>{{ c.fecha_creacion }}</p></div>
-                                    </div>
-
+                        {% if comentarios.count > 0 %}
+                            {% for comentario in comentarios %}
+                                <div class="social-box">
+                                    <img class="imagencomentario" alt="" src="{{ comentario.autor_comentario.imagen }}">
+                                    <p class="social">{{ comentario.autor_comentario.username }}</p>
+                                    <div class="social"> <p> {{ comentario.comentario }}</p></div>
+                                    <button class="btn-like" onclick="darLike({{ comentario.id }}, {{ usuario.id }})" data-csrf="{{ csrf_token }}" data-usuario="{{ usuario.id }}">
+                                        Dar like
+                                    </button>
+                                    <div class="social"><p>{{ comentario.fecha_creacion }}</p></div>
+                                    <p class="likes-contador">Likes:{{ comentario.likes_contador }}</p>
+                                </div>
                             {% endfor %}
                         {% endif %}
                     </div>
+
+
             </div>
         </div>
 
@@ -110,5 +113,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="{% static 'login.js' %}"></script>
+    <script src="{% static 'dar_like.js' %}"></script>
 
 {% endblock %}

@@ -121,3 +121,28 @@ h2 {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.btn-like {
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  width: 100px;
+}
+
+.btn-like i {
+  margin-right: 0.5rem;
+}
+
+.btn-like:hover {
+  color: #f00;
+}
+
+.likes-contador {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  color: #555;
+}

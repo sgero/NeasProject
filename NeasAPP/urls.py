@@ -30,5 +30,7 @@ urlpatterns = [
     # path('paginaOperador/', vista_operador, name='vista_operador'),
     path('rutas_mas_valoradas/', rutas_mas_valoradas, name='rutas_mas_valoradas'),
     path('generar_pdf/', generar_pdf, name='generar_pdf'),
+    path('ruta/detalles/<int:comentario_id>/dar_like/<int:id>/', dar_like, name='dar_like'),
+
 
 ]

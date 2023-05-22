@@ -256,9 +256,20 @@ class ComentariosUsuarios(models.Model):
     ruta = models.ForeignKey(Ruta, related_name="comentarios", on_delete=models.CASCADE, default=None)
     comentario = models.TextField()
     fecha_creacion = models.DateTimeField(editable=False , auto_now_add=True)
+    likes_contador = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.autor_comentario , self.ruta.nombre
+
+    def get_likes_contador(self):
+        return Like.objects.filter(comentario=self).count()
+
+class Like(models.Model):
+
+    usuario = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
+    comentario = models.ForeignKey(ComentariosUsuarios, related_name='likes', on_delete=models.CASCADE, default=None)
+
+
 # class DatosMonumentos(models.Model):
 #     monumento = models.CharField(max_length=60, choices=Monumentos.choices, null=True)
 #     imagen = models.URLField(null=True)

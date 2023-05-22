@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from reportlab.pdfgen import canvas
-
+from django.http import JsonResponse
 from .decorators import *
 from .forms import FormularioRegistro, UserComment
 from .forms import FormularioRegistroOPT
@@ -363,7 +363,10 @@ def eleccion_monumento(request):
 
 def DetallesRutas(request, id):
     ruta = get_object_or_404(Ruta, id=id)
-    comentario = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+    comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+
+    for comentario in comentarios:
+        comentario.likes_contador = comentario.get_likes_contador()
 
     if request.method == 'POST':
         form = UserComment(request.POST, request.FILES)
@@ -383,18 +386,17 @@ def DetallesRutas(request, id):
             form = UserComment()
 
     else:
-
-        comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
         form = UserComment()
 
+    return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta})
 
 
-        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form , 'ruta': ruta})
+
+
 
 def rutas_mas_valoradas(request):
-    rutas = Ruta.objects.annotate(avg_valoracion=Avg('valoraciones__valor')).order_by('-avg_valoracion')[:5]
+    rutas = Ruta.objects.order_by('-valoracion_media')[:5]
     return render(request, 'rutas_mas_valoradas.html', {'rutas': rutas})
-
 
 def generar_pdf(request):
     # Obtener los datos de las rutas seleccionadas
@@ -421,3 +423,20 @@ def generar_pdf(request):
     p.save()
 
     return response
+
+
+def dar_like(request, comentario_id, ):
+    if request.method == 'POST':
+        comentario = get_object_or_404(ComentariosUsuarios, id=comentario_id)
+        usuario_id = request.POST.get('usuario')
+        usuario = get_object_or_404(UsuarioLogin, id=usuario_id)
+        like, created = Like.objects.get_or_create(usuario=usuario, comentario=comentario)
+        if created:
+            comentario.likes_contador += 1
+        else:
+            like.delete()
+            comentario.likes_contador -= 1
+        comentario.save()
+        likes_contador = comentario.likes_contador
+        dio_like = like in comentario.likes.all()
+        return JsonResponse({'likes_contador': likes_contador, 'dio_like': dio_like})
