@@ -172,9 +172,11 @@ def registrar_operador(request):
         datosOP.usuario = usuarioOP
         datosOP.save()
 
-        return render(request, 'inicio.html')
-        # else:
-        #     return render(request, "registrar_operador.html", {"form": form})
+        user = authenticate(request, username=form.data["username"], password=request.POST.get("password2"))
+        if user is not None:
+            login(request, user)
+
+        return redirect('inicio')
 
 
 def editar_perfil(request):
@@ -227,8 +229,7 @@ def login_usuario(request):
     if user is not None:
         #Nos logueamos
         login(request, user)
-        return render(request, 'inicio.html', {"provincia": provincia})
-
+        return redirect('/neas')
     else:
         return render(request, 'error_loginOp.html')
 
@@ -252,7 +253,7 @@ def login_operador(request):
     if user is not None:
         # Nos logueamos
         login(request, user)
-        return render(request, 'inicio.html', {"provincia": provincia})
+        return redirect('/neas')
 
     else:
         return render(request, 'error_loginOp.html')

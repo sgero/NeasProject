@@ -83,10 +83,12 @@ footer{
 
     margin-bottom: -306px;
     transition: margin-left .5s;
+    justify-content: center;
 
 }
 
 .card {
+    display: inline-block;
     position: relative;
     display: -ms-flexbox;
     display: flex;
@@ -280,4 +282,39 @@ a {
     color: #1B2D3B !important;
     display: block !important;
 
+}
+
+.buscador{
+
+   width: 50%;
+    display: flex;
+    justify-content: center;
+    margin-top: 135px;
+
+}
+
+.rutas_mas_valoradas{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px;
+
+}
+
+.inicio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.carousel-inner {
+    justify-content: center;  /* Alinea los elementos hijos en el centro */
+    margin-bottom: 20px;
+    width: 60%;
+}
+.carousel {
+    width: 60%;
 }
