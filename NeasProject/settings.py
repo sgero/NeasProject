@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'star_ratings',
     'widget_tweaks',
+    'reportlab',
 ]
 
 MIDDLEWARE = [

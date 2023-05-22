@@ -216,9 +216,6 @@ def login_usuario(request):
     elif request.method == "POST":
             form = AuthenticationForm(None, data=request.POST)
 
-    #Verificar que el formulario es valido
-    # if form.is_valid():
-        #Intentar loguear
     user = authenticate(
         username=form.data['username'],
         password=form.data['password'],)
@@ -447,11 +444,9 @@ def valorar_ruta(request, id):
             valoracion.usuarios = request.user
             valoracion.ruta = ruta
             valoracion.save()
-
             valoraciones = Valoracion_usuario.objects.filter(ruta=ruta)
             suma_valoraciones = sum([val.calificacion for val in valoraciones])
             media_valoracion = suma_valoraciones / len(valoraciones)
-
             ruta.valoracion_media = media_valoracion
             ruta.save()
             ciudad = request.session.get('ciudad')
