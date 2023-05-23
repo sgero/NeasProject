@@ -1,0 +1,67 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Crear Rutas | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'crear_ruta.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+    <div class="contenedor-formularios">
+
+        <ul class="contenedor-tabs">
+
+            <li class="tab tab-segunda active"><a href="#">AÑADE MONUMENTOS Y PUNTOS DE INTERÉS A TU RUTA</a></li>
+
+        </ul>
+
+        <div class="contenido-tab">
+
+            <div id="iniciar-sesion">
+
+                <form method="post" action="{% url 'crear_ruta' %}" id="myForm">
+
+                    {% csrf_token %}
+
+                    <div class="contenedor-input">
+
+                        <select id="monumento" name="monumento" multiple="5">
+
+                            <option value="" disabled selected hidden>Elige tus Monumentos:</option>
+
+                            {% for m in monumentos %}
+
+                                <option  value="{{ m }}"> {{ m }}</option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <input type="submit" class="button button-block" value="Crear Ruta">
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'login.js' %}"></script>
+
+{% endblock %}

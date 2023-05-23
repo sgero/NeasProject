@@ -1,0 +1,300 @@
+input {
+    border-radius: 6px;
+    border: 1px solid silver;
+    outline: none;
+}
+
+label {
+    font-size: 16px;
+}
+
+select {
+    width: 40%;
+    height: 80px;
+    border-radius: 8px;
+    outline: none;
+    text-align: center;
+    font-size: 16px;
+}
+
+select option {
+    font-size: 16px;
+}
+
+select option:first-child {
+    font-size: 16px;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-control-prev-icon {
+    position: static;
+    left: -190px !important;
+}
+
+.carousel-control-next-icon {
+    position: static;
+    right: -190px !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 30px;
+    height: 30px;
+    filter: invert(100%);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.fs {
+    font-size: 16px;
+}
+
+.carousel-control-prev {
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.carousel-control-next {
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    border-radius: 6px;
+    border: 1px solid silver;
+    outline: none;
+}
+
+select {
+    border-radius: 8px;
+    outline: none;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.imagen {
+    flex-shrink: 0;
+    width: 50%;
+    height: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+footer {
+    position: relative !important;
+}
+
+.carrusel {
+    margin-bottom: -306px;
+    transition: margin-left .2s;
+    justify-content: center;
+    position: relative;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: beige;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.25rem;
+    width: 40%;
+    transition: 0.5s ease 0s !important;
+    flex-shrink: 0;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.hola {
+    background-color: beige;
+    max-width: 100% !important;
+}
+
+.hola1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.padre {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 2%;
+    flex-wrap: wrap;
+}
+
+footer {
+    position: relative !important;
+}
+
+.imgruta {
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    height: 160px;
+    max-width: 100%;
+}
+
+.card-text {
+    color: black;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.medio {
+    justify-content: center;
+    text-align: center;
+}
+
+.derecha {
+    justify-content: center;
+    text-align: right;
+}
+
+.card-title {
+    margin: 0 !important;
+    color: #858585;
+    font-size: 16px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.padreArriba {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.mb-3 {
+    margin: 0 !important;
+}
+
+select {
+    outline: none;
+    border-radius: 5px;
+    font-size: medium;
+    border: 1px solid silver;
+    padding: 5px 8px;
+}
+
+option {
+    font-size: medium;
+    text-align: center;
+}
+
+.imgeliminar {
+    width: 30px;
+}
+
+a.card-link {
+    margin-left: 0 !important;
+}
+
+.imgruta2 {
+    width: 200px;
+}
+
+.col-md-8 {
+    flex: 0 !important;
+}
+
+h4, h5 {
+    margin: 0 !important
+}
+
+.card-body {
+    padding: 16px;
+    background-color: #acc8d7;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+
+.container-carrusel {
+    display: flex;
+    justify-content: center;
+}
+
+a:hover {
+    text-decoration: none !important;
+    color: #1B2D3B !important;
+}
+
+.card > a {
+    text-decoration: none !important;
+    color: #1B2D3B !important;
+    display: block !important;
+}
+
+.buscador {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin-top: 105px;
+}
+
+.rutas_mas_valoradas {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.inicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.carousel-inner {
+    overflow: hidden;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 60%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+    height: 100%;
+}

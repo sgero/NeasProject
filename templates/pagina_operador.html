@@ -1,0 +1,34 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Operador | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+<!-- Código HTML para el menú desplegable de operadores -->
+{% if user.is_authenticated and user.rol == 'Operador' %}
+    <form method="post" action="{% url 'eleccion_operador' %}">
+       {% csrf_token %}
+        <label for="menu">Seleccione una opción:</label>
+        <select id="menu" name="menu">
+            <option value="crear">Crear ruta</option>
+            <option value="mostrar">Mostrar ruta</option>
+        </select>
+        <input type="submit" value="Enviar">
+    </form>
+
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+    Login Operador| NEAS
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'login_operador.css' %}">
+{% endblock %}
+
+{% block content1 %}
+
+    <div class="contenedor-formularios">
+
+        <ul class="contenedor-tabs">
+
+            <li class="tab tab-segunda active"><a href="#">OPERADOR</a></li>
+
+        </ul>
+
+        <div class="contenido-tab">
+
+            <div id="iniciar-sesion">
+
+                <h1>Iniciar Sesión</h1>
+
+                <form action="#" method="post">
+
+                    {% csrf_token %}
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+                            Usuario <span class="req">*</span>
+                        </label>
+
+                        <input type="text" name="username" required>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+                            Contraseña <span class="req">*</span>
+                        </label>
+
+                        <input type="password" name="password" required>
+
+                    </div>
+
+                    <p class="forgot"><a href="{% url 'cambiar_contraseña' %}">¿Has olvidado la contraseña?</a></p>
+
+                    <input type="submit" class="button button-block" value="Entrar">
+
+                </form>
+
+            </div>
+
+            <a id="sincuenta" class="nav-item nav-link" href="/neas/registrar/usuario/">
+
+                <p class="nocuenta"> ¿Aún no tienes una cuenta? Regístrate aquí. </p><i
+                    class="fas fa-sign-in-alt"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'login.js' %}"></script>
+
+{% endblock %}

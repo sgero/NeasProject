@@ -1,0 +1,293 @@
+{% block content %}
+    {% load static %}
+
+    <!DOCTYPE html>
+
+    <html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>{% block title %}  {% endblock %}</title>
+
+        {% block css %}  {% endblock %}
+
+        <link rel="stylesheet" type="text/css" href="{% static 'basic_page.css' %}" id="light-mode-css">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'dark-mode.css' %}" id="dark-mode-css">
+
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+        <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
+
+        <link rel="dns-prefetch" href="https://fast.appcues.com">
+
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+
+        {% load bootstrap4 %}
+        {% bootstrap_css %}
+
+    </head>
+
+    <body>
+
+    <header id="header">
+
+
+        <div id="parteabajo">
+
+            <div id="logo">
+
+                <a class="logoneas" href="/neas/">
+                    <img src="{% static "img/logoNEAS1.png" %}" width="130" height="100" id="foto">
+                </a>
+
+
+                {#                {% if user.is_authenticated and user.rol == "Operador" %}#}
+                {##}
+                {#                <div id="main">#}
+                {#                    <span style="font-size:30px;cursor:pointer;display: flex;justify-content: center;align-items: center;" onclick="openNav()">&#9776; <img src="{{ user.imagen }}" width="130" height="100" id="foto1"></span>#}
+                {#                </div>#}
+                {##}
+                {#                {% endif %}#}
+
+                {% if user.is_authenticated %}
+                    <nav class="sidebar close">
+                        <header>
+                            <div class="image-text">
+                <span class="image">
+                    <img src="{% if user.imagen == 'NeasAPP/static/img/userfoto.png' %} {% static 'img/userfoto.png' %} {% else %} {{ user.imagen }} {% endif %}" alt="user-image" class="user-image">
+
+                    <h3 class="namet">{{ user.get_username }}</h3>
+                </span>
+
+                                {#                <div class="text header-text">#}
+                                {#                    <span class="name">Editar mi perfil</span>#}
+                                {#                        <span class="see-ruta">Ver mis rutas</span>#}
+                                {#                        <span class="edit-ruta">Crear ruta nueva</span>#}
+                                {#                </div>#}
+
+                            </div>
+
+                            <i class="bx bx-chevron-left toggle"> </i>
+
+                        </header>
+
+                        <div class="menu-bar">
+
+                            <div class="menu">
+
+                                <li class="search-box">
+
+                                    <i class='bx bx-search-alt-2 icon'></i>
+                                    <input type="text" placeholder="Buscar...">
+
+                                </li>
+                                <ul class="menu-links">
+                                    <li class="nav-link">
+                                        <a href="{% url 'editar_perfil' %}"><i class='bx bx-user'></i>
+                                            <span class="text nav-text">Editar mi perfil</span>
+                                        </a>
+
+                                    </li>
+                                    {% if user.rol == "Operador" %}
+                                        <li class="nav-link">
+                                            <a href="{% url 'mostrar_ruta_op' %}"><i class='bx bx-git-repo-forked'></i>
+                                                <span class="text nav-text">Ver mis Rutas </span>
+                                            </a>
+
+                                        </li>
+                                        <li class="nav-link">
+                                            <a href="{% url 'crear_ruta' %}"><i class='bx bx-buildings'></i>
+                                                <span class="text nav-text">Crear Rutas </span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+
+
+                                <div class="bottom-content">
+                                    <li class="nav-link">
+                                        <a href="{% url 'logout' %}"><i class='bx bx-log-out-circle'></i>
+                                            <span class="text nav-text">Logout </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="mode">
+
+                                        <div class="moon-sun">
+                                            <i class='bx bx-moon icon moon'></i>
+                                            <i class='bx bx-sun icon sun'></i>
+                                        </div>
+                                        <span class="mode-text text">Modo Oscuro </span>
+                                        <div class="toggle-switch">
+                                            <span class="switch"></span>
+                                        </div>
+
+
+                                    </li>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </nav>
+
+                {% endif %}
+
+            </div>
+
+            <div id="botones">
+
+                <div class="botones">
+                    <!-- IF para el LOGOUT -->
+                    {% if user.is_authenticated %}
+
+                        <div><h3>¡Bienvenido/a {{ user.get_username }}!</h3></div>
+
+                        <a href="{% url 'logout' %}" class="boton color">LOGOUT</a>
+
+                    {% else %}
+
+                        <div class="dropdown">
+
+                            <button class="boton">
+
+                                <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+
+                                REGISTRO
+
+                            </button>
+
+                            <div class="dropdown-content">
+                                <a href="{% url 'registrar_operador' %}">Operador</a>
+                                <a href="{% url 'registrar_usuario' %}">Cliente</a>
+                            </div>
+
+                        </div>
+
+                        <div>|</div>
+
+                        <a href="{% url 'login_usuario' %}" class="color">
+
+                            <button class="boton">
+
+                                <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
+
+                                INICIAR SESIÓN
+
+                            </button>
+
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </header>
+
+
+    {#    <section class="home">#}
+    {#        <div class="text">#}
+    {#            <h1>NEAS</h1>#}
+    {#            <p>¡Bienvenido a NEAS! Aquí podrás encontrar las mejores rutas turísticas de Sevilla. ¡No te las pierdas!</p>#}
+    {#        </div>#}
+    {##}
+    {#    </section>#}
+
+    {##}
+    {#    <div id="mySidenav" class="sidenav">#}
+    {#        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>#}
+    {#        <a href="{% url 'editar_perfil' %}">Editar mi Perfil</a>#}
+    {#        <a href="{% url 'mostrar_ruta' %}">Ver mis Rutas</a>#}
+    {#        <a href="{% url 'crear_ruta' %}">Crear Rutas</a>#}
+    {##}
+    {#        <button id="dark-mode-toggle">Modo Oscuro</button>#}
+    {##}
+    {##}
+    {#    </div>#}
+
+
+
+
+
+
+    {% block content1 %}
+
+    {% endblock content1 %}
+
+    {% block scripts %}  {% endblock scripts %}
+
+    <!-- Site footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h6>About</h6>
+
+                    <p class="copyright-text">
+                    <p class="text-justify">Copyright &copy; 2023 All Rights Reserved by NEAS.com
+                    <i>RED SOCIAL DE TURISMO. </i></p>
+                    <a href="#"></a>
+                    </p>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                    <h6>Categories</h6>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'inicio' %}">Neas</a></li>
+                        <li><a href="{% url 'mostrar_todas_rutas' %}">Mostrar Rutas</a></li>
+                        <li><a href="{% url 'rutas_mas_valoradas' %}">Rutas Valoradas</a></li>
+                        <li><a href="#">Comentarios</a></li>
+
+                    </ul>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                    <h6>Quick Links</h6>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'sobre_nosotros' %}">About Us</a></li>
+                        <li><a href="{% url 'centroAyuda' %}">Contact Us</a></li>
+                        <li><a href="{% url 'centroAyuda' %}">Contribute</a></li>
+                        <li><a href="{% url 'centroAyuda' %}">Privacy Policy</a></li>
+                        <li><a href="{% url 'sitemap' %}">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="#"> <i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="{% static 'sidenavbar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'dark-mode.js' %}"></script>
+        <script src="https://kit.fontawesome.com/280461e743.js" crossorigin="anonymous"></script>
+    </footer>
+
+    </body>
+
+    </html>
+
+{% endblock content %}

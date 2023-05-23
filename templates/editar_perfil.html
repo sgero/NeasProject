@@ -1,0 +1,87 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Editar Perfil | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'login_operador.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+     <div class="contenedor-formularios">
+
+        <ul class="contenedor-tabs">
+
+            <li class="tab tab-segunda active"><a href="#">EDITAR PERFIL</a></li>
+
+        </ul>
+
+        <div class="contenido-tab">
+
+            <div id="iniciar-sesion">
+
+                <form action="#" method="post" id="myForm">
+
+                    {% csrf_token %}
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                            Usuario <span class="req">*</span>
+
+                        </label>
+
+                        <input type="text" name="username" required value="{{ usuario.username }}">
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                            Email <span class="req">*</span>
+
+                        </label>
+
+                        <input type="email" name="email" required value="{{ usuario.email }}">
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales">
+
+                            Imagen <span class="req">*</span>
+
+                        </label>
+
+                        <input type="imagen" name="imagen" required value="{% if user.imagen == 'NeasAPP/static/img/userfoto.png' %} Ingrese el URL de la imagen {% else %} {{ user.imagen }} {% endif %}">
+
+                    </div>
+
+                    <input type="submit" class="button button-block" value="Editar">
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'login.js' %}"></script>
+
+{% endblock %}

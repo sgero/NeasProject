@@ -1,0 +1,115 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Inicio | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- JS de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+{% endblock %}
+
+{% block content1 %}
+
+    <div class="inicio" id="inicio">
+
+
+        <div class="buscador">
+
+            <form method="post" action="{% url 'buscar' %}">
+
+                {% csrf_token %}
+
+                <label for="provincia" class="form-label"></label>
+
+                <select class="h4" id="provincia" name="provincia">
+
+                    <option value="" disabled selected hidden>Elige tu ciudad:</option>
+
+                    {% for p in provincia %}
+
+                        <option value="{{ p }}"> {{ p }}</option>
+
+                    {% endfor %}
+
+                </select>
+
+                <input class="boton" type="submit" value="Buscar rutas"/>
+
+            </form>
+
+        </div>
+        <div class="rutas_mas_valoradas">
+
+            <h1></h1>
+            <div class="container-carrusel">
+
+
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+                    <ol class="carousel-indicators">
+                        {% for r in rutas_mas_valoradas %}
+                            <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}"
+                                class="{% if forloop.first %}active{% endif %}"></li>
+                        {% endfor %}
+                    </ol>
+
+                    <div class="carousel-inner">
+                        {% for r in rutas_mas_valoradas %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <div class="card" style="width: 18rem;">
+                                    <a href="/neas/ruta/detalles/{{ r.id }}">
+                                        <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
+                                        <div class="card-body"
+                                             style="display: flex;justify-content: flex-start;gap:5px;flex-direction: row;">
+                                            <p class="card-text">{{ r.tematica }}</p>
+                                            <p class="card-text">•</p>
+                                            <p class="card-text">{{ r.transporte }}</p>
+                                        </div>
+
+                                        <div class="card-body"
+                                             style="display: flex;justify-content:space-between;align-items: center;flex-direction: row;">
+                                            <h5>{{ r.nombre }}</h5>
+                                            <h4>-</h4>
+                                            <h5>{{ r.valoracion_media }}</h5>
+                                        </div>
+
+                                        <div class="card-body"
+                                             style="display: flex;justify-content:space-between;flex-direction: column">
+                                            <p class="card-title">{{ r.ciudad }}</p>
+                                            <p class="card-title">{{ r.precio }}€ de precio medio.</p>
+                                        </div>
+
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

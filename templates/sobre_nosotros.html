@@ -1,0 +1,93 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Sobre Nosotros | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'sobre_nosotros.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+    <div class="about-section">
+        <h1>Sobre Nosotros</h1>
+        <p>Bienvenidos a NEAS, una empresa dedicada a proporcionar una gestión para los clientes que quieran realizar rutas turísticas de calidad. Nos enorgullece complacer a nuestros clientes con nuestra web.
+
+Nuestra empresa se fundó en 2023 con un claro objetivo en mente: hacer el turismo un poco más liviano para aquellos aventureros. Desde entonces, hemos trabajado duro para cumplir nuestra misión y brindar una experiencia excepcional a nuestros clientes.
+Eduardo Ruiz fundó la empresa con 18 años de experiencia en Desarrollo de Aplicaciones web. Desde entonces, hemos crecido hasta convertirnos en un equipo de 4 profesionales dedicados y apasionados por lo que hacemos.
+En NEAS, creemos en la constancia, los valores y la profesionalidad de nuestros empleados. Estos valores están en el centro de todo lo que hacemos, y nos esforzamos por cumplirlos en cada paso del camino.</p>
+
+        <p>Nos enorgullece decir que hemos sido reconocidos por nuestras la mejor web Andaluza orientada al turismo. Estos logros no solo son un testimonio de nuestro arduo trabajo, sino también de nuestra dedicación a nuestros clientes y a nuestra industria.
+En NEAS, nos esforzamos por proporcionar una experiencia excepcional de principio a fin. Desde nuestro servicio al cliente hasta nuestros productos/servicios de alta calidad, nos aseguramos de que nuestros clientes siempre estén satisfechos.
+Gracias por visitar nuestra página "Sobre nosotros". Esperamos poder brindarle una experiencia excepcional en NEAS. Si tiene alguna pregunta o necesita más información, no dude en ponerse en contacto con nosotros.</p>
+    </div>
+
+    <h2 style="text-align:center; margin: 25px">Nuestro Equipo</h2>
+
+    <div class="row">
+
+        <div class="column">
+            <div class="card">
+                <img src="{% static "img/joseca.jpg" %}" alt="Jane" style="width:100%" class="fotonosotros">
+                <div class="container">
+                    <h2>Eduardo Ruiz</h2>
+                    <p class="title">CEO & Fundador</p>
+                    <p>Emprendedor, soñador y carismático.</p>
+                    <p>eruizgarcia@safareyes.es</p>
+                    <p>
+                        <a href="" class="button">Contact</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="{% static "img/joseca.jpg" %}" alt="John" style="width:100%" class="fotonosotros">
+                <div class="container">
+                    <h2>Nicolás Ballesteros</h2>
+                    <p class="title">Inversor</p>
+                    <p>Inteligente, humilde y guapo.</p>
+                    <p>nballesterosrodriguez@safareyes.es</p>
+                    <p>
+                        <a href="" class="button">Contact</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img src="{% static "img/joseca.jpg" %}" alt="Mike" style="width:100%" class="fotonosotros">
+                <div class="container">
+                    <h2>Antonio Campos</h2>
+                    <p class="title">Diseñador</p>
+                    <p>Persistente, considerado y atractivo.</p>
+                    <p>acamposmoreno@safareyes.es</p>
+                    <p>
+                        <a href="" class="button">Contact</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="{% static "img/joseca.jpg" %}" alt="John" style="width:100%" class="fotonosotros">
+                <div class="container">
+                    <h2>Sebastián García</h2>
+                    <p class="title">Project Manager</p>
+                    <p>Sigma, gerofante y pirómano.</p>
+                    <p>sgarciaguerrero@safareyes.es</p>
+                    <p>
+                        <a href="" class="button">Contact</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

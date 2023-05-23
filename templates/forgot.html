@@ -1,0 +1,35 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Olvidaste Contraseña | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inicio.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+
+
+            <div class="inicio">
+
+                <form method="post" action="/neas/forgot/">
+
+                    {% csrf_token %}
+                    Introduce tu email para recuperar tu contraseña
+                    <input class="boton" type="email" value="email"/>
+                    <input class="boton" type="submit" value="Enviar"/>
+
+                </form>
+
+            </div>
+
+
+
+{% endblock %}
