@@ -672,6 +672,8 @@ body.dark{
     color: #fff;
     padding-bottom: 20%;
     text-align: center;
+    align-items: center;
+    margin-left: 30px;
 }
 
 header .image-text .header-text {
