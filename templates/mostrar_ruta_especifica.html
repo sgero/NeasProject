@@ -22,27 +22,34 @@
 
                 <div class="parteizquierda">
 
-                    <div class="card" style="width: 18rem;height: 200px">
+                    <div class="card" style="width: 30rem;height: 590px;">
 
                         <a href="/neas/ruta/detalles/{{ ruta.id }}">
 
                             <img class="card-img-top imgruta" src="{{ ruta.imagen }}" alt="Card image cap">
 
-                            <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px">
-                                <p class="card-text">{{ ruta.tematica }}</p>
-                                <p class="card-text">•</p>
-                                <p class="card-text">{{ ruta.transporte }}</p>
-                            </div >
+                            <div class="cuerpocarta">
 
-                            <div class="card-body" style="display: flex;justify-content:space-between;align-items: center">
-                                <h5>{{ ruta.nombre }}</h5>
-                                <h4>-</h4>
-                                <h5>{{ ruta.valoracion_media }}</h5>
-                            </div>
+                                <div class="card-body" style="display: flex;justify-content: flex-start;gap:5px;height: 60px">
+                                    <p class="card-text">{{ ruta.tematica }}</p>
+                                    <p class="card-text">•</p>
+                                    <p class="card-text">{{ ruta.transporte }}</p>
+                                </div>
 
-                            <div class="card-body" style="display: flex;justify-content:space-between;flex-direction: column">
-                                <p class="card-title">{{ ruta.ciudad }}</p>
-                                <p class="card-title">{{ ruta.precio }}€ de precio medio.</p>
+                                <div class="card-body"
+                                     style="display: flex;justify-content:space-between;align-items: center;height: 60px">
+                                    <h5>{{ ruta.nombre }}</h5>
+                                    <h4>-</h4>
+                                    <h5>{{ ruta.valoracion_media }}</h5>
+                                </div>
+
+                                <div class="card-body"
+                                     style="display: flex;justify-content:space-between;flex-direction: column;height: 60px">
+                                    <p class="card-title">{{ ruta.ciudad }}</p>
+                                    <p class="card-title">{{ ruta.precio }}€ de precio medio.</p>
+                                    <a href="{% url 'generar_pdf' %}">Generar PDF</a>
+                                </div>
+
                             </div>
 
                         </a>
@@ -69,6 +76,20 @@
 
                 <div class="partederecha">
 
+                    {% if ruta.id not in rutas_valoradas and user.rol == "Cliente" %}
+
+                        <form action="{% url 'valorar_ruta' ruta.id %}" method="post">
+
+                            {% csrf_token %}
+
+                            {{ form2.as_p }}
+
+                            <input type="submit" class="button button-block" value="Valorar">
+
+                        </form>
+
+                    {% endif %}
+
                     {% if user.id not in id_user %}
 
                         <form method="post" action="{% url 'detalles_ruta' id %}" id="myForm">
@@ -84,7 +105,7 @@
 
                              <div class="contenedor-input">
 
-                                <input type="submit" class="button button-block" value="Valorar">
+                                <input type="submit" class="button button-block" value="Comentar">
 
                             </div>
 
@@ -123,8 +144,7 @@
                                                             <a href="{% url 'like_comentario' c.id %}" class="btn btn-danger btn-sm">Quitar like</a>
                                                         {% else %}
                                                             <a class="fa fa-heart" href="{% url 'like_comentario' c.id %}" class="btn btn-primary btn-sm"></a>
-                                                            <p>LIKES:</p>
-                                                            <h5 class="likes-contador-{{ c.id }}">{{ c.likes_contador }}</h5>
+                                                            <h5 class="likes-contador-{{ c.id }}" style="float: right">{{ c.likes_contador }}</h5>
                                                         {% endif %}
                                                     {% endif %}
 

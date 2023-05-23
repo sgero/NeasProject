@@ -70,14 +70,14 @@
                                     <a href="/neas/ruta/detalles/{{ r.id }}">
                                         <img class="card-img-top imgruta" src="{{ r.imagen }}" alt="Card image cap">
                                         <div class="card-body"
-                                             style="display: flex;justify-content: flex-start;gap:5px">
+                                             style="display: flex;justify-content: flex-start;gap:5px;flex-direction: row;">
                                             <p class="card-text">{{ r.tematica }}</p>
                                             <p class="card-text">•</p>
                                             <p class="card-text">{{ r.transporte }}</p>
                                         </div>
 
                                         <div class="card-body"
-                                             style="display: flex;justify-content:space-between;align-items: center">
+                                             style="display: flex;justify-content:space-between;align-items: center;flex-direction: row;">
                                             <h5>{{ r.nombre }}</h5>
                                             <h4>-</h4>
                                             <h5>{{ r.valoracion_media }}</h5>

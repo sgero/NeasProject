@@ -408,7 +408,7 @@ def eleccion_monumento(request):
 
 def rutas_mas_valoradas(request):
     rutas = Ruta.objects.order_by('-valoracion_media')[:5]
-    return render(request, 'rutas_mas_valoradas.html', {'rutas': rutas})
+    return render(request, 'mostrar_ruta.html',{"rutas": rutas, "tramo_horario": tramo_h,"tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,})
 
 
 # def generar_pdf(request):
@@ -565,16 +565,20 @@ def generar_pdf(request):
 
 def valorar_ruta(request, id):
     ruta = Ruta.objects.get(id=id)
+    lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
+    form = UserComment()
+    comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('-fecha_creacion')
+    id_user = Valoracion_usuario.objects.filter(usuarios_id=request.user.id, ruta_id=id).values_list('usuarios_id')
 
     if Valoracion_usuario.objects.filter(ruta=ruta, usuarios=request.user).exists():
         messages.error(request, "Ya has valorado esta ruta")
         return redirect(request.META.get('HTTP_REFERER', 'default_if_none'))
 
     if request.method == 'POST':
-        form = FormularioValoracion(request.POST)
+        form2 = FormularioValoracion(request.POST)
 
-        if form.is_valid():
-            valoracion = form.save(commit=False)
+        if form2.is_valid():
+            valoracion = form2.save(commit=False)
             valoracion.usuarios = request.user
             valoracion.ruta = ruta
             valoracion.save()
@@ -583,18 +587,19 @@ def valorar_ruta(request, id):
             media_valoracion = suma_valoraciones / len(valoraciones)
             ruta.valoracion_media = media_valoracion
             ruta.save()
-            return redirect('detalles_ruta', id=id)
+            return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta, 'form2':form2, 'id_user': id_user, 'rutas_valoradas': rutas_valoradas})
 
     else:
         form = FormularioValoracion()
 
-    return render(request, 'mostrar_ruta.html', {'form': form, 'ruta': ruta})
+    return redirect('detalles_ruta', id=id)
 
 def DetallesRutas(request, id):
     ruta = get_object_or_404(Ruta, id=id)
     comentario = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
     id_user = Valoracion_usuario.objects.filter(usuarios_id=request.user.id, ruta_id=id).values_list('usuarios_id')
     request.session['id_ruta'] = id
+    lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
 
     if request.method == 'POST':
         form = UserComment(request.POST, request.FILES)
@@ -614,30 +619,13 @@ def DetallesRutas(request, id):
         else:
             form = UserComment()
 
-        if form2.is_valid():
-            valoracion = form.save(commit=False)
-            valoracion.usuarios = request.user
-            valoracion.ruta = ruta
-            valoracion.save()
-
-            valoraciones = Valoracion_usuario.objects.filter(ruta=ruta)
-            suma_valoraciones = sum([val.calificacion for val in valoraciones])
-            media_valoracion = suma_valoraciones / len(valoraciones)
-
-            ruta.valoracion_media = media_valoracion
-            ruta.save()
-            return redirect('detalles_ruta', id=id)
-
-        else:
-            form2 = FormularioValoracion()
-
     else:
 
         comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('-fecha_creacion')
         form = UserComment()
         form2 = FormularioValoracion()
 
-        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form,'form2': form2, 'ruta': ruta, 'id_user': id_user})
+        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta, 'form2':form2, 'id_user': id_user, 'rutas_valoradas': rutas_valoradas})
 
 
 def mostrar_todas_rutas(request):
