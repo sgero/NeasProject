@@ -63,7 +63,6 @@ html, body {
     align-items: center;
     box-shadow: 1px 5px 8px gray;
     flex-direction: row;
-    padding-bottom: 10px;
 }
 
 #botones{
@@ -132,19 +131,17 @@ section{
 footer {
 
     bottom: 0;
-    position: absolute;
+    position: relative;
     width: 100%;
 }
 
 
-    .site-footer
-{
+.site-footer {
   background-color:#78909C;
   padding:45px 0 20px;
   font-size:15px;
   line-height:24px;
   color:#F6F5FF;
-    position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -600,13 +597,13 @@ body.dark{
 .sidebar .image {
     min-width: 60px;
     display: flex;
-    width: 30px;
+    width: 20px;
     height: 30px;
     margin-right: 10px;
-    margin-left:55px;
-    margin-bottom: 10px;
+    margin-left: 25px;
+    margin-top: 40px;
+    align-items: center;
     padding-bottom: 10px;
-    /*padding-left: 80px;*/
     justify-content: center;
 }
 
@@ -657,8 +654,8 @@ body.dark{
 }
 
 .sidebar .image-text img {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 10px;
     align-content: center;
@@ -671,11 +668,12 @@ body.dark{
 .sidebar header .image-text {
     display: flex;
     align-items: center;
-    padding: 20px 10px;
     background: var(--primary-color);
     color: #fff;
-    padding-left: 10%;
     padding-bottom: 20%;
+    text-align: center;
+    align-items: center;
+    margin-left: 30px;
 }
 
 header .image-text .header-text {
@@ -801,6 +799,7 @@ body.dark .sidebar li .a:hover .text {
     background: var(--primary-color-light);
     position: relative;
     border-radius: 6px;
+    margin-right: -4px;
 }
 
 .menu-bar .mode .moon-sun{

@@ -250,7 +250,7 @@ a:hover {
     color: #1B2D3B !important;
 }
 
-a {
+.card > a {
     text-decoration: none !important;
     color: #1B2D3B !important;
     display: block !important;
@@ -278,6 +278,7 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 50px;
 }
 
 .carousel-inner {

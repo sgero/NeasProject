@@ -121,7 +121,7 @@ h2 {
 
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin: 0 2%;
   flex-wrap: wrap;
   width: 100%;
@@ -141,6 +141,7 @@ h2 {
     border-radius: 0.25rem;
     width: 40%;
     transition: 0.5s ease 0s !important;
+	margin-left: 20%;
 }
 
 .card:hover{
@@ -165,7 +166,7 @@ h2 {
 }
 
 footer {
-    position: absolute !important;
+    position: relative !important;
 }
 
 .imgruta {
@@ -174,6 +175,7 @@ footer {
     height: 188px;
 
 }
+
 
 .card-text {
 
@@ -209,6 +211,14 @@ footer {
     justify-content: center;
     align-items: center;
     width: 100%;
+
+}
+
+.cuerpocarta {
+
+	display: flex;
+	flex-direction: column;
+	height: 60%;
 
 }
 
@@ -270,6 +280,13 @@ a.card-link {
 .imgruta2 {
 
     width: 200px;
+
+}
+
+.imgruta {
+
+    width: 200px;
+	height: 300px;
 
 }
 
@@ -348,7 +365,7 @@ ul {
 }
 
 body {
-	font-family: 'Roboto', Arial, Helvetica, Sans-serif, Verdana;
+	font-family: 'Roboto', Arial, Helvetica, Sans-serif, Verdana, serif;
 	background: #dee1e3;
 }
 
@@ -445,6 +462,13 @@ body {
 /**
  * Caja del Comentario
  ---------------------------*/
+.comment-content{
+
+	display: flex;
+	justify-content: space-between;
+
+}
+
 .comments-list .comment-box {
 	width: 680px;
 	float: right;
@@ -490,7 +514,7 @@ body {
 	float: right;
 	margin-left: 14px;
 	position: relative;
-	top: 2px;
+	top: 4px;
 	color: #A6A6A6;
 	cursor: pointer;
 	-webkit-transition: color 0.3s ease;
@@ -579,11 +603,36 @@ h6 {
 .parteizquierda {
 
 	display: flex;
+	width: 40%;
 
 }
 
 .card-body {
 
 	min-height: auto !important;
+
+}
+
+.fa-heart {
+
+	float: right;
+	top: 4px;
+    position: relative;
+    margin-left: 5px;
+
+}
+
+a{
+
+	color: black !important;
+	text-decoration: none !important;
+	display: block !important;
+
+}
+
+a:hover{
+
+	color: black !important;
+	text-decoration: none !important;
 
 }

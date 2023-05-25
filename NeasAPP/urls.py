@@ -21,6 +21,7 @@ urlpatterns = [
     path('basic/page/', basic_page),
     path('logout/', desloguearse, name='logout'),
     path('ruta/eliminar/<int:id>', eliminar_ruta, name='eliminar_ruta'),
+    path('comentario/eliminar/<int:id>', eliminar_comentario, name='eliminar_comentario'),
     path('aboutUs/', sobre_nosotros, name='sobre_nosotros'),
     path('terminos&condiciones/', terminos, name='terminos&condiciones'),
     path('politicaPrivacidad/', politicas, name='politicaPrivacidad'),
@@ -35,7 +36,7 @@ urlpatterns = [
     path('ruta/<int:ruta_id>/valorar/', valorar_ruta, name='valorar_ruta2'),
     path('ruta/detalles/<int:id>', DetallesRutas, name='detalles_ruta'),
     path('rutas/', mostrar_todas_rutas, name='mostrar_todas_rutas'),
-
+    path('ruta/detalles/like/<int:comentario_id>', dar_like_comentario, name='like_comentario'),
     # path('paginaOperador/', vista_operador, name='vista_operador')
     path('sitemap/', sitemap, name='sitemap'),
     path('rutas/', mostrar_todas_rutas, name='mostrar_todas_rutas'),
