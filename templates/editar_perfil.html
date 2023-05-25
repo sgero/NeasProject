@@ -63,7 +63,7 @@
 
                         </label>
 
-                        <input type="imagen" name="imagen" required value="Ingrese su imagen">
+                        <input type="imagen" name="imagen" required value="{% if user.imagen == 'NeasAPP/static/img/userfoto.png' %} Ingrese el URL de la imagen {% else %} {{ user.imagen }} {% endif %}">
 
                     </div>
 

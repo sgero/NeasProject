@@ -1,3 +1,6 @@
+.body {
+}
+
 .card {
     position: relative;
     display: -ms-flexbox;
@@ -12,6 +15,7 @@
     border-radius: 0.25rem;
     width: 40%;
     transition: 0.5s ease 0s !important;
+    margin: 0 100px 70px;
 }
 
 .card:hover{

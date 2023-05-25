@@ -11,9 +11,9 @@ urlpatterns = [
     path('ruta/modificar/<int:id>', modificar_ruta, name='modificar_ruta'),
     path('ruta/<int:ruta_id>/', mostrar_ruta, name='mostrar_ruta'),
     path('ruta/', mostrar_ruta_op, name='mostrar_ruta_op'),
-    #path('ruta/<int:id>', mostrar_ruta_especifica, name='mostrar_ruta_especifica'),
+    # path('ruta/<int:id>', mostrar_ruta_especifica, name='mostrar_ruta_especifica'),
     path('login/usuario', login_usuario, name='login_usuario'),
-    #path('login/operador', login_operador, name='login_operador'),
+    # path('login/operador', login_operador, name='login_operador'),
     path('registrar/usuario/', registrar_usuario, name='registrar_usuario'),
     path('registrar/operador/', registrar_operador, name='registrar_operador'),
     path('cambiar/contraseña/', cambiar_contraseña, name='cambiar_contraseña'),
@@ -21,6 +21,7 @@ urlpatterns = [
     path('basic/page/', basic_page),
     path('logout/', desloguearse, name='logout'),
     path('ruta/eliminar/<int:id>', eliminar_ruta, name='eliminar_ruta'),
+    path('comentario/eliminar/<int:id>', eliminar_comentario, name='eliminar_comentario'),
     path('aboutUs/', sobre_nosotros, name='sobre_nosotros'),
     path('terminos&condiciones/', terminos, name='terminos&condiciones'),
     path('politicaPrivacidad/', politicas, name='politicaPrivacidad'),
@@ -34,7 +35,9 @@ urlpatterns = [
     path('ruta/valorar/<int:id>', valorar_ruta, name='valorar_ruta'),
     path('ruta/<int:ruta_id>/valorar/', valorar_ruta, name='valorar_ruta2'),
     path('ruta/detalles/<int:id>', DetallesRutas, name='detalles_ruta'),
-
+    path('rutas/', mostrar_todas_rutas, name='mostrar_todas_rutas'),
+    path('ruta/detalles/like/<int:comentario_id>', dar_like_comentario, name='like_comentario'),
     # path('paginaOperador/', vista_operador, name='vista_operador')
-
+    path('sitemap/', sitemap, name='sitemap'),
+    path('rutas/', mostrar_todas_rutas, name='mostrar_todas_rutas'),
 ]

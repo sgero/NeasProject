@@ -21,6 +21,11 @@
 
         <link data-n-head="ssr" rel="shortcut icon" type="image/x-icon" href="{% static "img/logoNEAS1.png" %}">
 
+        <link rel="dns-prefetch" href="https://fast.appcues.com">
+
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+
         {% load bootstrap4 %}
         {% bootstrap_css %}
 
@@ -53,7 +58,8 @@
                         <header>
                             <div class="image-text">
                 <span class="image">
-                    <img src="{{ user.imagen }}" alt="user-image" class="user-image">
+                    <img src="{% if user.imagen == 'NeasAPP/static/img/userfoto.png' %} {% static 'img/userfoto.png' %} {% else %} {{ user.imagen }} {% endif %}" alt="user-image" class="user-image">
+
                     <h3 class="namet">{{ user.get_username }}</h3>
                 </span>
 
@@ -87,17 +93,17 @@
 
                                     </li>
                                     {% if user.rol == "Operador" %}
-                                    <li class="nav-link">
-                                        <a href="{% url 'mostrar_ruta_op' %}"><i class='bx bx-git-repo-forked'></i>
-                                            <span class="text nav-text">Ver mis Rutas </span>
-                                        </a>
+                                        <li class="nav-link">
+                                            <a href="{% url 'mostrar_ruta_op' %}"><i class='bx bx-git-repo-forked'></i>
+                                                <span class="text nav-text">Ver mis Rutas </span>
+                                            </a>
 
-                                    </li>
-                                    <li class="nav-link">
-                                        <a href="{% url 'crear_ruta' %}"><i class='bx bx-buildings'></i>
-                                            <span class="text nav-text">Crear Rutas </span>
-                                        </a>
-                                    </li>
+                                        </li>
+                                        <li class="nav-link">
+                                            <a href="{% url 'crear_ruta' %}"><i class='bx bx-buildings'></i>
+                                                <span class="text nav-text">Crear Rutas </span>
+                                            </a>
+                                        </li>
                                     {% endif %}
                                 </ul>
 
@@ -172,7 +178,7 @@
 
                                 <img src="{% static "img/userfoto.png" %}" width="22" height="22" class="imagenusuario">
 
-                                INICIAR SESION
+                                INICIAR SESIÓN
 
                             </button>
 
@@ -221,85 +227,64 @@
 
     {% block scripts %}  {% endblock scripts %}
 
-    <footer>
+    <!-- Site footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h6>About</h6>
 
-        <section class="d-flex justify-content-lg-between">
-
-            <img src="{% static "img/giralda.png" %}" alt="fotogiralda">
-
-            <img src="{% static "img/imagenflamenco_preview_rev_1.png" %}" alt="fotoflamenca">
-
-        </section>
-
-        <section class="bg pt">
-
-            <div class="bg container text-center text-md-start">
-
-                <div class="bg row">
-
-                    <div class="bg col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-
-                        <h6 class="bg text-uppercase fw-bold mb-4" id="titulos">
-
-                            NEAS
-
-                        </h6>
-
-                        <p class="bg">
-
-                            <a href="{% url 'sobre_nosotros' %}" class="g text-reset">Sobre Nosotros</a>
-
-                        </p>
-
-                        <p class="bg">
-
-                            <a href="centroAyuda/" class="g text-reset">Centro de Ayuda</a>
-
-                        </p>
-
-                    </div>
-
-                    <div class="remix bg col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-
-                        <h6 class="bg text-uppercase fw-bold mb-4" class="titulos">
-
-                            RECURSOS
-
-                        </h6>
-
-                        <p class="bg" style="width: 200px;display: flex;justify-content: center;text-align: center">
-
-                            <a href="terminos&condiciones/" class="remix bg text-reset">Términos & Condiciones</a>
-
-                        </p>
-
-                        <p class="bg">
-
-                            <a href="politicaPrivacidad/" class="bg text-reset">Política de Privacidad</a>
-
-                        </p>
-
-                    </div>
-
+                    <p class="copyright-text">
+                    <p class="text-justify">Copyright &copy; 2023 All Rights Reserved by NEAS.com
+                    <i>RED SOCIAL DE TURISMO. </i></p>
+                    <a href="#"></a>
+                    </p>
                 </div>
 
+                <div class="col-xs-6 col-md-3">
+                    <h6>Categories</h6>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'inicio' %}">Neas</a></li>
+                        <li><a href="{% url 'mostrar_todas_rutas' %}">Mostrar Rutas</a></li>
+                        <li><a href="{% url 'rutas_mas_valoradas' %}">Rutas Valoradas</a></li>
+                        <li><a href="#">Comentarios</a></li>
+
+                    </ul>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                    <h6>Quick Links</h6>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'sobre_nosotros' %}">About Us</a></li>
+                        <li><a href="{% url 'centroAyuda' %}">Contact Us</a></li>
+                        <li><a href="{% url 'centroAyuda' %}">Contribute</a></li>
+                        <li><a href="{% url 'centroAyuda' %}">Privacy Policy</a></li>
+                        <li><a href="{% url 'sitemap' %}">Sitemap</a></li>
+                    </ul>
+                </div>
             </div>
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
 
-        </section>
-
-        <div class="pb bg text-center" id="s">
-
-            © 2023 Copyright:
-
-            <a class="text-reset fw-bold" href="{% url 'inicio' %}">NEAS</a>
-
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="#"> <i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
-    </footer>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="{% static 'sidenavbar.js' %}"></script>
-    <script type="text/javascript" src="{% static 'dark-mode.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="{% static 'sidenavbar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'dark-mode.js' %}"></script>
+        <script src="https://kit.fontawesome.com/280461e743.js" crossorigin="anonymous"></script>
+    </footer>
 
     </body>
 

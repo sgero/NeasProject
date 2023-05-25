@@ -12,6 +12,7 @@ from .models import Ruta, ComentariosUsuarios
 from .forms import UserComment
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
+from io import BytesIO
 from .decorators import *
 from .forms import FormularioRegistro, FormularioValoracion
 from .forms import FormularioRegistroOPT
@@ -22,6 +23,13 @@ from django.shortcuts import redirect
 
 
 # Create your views here.
+def sitemap(request):
+    return render(request, 'sitemap.xml')
+
+def mostrar_todas_rutas(request):
+    rutas = Ruta.objects.all()
+    return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
 def inicio2(request):
     return render(request, 'inicio2.html', {"provincia": provincia})
 
@@ -118,7 +126,7 @@ def registrar_usuario(request):
         user = UsuarioLogin()
         form = FormularioRegistro(request.POST)
         user.email = form.data["email"]
-        user.username = form.clean_username()
+        user.username = form.data["username"]
         password = request.POST.get("password2")
         user.password = make_password(password)
         user.rol = Roles.CLIENTE
@@ -216,9 +224,6 @@ def login_usuario(request):
     elif request.method == "POST":
             form = AuthenticationForm(None, data=request.POST)
 
-    #Verificar que el formulario es valido
-    # if form.is_valid():
-        #Intentar loguear
     user = authenticate(
         username=form.data['username'],
         password=form.data['password'],)
@@ -403,71 +408,202 @@ def eleccion_monumento(request):
 
 def rutas_mas_valoradas(request):
     rutas = Ruta.objects.order_by('-valoracion_media')[:5]
-    return render(request, 'rutas_mas_valoradas.html', {'rutas': rutas})
+    return render(request, 'mostrar_ruta.html',{"rutas": rutas, "tramo_horario": tramo_h,"tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,})
 
+
+# def generar_pdf(request):
+#     rutas = request.POST.getlist('rutas')
+#     # Obtener los datos de las rutas seleccionadas
+#     # routes = ...
+#
+#     # Crear el objeto HttpResponse con el tipo de contenido PDF
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
+#
+#     # Crear el objeto PDF utilizando ReportLab
+#     p = canvas.Canvas(response)
+#
+#     # Agregar contenido al PDF
+#     p.setFont("Helvetica", 12)
+#     p.drawString(100, 700, "Rutas seleccionadas:")
+#
+#     y = 670
+#     for r in rutas:
+#         p.drawString(100, y, r.nombre)
+#         y -= 20
+#
+#     # Finalizar el PDF
+#     p.showPage()
+#     p.save()
+#
+#     return response
+
+
+
+
+# from io import BytesIO
+# from reportlab.pdfgen import canvas
+#
+# def generar_pdf(request):
+#     rutas = request.POST.getlist('rutas')
+#     # Obtener los datos de las rutas seleccionadas
+#     # Aquí asumo que tienes un modelo llamado 'Ruta' con un campo 'nombre'
+#     routes = Ruta.objects.filter(id__in=rutas)
+#
+#     # Crear el objeto BytesIO para almacenar el PDF generado
+#     buffer = BytesIO()
+#
+#     # Crear el objeto PDF utilizando ReportLab
+#     p = canvas.Canvas(buffer)
+#
+#     # Agregar contenido al PDF
+#     p.setFont("Helvetica", 12)
+#     p.drawString(100, 700, "Rutas seleccionadas:")
+#
+#     y = 670
+#     for ruta in routes:
+#         p.drawString(100, y, ruta.nombre)
+#         y -= 20
+#
+#     # Finalizar el PDF
+#     p.showPage()
+#     p.save()
+#
+#     # Establecer el puntero del buffer al inicio del mismo
+#     buffer.seek(0)
+#
+#     # Crear el objeto HttpResponse con el tipo de contenido PDF
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
+#
+#     # Copiar el contenido del buffer al objeto de respuesta
+#     response.write(buffer.getvalue())
+#
+#     return response
+
+
+
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.utils import ImageReader
+from reportlab.pdfgen import canvas
+from django.template.loader import get_template
+from django.http import HttpResponse
+from xhtml2pdf import pisa
 
 def generar_pdf(request):
-    # Obtener los datos de las rutas seleccionadas
-    # routes = ...
+    rutas = request.POST.getlist('rutas')
 
-    # Crear el objeto HttpResponse con el tipo de contenido PDF
+    # Obtener la plantilla HTML para el PDF
+    template = get_template('ruta_pdf.html')
+
+    # Contexto de datos para la plantilla
+    context = {
+        'rutas': rutas,
+        # Otros datos de contexto necesarios para la plantilla
+    }
+
+    # Renderizar la plantilla con el contexto
+    html = template.render(context)
+
+    # Crear un objeto HttpResponse con el tipo de contenido PDF
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
 
+    # Obtener los datos de las rutas seleccionadas
+    # Asegúrate de que el modelo 'Ruta' contenga los campos 'nombre', 'tipo', 'imagen', 'precio' y 'ciudad'
+    routes = Ruta.objects.filter(id__in=rutas)
+
+    # Crear el objeto BytesIO para almacenar el PDF generado
+    buffer = BytesIO()
+
     # Crear el objeto PDF utilizando ReportLab
-    p = canvas.Canvas(response)
+    p = canvas.Canvas(buffer, pagesize=letter)
 
     # Agregar contenido al PDF
     p.setFont("Helvetica", 12)
-    p.drawString(100, 700, "Rutas seleccionadas:")
+    p.drawString(100, 700, "NEAS > Rutas seleccionadas:")
 
     y = 670
-    for ruta in lista_rutas:
-        p.drawString(100, y, ruta.nombre)
-        y -= 20
+    for ruta in routes:
+        # Mostrar el nombre de la ruta
+        p.drawString(100, y, "Nombre: " + ruta.nombre)
+
+        # Mostrar la tematica de la ruta
+        p.drawString(100, y - 20, "Temática: " + ruta.tematica)
+
+        # Mostrar el precio de la ruta
+        p.drawString(100, y - 40, "Precio: " + str(ruta.precio))
+
+        # Mostrar la ciudad de la ruta
+        p.drawString(100, y - 60, "Ciudad: " + ruta.ciudad)
+
+        # Mostrar la imagen de la ruta
+        ruta_imagen = ImageReader(ruta.imagen.path)  # Asegúrate de que 'imagen' sea el campo correcto en tu modelo
+        p.drawImage(ruta_imagen, 300, y - 80, width=100, height=100)
+
+        y -= 140
 
     # Finalizar el PDF
     p.showPage()
     p.save()
 
+    # Establecer el puntero del buffer al inicio del mismo
+    buffer.seek(0)
+
+    # Crear el objeto HttpResponse con el tipo de contenido PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="rutas.pdf"'
+
+    # Copiar el contenido del buffer al objeto de respuesta
+    response.write(buffer.getvalue())
+
+    # Generar el PDF a partir del contenido HTML
+    pisa.CreatePDF(html, dest=response, encoding='utf-8')
+
     return response
 
 def valorar_ruta(request, id):
     ruta = Ruta.objects.get(id=id)
+    lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
+    form = UserComment()
+    comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('-fecha_creacion')
+    id_user = Valoracion_usuario.objects.filter(usuarios_id=request.user.id, ruta_id=id).values_list('usuarios_id')
 
     if Valoracion_usuario.objects.filter(ruta=ruta, usuarios=request.user).exists():
         messages.error(request, "Ya has valorado esta ruta")
         return redirect(request.META.get('HTTP_REFERER', 'default_if_none'))
 
     if request.method == 'POST':
-        form = FormularioValoracion(request.POST)
+        form2 = FormularioValoracion(request.POST)
 
-        if form.is_valid():
-            valoracion = form.save(commit=False)
+        if form2.is_valid():
+            valoracion = form2.save(commit=False)
             valoracion.usuarios = request.user
             valoracion.ruta = ruta
             valoracion.save()
-
             valoraciones = Valoracion_usuario.objects.filter(ruta=ruta)
             suma_valoraciones = sum([val.calificacion for val in valoraciones])
             media_valoracion = suma_valoraciones / len(valoraciones)
-
             ruta.valoracion_media = media_valoracion
             ruta.save()
-            ciudad = request.session.get('ciudad')
-            return redirect('buscar_ruta_ciudad', ciudad=ciudad)
+            return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta, 'form2':form2, 'id_user': id_user, 'rutas_valoradas': rutas_valoradas})
 
     else:
         form = FormularioValoracion()
 
-    return render(request, 'mostrar_ruta.html', {'form': form, 'ruta': ruta})
+    return redirect('detalles_ruta', id=id)
 
 def DetallesRutas(request, id):
     ruta = get_object_or_404(Ruta, id=id)
     comentario = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+    id_user = Valoracion_usuario.objects.filter(usuarios_id=request.user.id, ruta_id=id).values_list('usuarios_id')
+    request.session['id_ruta'] = id
+    lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
 
     if request.method == 'POST':
         form = UserComment(request.POST, request.FILES)
+        form2 = FormularioValoracion(request.POST, request.FILES)
 
         if form.is_valid():
             comentario = form.save(commit=False)
@@ -485,7 +621,35 @@ def DetallesRutas(request, id):
 
     else:
 
-        comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('fecha_creacion')
+        comentarios = ComentariosUsuarios.objects.filter(ruta=ruta).order_by('-fecha_creacion')
         form = UserComment()
+        form2 = FormularioValoracion()
 
-        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form , 'ruta': ruta})
+        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta, 'form2':form2, 'id_user': id_user, 'rutas_valoradas': rutas_valoradas})
+
+
+def mostrar_todas_rutas(request):
+    rutas = Ruta.objects.all()
+    return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
+def eliminar_comentario(request, id):
+    comentario = ComentariosUsuarios.objects.get(id=id)
+    ComentariosUsuarios.delete(comentario)
+    return DetallesRutas(request, request.session['id_ruta'])
+
+def dar_like_comentario(request, comentario_id):
+
+    comentario = get_object_or_404(ComentariosUsuarios, id=comentario_id)
+    usuario = request.user
+    existe_like = Like.objects.filter(usuario=usuario, comentario=comentario).exists()
+    if existe_like:
+
+        like = Like.objects.filter(usuario=usuario, comentario=comentario).first()
+        like.delete()
+        comentario.likes_contador -= 1
+        comentario.save()
+    else:
+        like = Like.objects.create(usuario=usuario, comentario=comentario)
+        comentario.likes_contador += 1
+        comentario.save()
+    return redirect(request.META.get('HTTP_REFERER'))

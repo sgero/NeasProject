@@ -1,15 +1,11 @@
 input {
-
     border-radius: 6px;
     border: 1px solid silver;
     outline: none;
-
 }
 
 label {
-
     font-size: 16px;
-
 }
 
 select {
@@ -19,33 +15,60 @@ select {
     outline: none;
     text-align: center;
     font-size: 16px;
-
 }
 
-select option{
-
+select option {
     font-size: 16px;
-
 }
-select option:first-child{
 
+select option:first-child {
     font-size: 16px;
-
 }
 
 form {
-
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-control-prev-icon {
+    position: static;
+    left: -190px !important;
+}
+
+.carousel-control-next-icon {
+    position: static;
+    right: -190px !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 30px;
+    height: 30px;
+    filter: invert(100%);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.fs {
+    font-size: 16px;
+}
+
+.carousel-control-prev {
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
 
-.fs {
-
-    font-size: 16px;
-
+.carousel-control-next {
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 input {
@@ -60,69 +83,55 @@ select {
 }
 
 body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 .imagen {
-  flex-shrink: 0;
-  width: 50%;
-  height: 50%;
-  background-size: cover;
-  background-position: center;
+    flex-shrink: 0;
+    width: 50%;
+    height: 50%;
+    background-size: cover;
+    background-position: center;
 }
 
-footer{
-
+footer {
     position: relative !important;
-
 }
 
-.carrusel{
-
+.carrusel {
     margin-bottom: -306px;
-    transition: margin-left .5s;
+    transition: margin-left .2s;
     justify-content: center;
-
+    position: relative;
 }
 
 .card {
-    display: inline-block;
-    position: relative;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-direction: column;
     flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
     background-color: beige;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 1px solid rgba(0, 0, 0, .125);
     border-radius: 0.25rem;
     width: 40%;
     transition: 0.5s ease 0s !important;
+    flex-shrink: 0;
 }
 
-.card:hover{
-
+.card:hover {
     transform: scale(1.03);
-
 }
 
 .hola {
-
     background-color: beige;
     max-width: 100% !important;
-
 }
 
 .hola1 {
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    margin-bottom: 16px;
 }
 
 .padre {
@@ -137,163 +146,124 @@ footer {
 }
 
 .imgruta {
-
-    width: 286px;
-    height: 188px;
-
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    height: 160px;
+    max-width: 100%;
 }
 
 .card-text {
-
     color: black;
-
+    font-size: 18px;
+    margin-bottom: 8px;
 }
 
 .medio {
-
     justify-content: center;
     text-align: center;
-
 }
 
 .derecha {
-
     justify-content: center;
-    text-align: center;
-
+    text-align: right;
 }
 
 .card-title {
-
     margin: 0 !important;
     color: #858585;
-
+    font-size: 16px;
+    margin-bottom: 8px;
+    text-align: center;
 }
 
 .padreArriba {
-
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
     width: 100%;
-
 }
 
 form {
-
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
     width: 100%;
-    gap: 10%;
-    padding: 10px;
-
 }
 
 .mb-3 {
-
     margin: 0 !important;
-
 }
 
 select {
-
     outline: none;
     border-radius: 5px;
     font-size: medium;
     border: 1px solid silver;
     padding: 5px 8px;
-
 }
 
 option {
-
     font-size: medium;
     text-align: center;
-
 }
 
 .imgeliminar {
-
     width: 30px;
-
 }
 
 a.card-link {
-
     margin-left: 0 !important;
-
 }
 
 .imgruta2 {
-
     width: 200px;
-
 }
 
 .col-md-8 {
-
     flex: 0 !important;
-
 }
 
-h4, h5{
-
+h4, h5 {
     margin: 0 !important
-
 }
 
 .card-body {
-
-    padding: 4% !important;
+    padding: 16px;
     background-color: #acc8d7;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
-/*.card {*/
-/*  width: 200px;*/
-/*  height: 150px;*/
-/*  border-radius: 10px;*/
-/*  margin-bottom: 10px;*/
-/*  background-color: blue;*/
-/*  color: white;*/
-/*}*/
 
-/*.card-content {*/
-/*  padding: 10px;*/
-/*}*/
-
-/*h2 {*/
-/*  margin-top: 0;*/
-/*}*/
+.container-carrusel {
+    display: flex;
+    justify-content: center;
+}
 
 a:hover {
-
     text-decoration: none !important;
     color: #1B2D3B !important;
-
 }
 
-a {
-
+.card > a {
     text-decoration: none !important;
     color: #1B2D3B !important;
     display: block !important;
-
 }
 
-.buscador{
-
-   width: 50%;
+.buscador {
+    width: 50%;
     display: flex;
     justify-content: center;
-    margin-top: 135px;
-
+    margin-top: 105px;
 }
 
-.rutas_mas_valoradas{
+.rutas_mas_valoradas {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -301,20 +271,30 @@ a {
     align-items: center;
     text-align: center;
     margin-top: 50px;
-
 }
 
-.inicio{
+.inicio {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 50px;
 }
+
 .carousel-inner {
-    justify-content: center;  /* Alinea los elementos hijos en el centro */
+    overflow: hidden;
+    justify-content: center;
     margin-bottom: 20px;
     width: 60%;
+    transition: transform 0.5s ease-in-out;
 }
-.carousel {
-    width: 60%;
+
+.carousel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+    height: 100%;
 }
