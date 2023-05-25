@@ -96,9 +96,7 @@ body, html {
     background-position: center;
 }
 
-footer {
-    position: relative !important;
-}
+
 
 .carrusel {
     margin-bottom: -306px;
@@ -142,7 +140,7 @@ footer {
 }
 
 footer {
-    position: relative !important;
+    position: absolute !important;
 }
 
 .imgruta {

@@ -47,7 +47,7 @@
 }
 
 footer {
-    position: relative !important;
+    position: absolute !important;
 }
 
 .imgruta {
