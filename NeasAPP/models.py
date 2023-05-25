@@ -243,7 +243,7 @@ class Ruta(models.Model):
     tramo_horario = models.CharField(max_length=50, choices=tramo_h.choices)
     transporte = models.CharField(choices=tipo_vehiculo.choices, max_length=100)
     imagen = models.ImageField(default=None)
-    valoracion_media = models.FloatField(max_length=4, default=0.0)
+    valoracion_media  = models.FloatField(max_length=4, default=0.0)
     operador_tur = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
     ciudad = models.CharField(choices=provincia.choices, max_length=200, null=True)
     descripcion = models.CharField(max_length=50, default='Descripción', null=True)
