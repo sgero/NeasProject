@@ -26,27 +26,36 @@ from django.shortcuts import redirect
 def sitemap(request):
     return render(request, 'sitemap.xml')
 
+
 def mostrar_todas_rutas(request):
     rutas = Ruta.objects.all()
-    return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+    return render(request, 'mostrar_ruta.html',
+                  {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
 
 def inicio2(request):
     return render(request, 'inicio2.html', {"provincia": provincia})
 
+
 def inicio(request):
     rutas_mas_valoradas = Ruta.objects.order_by('-valoracion_media')[:5]
-    return render(request, 'inicio.html', {"provincia": provincia, "rutas_mas_valoradas":rutas_mas_valoradas})
+    return render(request, 'inicio.html', {"provincia": provincia, "rutas_mas_valoradas": rutas_mas_valoradas})
+
 
 def forgot(request):
     return render(request, 'forgot.html')
 
+
 def basic_page(request):
     return render(request, 'basic_page.html')
+
 
 @operator_required
 def crear_ruta(request):
     if request.method == 'GET':
-        return render(request, 'crear_ruta.html', {"tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, "Provincia": provincia})
+        return render(request, 'crear_ruta.html',
+                      {"tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
+                       "Provincia": provincia})
     else:
         nueva_ruta = Ruta()
         nueva_ruta.nombre = request.session['nombre']
@@ -63,7 +72,6 @@ def crear_ruta(request):
         Ruta.save(nueva_ruta)
 
         for m in request.POST.getlist('monumento'):
-
             nuevo_monumento_ruta = Monumento_Ruta()
             nuevo_monumento_ruta.Monumento = m
             nuevo_monumento_ruta.ruta = nueva_ruta
@@ -71,13 +79,13 @@ def crear_ruta(request):
 
         return inicio(request)
 
-def modificar_ruta(request,id):
 
-    ruta = Ruta.objects.get(id = id)
+def modificar_ruta(request, id):
+    ruta = Ruta.objects.get(id=id)
 
     if request.method == 'GET':
         return render(request, 'modificar_ruta.html',
-                      {"ruta": ruta , "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
+                      {"ruta": ruta, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
                        "provincia": provincia})
     else:
         ruta_act = ruta
@@ -95,20 +103,25 @@ def modificar_ruta(request,id):
         Ruta.save(ruta_act)
         return mostrar_ruta(request)
 
+
 def get_rutas_and_valoraciones(request):
     lista_rutas = Ruta.objects.all()
     rutas_valoradas = Valoracion_usuario.objects.filter(usuarios=request.user).values_list('ruta', flat=True)
     return lista_rutas, rutas_valoradas
 
+
 def mostrar_ruta(request):
     lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
     form = FormularioValoracion()
-    return render(request, 'mostrar_ruta.html',{"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h,"tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
+    return render(request, 'mostrar_ruta.html',
+                  {"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h,
+                   "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
 
 
 def mostrar_ruta_op(request):
     lista_rutas = Ruta.objects.filter(operador_tur=request.user.id)
-    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica,
+                                                 "tipo_transporte": tipo_vehiculo})
 
 
 def eliminar_ruta(request, id):
@@ -121,7 +134,7 @@ def registrar_usuario(request):
     form = FormularioRegistro()
     if request.method == "GET":
         return render(request, "registrar_usuario.html", {"form": form})
-    #POST
+    # POST
     else:
         user = UsuarioLogin()
         form = FormularioRegistro(request.POST)
@@ -137,7 +150,8 @@ def registrar_usuario(request):
 
         return redirect('inicio')
 
-#Registro Operador ANTIGUO (Handmade)
+
+# Registro Operador ANTIGUO (Handmade)
 # def registrar_operador(request):
 #     form = FormularioRegistro()
 #     if request.method == "GET":
@@ -159,7 +173,7 @@ def registrar_usuario(request):
 def registrar_operador(request):
     if request.method == "GET":
         return render(request, "registrar_operador.html")
-    #POST
+    # POST
     else:
         # form = formOPTHM(request.POST)
         form = AuthenticationForm(request=request, data=request.POST)
@@ -188,12 +202,12 @@ def registrar_operador(request):
 
 
 def editar_perfil(request):
-
     user = request.user
 
     if request.method == 'GET':
         return render(request, 'editar_perfil.html',
-                      {"usuario": user , "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,
+                      {"usuario": user, "tramo_horario": tramo_h, "tipo_rutas": tematica,
+                       "tipo_transporte": tipo_vehiculo,
                        "provincia": provincia})
     else:
         usuario = user
@@ -205,7 +219,6 @@ def editar_perfil(request):
 
 
 def cambiar_contraseña(request):
-
     usuario = UsuarioLogin.objects.get(username=request.session['usuario'])
 
     if request.method == 'GET':
@@ -222,21 +235,22 @@ def login_usuario(request):
     if request.method == "GET":
         return render(request, "login_usuario.html", {"form": form})
     elif request.method == "POST":
-            form = AuthenticationForm(None, data=request.POST)
+        form = AuthenticationForm(None, data=request.POST)
 
     user = authenticate(
         username=form.data['username'],
-        password=form.data['password'],)
+        password=form.data['password'], )
 
     request.session['usuario'] = form.data['username']
 
-    #Si hemos encontrado el usuario
+    # Si hemos encontrado el usuario
     if user is not None:
-        #Nos logueamos
+        # Nos logueamos
         login(request, user)
         return redirect('/neas')
     else:
         return render(request, 'error_loginOp.html')
+
 
 def login_operador(request):
     form = AuthenticationForm()
@@ -263,7 +277,6 @@ def login_operador(request):
     else:
         return render(request, 'error_loginOp.html')
 
-
     # else:
     #     #pasar errores a la vista
     #     for error in list(form.errors.values()):
@@ -271,8 +284,7 @@ def login_operador(request):
     #     return render(request, "login_usuario.html", {"form": form})
 
 
-
-#vamos a usar el loginusuario
+# vamos a usar el loginusuario
 
 # def login_operador(request):
 #     form = AuthenticationForm()
@@ -307,7 +319,8 @@ def login_operador(request):
 def desloguearse(request):
     logout(request)
     return render(request, "logout.html")
-    #return redirect('/neas/logout/')
+    # return redirect('/neas/logout/')
+
 
 def buscar_ruta(request, ciudad=None):
     ciudad = ciudad or request.POST.get("provincia")
@@ -316,7 +329,9 @@ def buscar_ruta(request, ciudad=None):
     lista_rutas = lista_rutas.filter(ciudad=ciudad)
     request.session['ciudad'] = ciudad
     form = FormularioValoracion()
-    return render(request, 'mostrar_ruta.html', {"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
+    return render(request, 'mostrar_ruta.html',
+                  {"rutas": lista_rutas, "rutas_valoradas": rutas_valoradas, "tramo_horario": tramo_h,
+                   "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form': form})
 
 
 def buscar(request):
@@ -325,7 +340,9 @@ def buscar(request):
     list_rutas = Ruta.objects.filter(ciudad=ciudad)
     request.session['ciudad'] = ciudad
     form = FormularioValoracion()
-    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo, 'form':form, 'rutas_valoradas':rutas_valoradas})
+    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica,
+                                                 "tipo_transporte": tipo_vehiculo, 'form': form,
+                                                 'rutas_valoradas': rutas_valoradas})
 
 
 def filtro_general(request):
@@ -335,7 +352,8 @@ def filtro_general(request):
     ciudad = request.session.get('ciudad')
 
     if transporte != None and tramo_horario != None and tipo_ruta != None:
-        list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tramo_horario=tramo_horario, tematica=tipo_ruta)
+        list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte, tramo_horario=tramo_horario,
+                                         tematica=tipo_ruta)
 
     elif transporte == None and tramo_horario != None and tipo_ruta != None:
         list_rutas = Ruta.objects.filter(ciudad=ciudad, tramo_horario=tramo_horario, tematica=tipo_ruta)
@@ -358,25 +376,31 @@ def filtro_general(request):
     else:
         list_rutas = Ruta.objects.filter(ciudad=ciudad, transporte=transporte)
 
-    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+    return render(request, 'mostrar_ruta.html', {'rutas': list_rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica,
+                                                 "tipo_transporte": tipo_vehiculo})
 
 
 def sobre_nosotros(request):
     return render(request, 'sobre_nosotros.html')
 
+
 def terminos(request):
     return render(request, 'terminos.html')
+
 
 def politicas(request):
     return render(request, 'politicas.html')
 
+
 def centroAyuda(request):
     return render(request, 'centro_ayuda.html')
+
 
 @operador_required
 def vista_operador(request):
     # Código de la vista para usuarios con rol de operador
     return render(request, 'pagina_operador.html')
+
 
 def acceso_denegado(request):
     return render(request, 'acceso_denegado.html')
@@ -391,7 +415,6 @@ def eleccion_operador(request):
 
 
 def eleccion_monumento(request):
-
     request.session['nombre'] = request.POST.get('nombre')
     request.session['tipo_ruta'] = request.POST.get('tipo_ruta')
     request.session['tipo_transporte'] = request.POST.get('tipo_transporte')
@@ -408,7 +431,8 @@ def eleccion_monumento(request):
 
 def rutas_mas_valoradas(request):
     rutas = Ruta.objects.order_by('-valoracion_media')[:5]
-    return render(request, 'mostrar_ruta.html',{"rutas": rutas, "tramo_horario": tramo_h,"tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo,})
+    return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica,
+                                                 "tipo_transporte": tipo_vehiculo, })
 
 
 # def generar_pdf(request):
@@ -437,8 +461,6 @@ def rutas_mas_valoradas(request):
 #     p.save()
 #
 #     return response
-
-
 
 
 # from io import BytesIO
@@ -482,7 +504,6 @@ def rutas_mas_valoradas(request):
 #     return response
 
 
-
 from io import BytesIO
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
@@ -490,6 +511,7 @@ from reportlab.pdfgen import canvas
 from django.template.loader import get_template
 from django.http import HttpResponse
 from xhtml2pdf import pisa
+
 
 def generar_pdf(request):
     rutas = request.POST.getlist('rutas')
@@ -563,6 +585,7 @@ def generar_pdf(request):
 
     return response
 
+
 def valorar_ruta(request, id):
     ruta = Ruta.objects.get(id=id)
     lista_rutas, rutas_valoradas = get_rutas_and_valoraciones(request)
@@ -587,12 +610,15 @@ def valorar_ruta(request, id):
             media_valoracion = suma_valoraciones / len(valoraciones)
             ruta.valoracion_media = media_valoracion
             ruta.save()
-            return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta, 'form2':form2, 'id_user': id_user, 'rutas_valoradas': rutas_valoradas})
+            return render(request, 'mostrar_ruta_especifica.html',
+                          {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta, 'form2': form2,
+                           'id_user': id_user, 'rutas_valoradas': rutas_valoradas})
 
     else:
         form = FormularioValoracion()
 
     return redirect('detalles_ruta', id=id)
+
 
 def DetallesRutas(request, id):
     ruta = get_object_or_404(Ruta, id=id)
@@ -625,20 +651,24 @@ def DetallesRutas(request, id):
         form = UserComment()
         form2 = FormularioValoracion()
 
-        return render(request, 'mostrar_ruta_especifica.html', {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta, 'form2':form2, 'id_user': id_user, 'rutas_valoradas': rutas_valoradas})
+        return render(request, 'mostrar_ruta_especifica.html',
+                      {'comentarios': comentarios, 'id': id, 'form': form, 'ruta': ruta, 'form2': form2,
+                       'id_user': id_user, 'rutas_valoradas': rutas_valoradas})
 
 
 def mostrar_todas_rutas(request):
     rutas = Ruta.objects.all()
-    return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+    return render(request, 'mostrar_ruta.html',
+                  {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
 
 def eliminar_comentario(request, id):
     comentario = ComentariosUsuarios.objects.get(id=id)
     ComentariosUsuarios.delete(comentario)
     return DetallesRutas(request, request.session['id_ruta'])
 
-def dar_like_comentario(request, comentario_id):
 
+def dar_like_comentario(request, comentario_id):
     comentario = get_object_or_404(ComentariosUsuarios, id=comentario_id)
     usuario = request.user
     existe_like = Like.objects.filter(usuario=usuario, comentario=comentario).exists()
@@ -653,3 +683,17 @@ def dar_like_comentario(request, comentario_id):
         comentario.likes_contador += 1
         comentario.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def mostrar_todas_rutas_cadiz(request):
+    rutas = Ruta.objects.filter(ciudad=provincia.cadiz)
+    return render(request, 'mostrar_ruta.html',
+                  {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
+
+def rutas_eliminadas_cadiz(request):
+    rutas = Ruta.objects.filter(ciudad=provincia.cadiz).delete()
+    return render(request, 'inicio.html',
+                  {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
+

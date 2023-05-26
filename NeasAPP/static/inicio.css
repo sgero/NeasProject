@@ -298,3 +298,21 @@ a:hover {
     transition: transform 0.6s ease-in-out;
     height: 100%;
 }
+
+.botones_examen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
+.botones_examen .boton_subir {
+    margin-left: 100px;
+    padding-bottom: 100px;
+}
+
+.botones_examen .boton_eliminar {
+    margin-left: 100px;
+    padding-bottom: 100px;
+}

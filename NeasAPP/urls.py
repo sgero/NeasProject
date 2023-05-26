@@ -40,4 +40,7 @@ urlpatterns = [
     # path('paginaOperador/', vista_operador, name='vista_operador')
     path('sitemap/', sitemap, name='sitemap'),
     path('rutas/', mostrar_todas_rutas, name='mostrar_todas_rutas'),
+    path('rutas/cadiz/', mostrar_todas_rutas_cadiz, name='mostrar_todas_rutas_cadiz'),
+    path('rutas/rutas_cadiz_eliminadas/', rutas_eliminadas_cadiz, name='rutas_eliminadas_cadiz'),
+
 ]
