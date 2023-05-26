@@ -144,6 +144,7 @@ class Roles(models.TextChoices):
     ADMIN = 'Admin'
     CLIENTE = 'Cliente'
     OPERADOR = 'Operador'
+    EMPRESA = 'Empresa'
 
     def mostrar(self):
         return
@@ -227,6 +228,21 @@ class DatosOperador(models.Model):
 #     forgot = models.CharField(max_length=50)
 #     usuario_login = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None)
 
+class DatosEmpresa(models.Model):
+    # email = models.EmailField(unique=True)
+    # username = models.CharField(max_length=50, unique=True)
+    # password = models.CharField(max_length=50, unique=True)
+    # rol = models.CharField(max_length=100, choices=Roles.choices, default=Roles.OPERADOR, null=True, unique=None)
+    empresa = models.CharField(max_length=255, null=True)
+    cif = models.CharField(max_length=255, null=True)
+    telf = models.CharField(max_length=255, null=True)
+    a_fund = models.CharField(max_length=4, null=True)
+    website = models.CharField(max_length=1000, null=True)
+    logo = models.CharField(max_length=1000, null=True)
+    forgot = models.CharField(max_length=50, null=True)
+    info = models.CharField(max_length=1000, null=True)
+    usuario = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, default=None, null=True)
+
 class Ciudad(models.Model):
     nombre = models.CharField(choices=provincia.choices, max_length=100)
     es_capital = models.BooleanField(default=False)
@@ -306,3 +322,4 @@ class Monumento_pi(models.Model):
 class Monumento_Ruta(models.Model):
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
     Monumento = models.CharField(choices=Monumentos.choices, max_length=200, null=True)
+

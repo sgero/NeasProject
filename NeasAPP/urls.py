@@ -16,6 +16,7 @@ urlpatterns = [
     # path('login/operador', login_operador, name='login_operador'),
     path('registrar/usuario/', registrar_usuario, name='registrar_usuario'),
     path('registrar/operador/', registrar_operador, name='registrar_operador'),
+    path('registrar/empresa/', registrar_empresa, name='registrar_empresa'),
     path('cambiar/contraseña/', cambiar_contraseña, name='cambiar_contraseña'),
     path('editar/', editar_perfil, name='editar_perfil'),
     path('basic/page/', basic_page),
@@ -40,4 +41,8 @@ urlpatterns = [
     # path('paginaOperador/', vista_operador, name='vista_operador')
     path('sitemap/', sitemap, name='sitemap'),
     path('rutas/', mostrar_todas_rutas, name='mostrar_todas_rutas'),
+    path('ruta/cadiz/', mostrar_cadiz, name="mostrarcadiz" ),
+    path('ruta/likes/', mostrar_comentarios_mejores, name="mostrar_comentariostop"),
+    path('ruta/eliminar/cadiz', elimina_rutas_cadiz, name='eliminarcadiz'),
+    path('ruta/modificar/cadiz/<int:id>', modificar_cadiz, name='modificarcadiz'),
 ]

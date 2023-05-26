@@ -186,6 +186,36 @@ def registrar_operador(request):
 
         return redirect('inicio')
 
+def registrar_empresa(request):
+    if request.method == "GET":
+        return render(request, "registrar_empresa.html")
+    #POST
+    else:
+        # form = formOPTHM(request.POST)
+        form = AuthenticationForm(request=request, data=request.POST)
+        # if form.is_valid():
+        usuarioEm = UsuarioLogin()
+        datosEm = DatosOperador()
+        usuarioEm.username = form.data["username"]
+        usuarioEm.empresa = form.data["empresa"]
+        usuarioEm.password = make_password(request.POST.get("password2"))
+        usuarioEm.rol = Roles.EMPRESA
+        usuarioEm.email = form.data["email"]
+        datosEm.cif = form.data["cif"]
+        datosEm.telf = form.data["telf"]
+        datosEm.a_fund = form.data["a_fund"]
+        datosEm.website = form.data["website"]
+        datosEm.forgot = form.data["forgot"]
+        datosEm.info = form.data["info"]
+        usuarioEm.save()
+        datosEm.usuario = usuarioEm
+        datosEm.save()
+
+        user = authenticate(request, username=form.data["username"], password=request.POST.get("password2"))
+        if user is not None:
+            login(request, user)
+
+        return redirect('inicio')
 
 def editar_perfil(request):
 
@@ -201,6 +231,24 @@ def editar_perfil(request):
         usuario.email = request.POST.get('email')
         usuario.imagen = request.POST.get('imagen')
         UsuarioLogin.save(usuario)
+        return inicio(request)
+
+def elimina_rutas_cadiz(request):
+    Ruta.objects.filter(ciudad=provincia.cadiz).delete()
+    return redirect('inicio')
+
+def modificar_cadiz(request, id):
+    rutilla = Ruta.objects.get(id=id)
+
+    if request.method == 'GET':
+        return render(request, 'editar_rutas_cadiz.html',
+                      {"ruta": rutilla,"tipo_rutas": tematica})
+    else:
+        rutilla.nombre = request.POST.get('nombre')
+        rutilla.tematica = request.POST.get('tipo_ruta')
+        rutilla.imagen = request.POST.get('imagen')
+        rutilla.precio = request.POST.get('precio')
+        Ruta.save(rutilla)
         return inicio(request)
 
 
@@ -489,7 +537,6 @@ from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
 from django.template.loader import get_template
 from django.http import HttpResponse
-from xhtml2pdf import pisa
 
 def generar_pdf(request):
     rutas = request.POST.getlist('rutas')
@@ -559,7 +606,6 @@ def generar_pdf(request):
     response.write(buffer.getvalue())
 
     # Generar el PDF a partir del contenido HTML
-    pisa.CreatePDF(html, dest=response, encoding='utf-8')
 
     return response
 
@@ -653,3 +699,12 @@ def dar_like_comentario(request, comentario_id):
         comentario.likes_contador += 1
         comentario.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+def mostrar_cadiz(request):
+    rutas= Ruta.objects.filter(ciudad=provincia.cadiz)
+    return render(request, 'mostrar_ruta.html', {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
+
+def mostrar_comentarios_mejores(request):
+    comentarios= ComentariosUsuarios.objects.order_by("-likes_contador")[:3]
+    return render(request, 'likes.html', {"comentarios":comentarios})
+

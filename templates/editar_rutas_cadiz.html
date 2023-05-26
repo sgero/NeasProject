@@ -1,0 +1,84 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Editar Cadiz | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'login_operador.css' %}">
+
+{% endblock %}
+
+{% block content1 %}
+
+    <div class="contenedor-formularios">
+
+        <ul class="contenedor-tabs">
+
+            <li class="tab tab-segunda active"><a href="#">EDITAR RUTA CADIZ</a></li>
+
+        </ul>
+
+        <div class="contenido-tab">
+
+            <div id="iniciar-sesion">
+
+                <form action="#" method="post" id="myForm">
+
+                    {% csrf_token %}
+
+                    <div class="contenedor-input">
+
+
+                        <label class="credenciales" for="nombre">Nombre: <span class="req">*</span></label>
+                        <input id="nombre" name="nombre" type="text" required/>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <select required id="tipo_ruta" name="tipo_ruta">
+                            <option value="" disabled selected hidden>Elige tu ruta:</option>
+                            {% for t in tipo_rutas %}
+                                <option value="{{ t }}"> {{ t }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="contenedor-input">
+
+                        <label class="credenciales" for="imagen">URL Imagen: <span class="req">*</span></label>
+                        <input id="imagen" name="imagen" type="url" required/>
+                    </div>
+                    <div class="contenedor-input">
+
+                        <label class="credenciales" for="precio">Precio Ruta: <span class="req">*</span></label>
+                        <input id="precio" name="precio" type="number" required/>
+                    </div>
+
+                    <input type="submit" class="button button-block" value="Editar">
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'login.js' %}"></script>
+
+{% endblock %}
