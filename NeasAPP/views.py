@@ -852,6 +852,7 @@ def editar_promocion(request, id):
     promocion = Ruta.objects.get(id=id)
     if request.method == 'POST':
         form = PromocionForm(request.POST, instance=promocion)
+        #LA SIGUIENTE LINEA LA HE SACADO CON EL DEBUG, VIENDO PORQUE LOS FORMS POR DEFAULT NO DEJAN COGER EL ID (DE AHÍ QUE LA PRIMERA FORMA DE HACERLO, HACIENDO EL FORMULARIO YO MISMO FUERA LA MEJOR MANERA, PORQUE TE PERMITE ELEGIR LOS CAMPOS Y EL ID COGERLO AUTOMATICAMENTE), POR LO QUE DEBUGEANDO VIMOS QUE CON ESTA OTRA SENTENCIA DE ABAJO, YA CONSEGUIAMOS COGER EL ID PARA QUE LO PUDIERA GUARDAR EN LA BBDD.
         form.ruta = Ruta.objects.get(id=request.POST.get("ruta"))
         if form.is_valid():
             form.save()
