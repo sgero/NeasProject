@@ -1,0 +1,98 @@
+{% extends "basic_page.html" %}
+{% load static %}
+
+{% block title %}
+
+    Promociona tu ruta | NEAS
+
+{% endblock %}
+
+{% block css %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'crear_ruta.css' %}">
+
+
+{% endblock %}
+
+{% block content1 %}
+
+    <div class="contenedor-formularios">
+
+        <ul class="contenedor-tabs">
+
+            <li class="tab tab-segunda active"><a href="#">CREA PROMOCION</a></li>
+
+        </ul>
+
+        <div class="contenido-tab">
+
+            <div id="iniciar-sesion">
+
+                <form method="post" action="#" id="myForm">
+
+                    {% csrf_token %}
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales" for="nombre">Titulo: <span class="req">*</span></label>
+                        <input id="nombre" name="nombre" value="{{ promocion.titulo }}" type="text" required/>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <label class="credenciales" for="desc">Descripción: <span class="req">*</span></label>
+                        <input id="desc" name="desc" value="{{ promocion.descripcion }}" type="text" required/>
+
+                    </div>
+
+                 <div class="contenedor-input">
+
+                        <label class="credenciales" for="desc">Fecha inicio: <span class="req">*</span></label>
+                        <input id="desc" name="desc" value="{{ promocion.fecha_inicio | date:'dd/mm/yyyy'}}" type="text" required/>
+
+                    </div>
+
+                 <div class="contenedor-input">
+
+                        <label class="credenciales" for="desc">Fecha fin: <span class="req">*</span></label>
+                        <input id="desc" name="desc" value="{{ promocion.fecha_fin | date:'dd/mm/yyyy'}}" type="text" required/>
+
+                    </div>
+
+                    <div class="contenedor-input">
+
+                        <select id="ruta" name="ruta" value="{{ promocion.ruta}}">
+                            <option value="" disabled selected hidden>Selecciona a que ruta la aplicas:</option>
+                            {% for r in rutas %}
+                                {% if promocion.titulo == r%}
+                                    <option  value="{{ r }}" selected> {{ r }}</option>
+
+                                {% else %}
+
+                                    <option  value="{{ r }}" > {{ r }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+
+                    <input type="submit" class="button button-block" value="Promocionar Ruta">
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'login.js' %}"></script>
+
+{% endblock %}

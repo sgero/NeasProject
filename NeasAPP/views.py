@@ -21,6 +21,10 @@ from .models import *
 from django.urls import reverse
 from django.shortcuts import redirect
 
+from django.shortcuts import render, redirect
+from .models import Promocion
+from .forms import PromocionForm
+
 
 # Create your views here.
 def sitemap(request):
@@ -697,3 +701,161 @@ def rutas_eliminadas_cadiz(request):
                   {"rutas": rutas, "tramo_horario": tramo_h, "tipo_rutas": tematica, "tipo_transporte": tipo_vehiculo})
 
 
+
+
+# @operator_required
+# def promocion_ruta(promociones):
+#     promociones = Promocion.objects.get(id=id)
+#
+#     if request.method == 'GET':
+#         return render(request, 'mis_promociones.html', {'promociones': promociones, 'ruta': ruta})
+#
+#     else:
+#         promociones = promocion
+#         promocion.titulo = request.POST.get('titulo')
+#         promocion.descripcion = request.POST.get('descripcion')
+#         Promocion.descuento = request.POST.get('descuento')
+#         promocion.fecha_inicio = request.POST.get('hora_inicio')
+#         promocion.fecha_fin = request.POST.get('hora_fin')
+#
+#         Ruta.save(ruta_act)
+#         return mostrar_promociones(request)
+
+# @operator_required
+# def promocionar_ruta(request, id):
+#     if request.method == 'GET':
+#         return render(request, 'crea_promocion.html', {'titulo': titulo, 'descripcion': descripcion, 'descuento': descuento, 'fecha_inicio': fecha_inicio, 'fecha_fin': fecha_fin})
+#
+#     else:
+#         nueva_promocion = Promocion()
+#         nueva_promocion.titulo = request.POST.get('titulo')
+#         nueva_promocion.descripcion = request.POST.get('descripcion')
+#         nueva_promocion.fecha_inicio = request.POST.get('fecha_inicio')
+#         nueva_promocion.fecha_fin = request.POST.get('fecha_fin')
+#         Promocion.save(nueva_promocion)
+#         return mostrar_promociones_op(request)
+
+
+def mostrar_promociones_op(request):
+    lista_rutas = Ruta.objects.filter(operador_tur=request.user.id)
+    promociones = Promocion.objects.filter(operador_tur=request.user.id)
+    return render(request, 'mostrar_promociones.html', {'promociones': promociones})
+
+def mostrar_promociones(request):
+    promociones = Promocion.objects.filter(fecha_fin__gte=datetime.now(), operador_tur=request.user.id)
+    return render(request, 'mostrar_promociones.html', {'promociones': promociones})
+
+#
+#
+# def editar_promocion(request, id):
+#     promocion = Promocion.objects.get(id=id)
+#     if request.method == 'POST':
+#         form = PromocionForm(request.POST, instance=promocion)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('mostrar_promociones')
+#     else:
+#         form = PromocionForm(instance=promocion)
+#     return render(request, 'editar_promocion.html', {'form': form, 'promocion': promocion})
+#
+# def eliminar_promocion(request, id):
+#     promocion = Promocion.objects.get(id=id)
+#     promocion.delete()
+#     return redirect('lista_promociones')
+#
+# def crear_promocion(request):
+#     if request.method == 'POST':
+#         form = PromocionForm(request.POST)
+#         # if form.is_valid():
+#         form.save()
+#         return redirect('mostrar_promociones')
+#     else:
+#         form = PromocionForm()
+#     return render(request, 'crear_promocion.html', {'form': form})
+# #
+#
+# def lista_promociones(request):
+#     promociones = Promocion.objects.all()
+#     return render(request, 'promociones/lista_promociones.html', {'promociones': promociones})
+#
+# def crear_promocion(request):
+#     if request.method == 'POST':
+#         form = PromocionForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('lista_promociones')
+#     else:
+#         form = PromocionForm()
+#     return render(request, 'promociones/crear_promocion.html', {'form': form})
+#
+
+
+from django.shortcuts import render, redirect
+from .models import Promocion
+from .forms import PromocionForm
+
+def lista_promociones(request):
+    promociones = Promocion.objects.all()
+    return render(request, 'lista_promociones.html', {'promociones': promociones})
+
+def crear_promocion(request):
+    if request.method == 'POST':
+        form = PromocionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_promociones')
+    else:
+        form = PromocionForm()
+    return render(request, 'c_promocion.html', {'form': form})
+
+
+
+
+
+
+def promocion_ruta(promociones):
+    promociones = Promocion.objects.get(id=id)
+
+    if request.method == 'GET':
+        return render(request, 'mis_promociones.html', {'promociones': promociones, 'ruta': ruta})
+
+    else:
+        promociones = promocion
+        promocion.titulo = request.POST.get('titulo')
+        promocion.descripcion = request.POST.get('descripcion')
+        Promocion.descuento = request.POST.get('descuento')
+        promocion.fecha_inicio = request.POST.get('hora_inicio')
+        promocion.fecha_fin = request.POST.get('hora_fin')
+
+        Ruta.save(ruta_act)
+        return mostrar_promociones(request)
+
+
+# def editar_promocion(request, id):
+#     ruta = Ruta.objects.get(id=id)
+#     promocion = ruta.promocion
+#
+#     if request.method == 'POST':
+#         form = PromocionForm(request.POST, instance=promocion)
+#         if form.is_valid():
+#             promocion = form.save(commit=False)
+#             promocion.save()
+#             ruta.promocion = promocion
+#             ruta.save()
+#             return redirect('lista_promociones')
+#     else:
+#         form = PromocionForm(instance=promocion)
+#     return render(request, 'editar_promocion.html', {'form': form, 'promocion': promocion})
+
+
+def editar_promocion(request, id):
+    promocion = Ruta.objects.get(id=id)
+    if request.method == 'POST':
+        form = PromocionForm(request.POST, instance=promocion)
+        form.ruta = Ruta.objects.get(id=request.POST.get("ruta"))
+        if form.is_valid():
+            form.save()
+            return redirect('lista_promociones')
+    else:
+        form = PromocionForm(instance=promocion)
+    return render(request, 'editar_promocion.html', {'form': form, 'promocion': promocion})

@@ -3,7 +3,7 @@
 
 {% block title %}
 
-    Mostrar Rutas | NEAS
+    Mis Promociones | NEAS
 
 {% endblock %}
 
@@ -63,6 +63,12 @@
 
     </div>
 
+    <h1>Lista de Promociones</h1>
+    <ul>
+        {% for promocion in promociones %}
+            <li>{{ promocion.titulo }}</li>
+        {% endfor %}
+    </ul>
 
     {% if rutas.count > 0 %}
 
@@ -92,8 +98,8 @@
                                 <p class="card-title">{{ r.ciudad }}</p>
                                 <p class="card-title">{{ r.precio }}€ de precio medio.</p>
                                 <a href="{% url 'generar_pdf' %}">Generar PDF</a>
-{#                                <a href="{% url 'valorar_ruta' r.id %}">Valorar Ruta</a>#}
-{#                                <p class="card-title">{{ promociones.titulo }} Promocion.</p>#}
+
+{#
 
                             </div>
 
@@ -109,9 +115,7 @@
 
                                     <a href="/neas/ruta/modificar/{{ r.id }}" class="card-link"><img class="imgupdate" src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
 
-                                <a href="/neas/ruta/promocionar/{{ r.id }}" class="card-link"><img class="imgupdate" src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
-
-
+                                      <a href="/neas/editar/{{ r.id }}" class="card-link"><img class="imgupdate" src="{% static "img/icons8-actualizaciones-disponibles-30.png" %}"></a>
 
                                 </div>
 

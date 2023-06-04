@@ -1,4 +1,6 @@
 from django.urls import path, include
+
+from . import views
 from .views import *
 
 urlpatterns = [
@@ -43,4 +45,20 @@ urlpatterns = [
     path('rutas/cadiz/', mostrar_todas_rutas_cadiz, name='mostrar_todas_rutas_cadiz'),
     path('rutas/rutas_cadiz_eliminadas/', rutas_eliminadas_cadiz, name='rutas_eliminadas_cadiz'),
 
+    #
+    # path('ruta/promocion/', promocion_ruta, name='promocion_ruta'),
+    # path('ruta/', mostrar_promociones_op, name='mostrar_promociones_op'),
+
+     path('ruta/promocionar/<int:id>', editar_promocion, name='promocionar_ruta'),
+    path('ruta/c_promocion/', crear_promocion, name='c_promocion'),
+    path('ruta/', mostrar_promociones, name='mostrar_promociones'),
+    path('ruta/', mostrar_ruta_op, name='mostrar_ruta_op'),
+
+
+    path('lista_promociones/', views.lista_promociones, name='lista_promociones'),
+    path('crea_promocion/', views.crear_promocion, name='crear_promocion'),
+    path('editar_promocion/<int:id>/', views.editar_promocion, name='editar_promocion'),
+
 ]
+
+

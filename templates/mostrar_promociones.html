@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promos</title>
+</head>
+<body>
+    <h1>Lista de Promociones</h1>
+    <ul>
+        {% for promocion in promociones %}
+            <li>{{ promocion.titulo }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

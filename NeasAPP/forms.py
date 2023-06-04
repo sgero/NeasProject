@@ -80,3 +80,12 @@ class FormularioValoracion(forms.ModelForm):
     class Meta:
         model = Valoracion_usuario
         fields = ['calificacion']
+
+
+from django import forms
+from .models import Promocion
+
+class PromocionForm(forms.ModelForm):
+    class Meta:
+        model = Promocion
+        fields = ['titulo', 'descripcion', 'fecha_inicio', 'fecha_fin', 'ruta']

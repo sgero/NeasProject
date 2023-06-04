@@ -306,3 +306,26 @@ class Monumento_pi(models.Model):
 class Monumento_Ruta(models.Model):
     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
     Monumento = models.CharField(choices=Monumentos.choices, max_length=200, null=True)
+
+
+# class Promocion(models.Model):
+#     titulo = models.CharField(max_length=150)
+#     descripcion = models.CharField(max_length=500)
+#     fecha_inicio = models.DateField()
+#     fecha_fin = models.DateField()
+#     ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
+#     def __str__(self):
+#         return self.titulo
+
+
+from django.db import models
+
+class Promocion(models.Model):
+    titulo = models.CharField(max_length=100)
+    descripcion = models.TextField()
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField()
+    ruta = models.ForeignKey(Ruta, on_delete=models.CASCADE, null=True)
+    def __str__(self):
+        return self.titulo
+

@@ -251,3 +251,7 @@ option:hover {
 .comment {
     margin: 20px 0px 20px 20px;
 }
+
+form {
+  margin-left:500px;
+}
